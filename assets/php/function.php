@@ -29,22 +29,22 @@ function GetPdo(){
 
 function getObjet(){
     $pdo = GetPdo();
-    $sql = "select idObjet , nomObjet, quantiteStock , typeItem , prix , poids , photoUrl from Objet";//.DeciderOrder();
+    $sql = "select idObjet , NomObjet, QuantiteStock , TypeObjet , Prix , Poids , PhotoUrl from Objet";//.DeciderOrder();
     $stmt = $pdo->query($sql);
 
     foreach($stmt as $row){
         $id = $row['idObjet'];
-        $nom = $row['nomObjet'];
-        $quantité = $row['quantiteStock'];
-        $typeItem = $row['typeItem'];
-        $prix = $row['prix'];
-        $poids = $row['poids'];
-        $photo = $row['photoUrl'];
+        $nom = $row['NomObjet'];
+        $quantité = $row['QuantiteStock'];
+        $typeItem = $row['TypeObjet'];
+        $prix = $row['Prix'];
+        $poids = $row['Poids'];
+        $photo = $row['Photo'];
 
-        echo'<div class="col text-center">';
-        echo"<h3 class='title'>$nom</h3>";
-        echo"<div><img src=$photo alt='photo' class='img-thumbnail rounded'></div>";
-        echo"<div class='row row-cols-2'>
+        echo'<div class="col text-center border">';
+        echo"<h3 class='title border'>$nom</h3>";
+        echo"<div><img src='../img/$photo' alt='photo' class='img-thumbnail rounded'></div>";
+        echo"<div class='row row-cols-2 border'>
                 <div class='col text-start'>
                     <div>Quantité: $quantité</div>
                     <div>Prix: $prix$</div>
