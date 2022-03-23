@@ -1,3 +1,4 @@
+
 <?php
 function GetPdo(){
     if(empty($pdo)){
@@ -29,7 +30,7 @@ function GetPdo(){
 
 function getObjet(){
     $pdo = GetPdo();
-    $sql = "select idObjet , NomObjet, QuantiteStock , TypeObjet , Prix , Poids , PhotoUrl from Objet";//.DeciderOrder();
+    $sql = "select idObjet , NomObjet, QuantiteStock , TypeObjet , Prix , Poids , Photo from Objet";//.DeciderOrder();
     $stmt = $pdo->query($sql);
 
     foreach($stmt as $row){
@@ -43,7 +44,7 @@ function getObjet(){
 
         echo'<div class="col text-center border">';
         echo"<h3 class='title border'>$nom</h3>";
-        echo"<div><img src='../img/$photo' alt='photo' class='img-thumbnail rounded'></div>";
+        echo"<div><img src='../assets/img/$photo' alt='photo' class='img-thumbnail rounded'></div>";
         echo"<div class='row row-cols-2 border'>
                 <div class='col text-start'>
                     <div>Quantité: $quantité</div>
@@ -51,9 +52,9 @@ function getObjet(){
                     <div>Poids: $poids lbs</div>
                 </div>
                 <div class='col align-content-end'>
-                    <a href='details.php?id=$id&typeItem=$typeItem>Details</a>
+                    <a href='details.php?id=$id&typeItem=$typeItem'>Details</a>
                     <br>
-                    <a href='acheter.php?id=$id'&typeItem=$typeItem>Acheter</a>
+                    <a href='acheter.php?id=$id&typeItem=$typeItem'>Acheter</a>
                 </div>
             </div>
         </div>";
