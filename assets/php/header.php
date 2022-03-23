@@ -9,25 +9,25 @@
     <title>Knapsak</title>
 </head>
 <body>
-    <header class="container">
-        <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-            <a href="/" class="navbar-brand">Knapsak</a>  
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg header">
+        <div class="container">
+            <a href="index.php" class="navbar-brand">Knapsak</a>  
             <div class="collpase navbar-collapse justify-content-end">
                 <ul class="navbar-nav mr-auto">
                     <li class="navbar-item">
-                        <a href="index.html" class="nav-link active">About</a>
+                        <a href="about.php" class="nav-link active">About</a>
                     </li>
                     <li className="navbar-item">
-                        <a href="index.html" class="nav-link active">Magasin</a>
+                        <a href="index.php" class="nav-link active">Magasin</a>
                     </li>
                     <li className="navbar-item">
-                        <a href="index.html" class="nav-link active">Panier</a>
+                        <a href="panier.php" class="nav-link active">Panier</a>
                     </li>
                     <li className="navbar-item">
-                        <a href="index.html" class="nav-link active">Login</a>
+                        <a href="connection.php" class="nav-link active">Login</a>
                     </li>
                 </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
     
