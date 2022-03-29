@@ -28,10 +28,11 @@
                         <a href="panier.php" class="nav-link active">Panier</a>
                     </li>
                     <li className="navbar-item">
-                        <a href="connection.php" class="nav-link active">Login</a>
+                        <a href="connection.php" class="nav-link active">Connection</a>
                     </li>
                 </ul>
             </div>
+
         </div>
     </nav>
     

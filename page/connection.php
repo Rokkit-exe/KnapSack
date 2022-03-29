@@ -3,7 +3,7 @@
 <!-- header -->
 
 <!-- body -->
-<form class="container">
+<form class="container mt-3">
     <div class="mb-3">
         <label for="Email" class="form-label">Email address</label>
         <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
@@ -15,6 +15,9 @@
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
+
+<div class="text-center">Vous n'avez pas de compte?</div>
+<div class="d-flex justify-content-center"><a href="inscription.php" class="nav-link active">Inscription</a></div>
 <!-- body -->
 
 <!-- footer -->
