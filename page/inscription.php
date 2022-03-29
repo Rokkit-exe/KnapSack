@@ -1,38 +1,60 @@
 <!-- header -->
 <?php include('../assets/php/header.php')?>
 <!-- header -->
+<?php 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $bool = true;
+    $erreur="";
+    foreach($_POST as $val){
+        if($val == null){
+            $bool = false;
+        }
+    }
 
+    if(!$bool) {
+       $erreur = "Un champ ou des champs n'ont pas été remplis ou ils sont invalides!";
+    }
+    else {
+        $hash = password_hash($_POST["password"] , PASSWORD_DEFAULT);
+        AjouterJoueur($_POST['alias'] , $_POST['Nom'] , $_POST['Prenom'] , $_POST['email'] , $_POST['motdepasse']);
+        getIDJoueur();
+        //EnvoyerEmail($_POST['Email'] , $rand);
+    }
+}
+?>
 <!-- body -->
     <form class="container mt-3">
         <!-- alias, nom, prenom, email, mdp -->
-        <div class="mb-3 w-25">
-            <label for="Username" class="form-label">Username</label>
-            <input type="username" class="form-control" id="Username" aria-describedby="usernameHelp">
-            <div id="usernameHelp" class="form-text"></div>
+        <div class="mb-3">
+            <label for="alias" class="form-label">alias</label>
+            <input type="username" name="alias" class="form-control" id="alias" aria-describedby="usernameHelp">
+            <div id="aliasHelp" class="form-text"></div>
         </div>
-        <div class="mb-3 w-25">
+        <div class="mb-3">
             <label for="Prenom" class="form-label">Prenom</label>
-            <input type="prenom" class="form-control" id="Prenom" aria-describedby="prenomHelp">
+            <input type="prenom" name="prenom" class="form-control" id="Prenom" aria-describedby="prenomHelp">
             <div id="prenomHelp" class="form-text"></div>
         </div>
-        <div class="mb-3 w-25">
+        <div class="mb-3">
             <label for="Nom" class="form-label">Nom</label>
-            <input type="nom" class="form-control" id="Nom" aria-describedby="nomHelp">
+            <input type="nom" name="nom" class="form-control" id="Nom" aria-describedby="nomHelp">
             <div id="nomHelp" class="form-text"></div>
         </div>
-        <div class="mb-3 w-25">
-            <label for="Email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
+        <div class="mb-3">
+            <label for="Email" class="form-label">adresse email</label>
+            <input type="email" name="email" class="form-control" id="Email" aria-describedby="emailHelp">
             <div id="emailHelp" class="form-text"></div>
         </div>
-        <div class="mb-3 w-25">
-            <label for="Password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="Password">
+        <div class="mb-3">
+            <label for="Password" class="form-label">mot de passe</label>
+            <input type="password" class="form-control" id="Password" name="Password">
         </div>
-        <button type="submit" class="btn btn-primary">Create Account</button>
+        <p style="color: red;"><?$erreur?></p>
+        <button type="submit" class="btn btn-primary">Créer votre compte</button>
     </form>
 <!-- body -->
 
 <!-- footer -->
 <?php include('../assets/php/footer.php')?>
 <!-- footer -->
+

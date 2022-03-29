@@ -63,4 +63,23 @@ function getObjet(){
                 </div>";
     }
 }
+function AjouterJoueur($pseudonyme , $nom , $prenom , $adresseCourriel , $motPass){
+    $pdo = GetPdo();
+  
+    
+    try{
+        
+        
+        
+        
+    }catch (\Exception $e) {
+        
+    }
+  }
+  function getIDJoueur(){
+  
+  }
+  
+  
+  ?>
 ?>
