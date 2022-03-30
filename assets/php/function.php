@@ -50,8 +50,11 @@ function getObjet(){
         $prix = $row['Prix'];
         $poids = $row['Poids'];
         $photo = $row['Photo'];
-
-            echo "<div class='col'>
+        AjouterObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo);
+    }
+}
+function AjouterObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo){
+    echo "<div class='col'>
                     <div class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
                         <div class='card-img-top text-center'>
                             <img src='../assets/img/$photo' alt='photo' height='250' width='250' class='rounded-3'>
@@ -72,7 +75,6 @@ function getObjet(){
                         </div>
                     </div>
                 </div>";
-    }
 }
 function DeciderOrder(){
     foreach($_GET as $val){
