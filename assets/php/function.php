@@ -1,5 +1,15 @@
 
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer; 
+use PHPMailer\PHPMailer\Exception;
+
+// Base files 
+require '../assets/email/PHPMailer-master/src/Exception.php';
+require '../assets/email/PHPMailer-master/src/PHPMailer.php';
+require '../assets/email/PHPMailer-master/src/SMTP.php';
+
+
 function GetPdo(){
     if(empty($pdo)){
         $host = '167.114.152.54';
@@ -30,7 +40,7 @@ function GetPdo(){
 
 function getObjet(){
     $pdo = GetPdo();
-    if(DeciderOrder()){
+    /*if(DeciderOrder()){
         $sqlProcedure = "CALL AfficherTous ";
     }
     else{
@@ -39,8 +49,9 @@ function getObjet(){
         $poidsMax = $_GET['poids'];
         $ordre = $_GET['ordre'];
         $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
-    }
-    $stmt = $pdo->query($sqlProcedure);
+    }*/
+    $sql = "CALL AfficherTous";
+    $stmt = $pdo->query($sql);
 
     foreach($stmt as $row){
         $id = $row['idObjet'];
@@ -68,7 +79,6 @@ function AjouterObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $ph
                             </div>
                             <div class='col d-block'>
                                 <a href='details.php?id=$id&typeItem=$typeItem' class='btn btn-dark'>Details</a>
-                                <a href='acheter.php?id=$id&typeItem=$typeItem' class='btn btn-dark'>Acheter</a>
                                 <input type='submit' name='ajouterPanier' value='Acheter' class='btn btn-dark'>
                             </div>
 
@@ -99,9 +109,47 @@ function AjouterJoueur($pseudonyme , $nom , $prenom , $adresseCourriel , $motPas
   function getIDJoueur(){
     $pdo = getPdo();
     $sql = "select LAST_INSERT_ID() from Joueurs";
-    return $pdo->query($sql);
+    $stmt = $pdo->query($sql);
+
+    return 1;
 }
-  function EnvoyerEmail(){
+function EnvoyerEmail($email , $id){
+    $mail = new PHPMailer(true);                              
+try {
+    $mail->isSMTP(); // using SMTP protocol                                     
+    $mail->Host = 'smtp.gmail.com'; // SMTP host as gmail 
+    $mail->SMTPAuth = true;  // enable smtp authentication                             
+    $mail->Username = 'knapsak18@gmail.com';  // sender gmail host   
+    $mail->Password = 'wukqvnwcmughiwwo'; // sender gmail host password                          
+    $mail->SMTPSecure = 'tls';  // for encrypted connection                           
+    $mail->Port = 587;   // port for SMTP     
+
+    $mail->setFrom('knapsak18@gmail.com', "Knapsak18"); // sender's email and name
+    $mail->addAddress($email, "Receiver");  // receiver's email and name
+    $mail->Subject = 'Confirmer inscription a Knapsak !!!!!!!!!';
+    $mail->Body    = 'Aller sur ce lien pour confirmer votre email : http://167.114.152.54/~knapsak18/KnapSack/page/verifierEmail.php?id='.$id;
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) { // handle error.
+    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+}
+}
+function ConfirmerInscription($id){
+    $pdo = GetPdo();
+    $sql = "CALL confirmerEmail(?)";
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);  
+        return True;
+    }
+    catch(Exception $e){
+        return False;
+    }
+   
+
+}
+function AjouterPanier(){
 
 }
   ?>

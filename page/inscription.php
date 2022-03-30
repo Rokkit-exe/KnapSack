@@ -3,6 +3,7 @@
 <!-- header -->
 <?php 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    echo 'posting';
     $bool = true;
     $erreur="";
     foreach($_POST as $val){
@@ -17,19 +18,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     else {
        
         try{
-            $hash = password_hash($_POST["password"] , PASSWORD_DEFAULT);
-            AjouterJoueur($_POST['alias'] , $_POST['Nom'] , $_POST['Prenom'] , $_POST['email'] , $_POST['motdepasse']);
-            EnvoyerEmail($_POST['Email'] , getIDJoueur());
+            $hash = password_hash($_POST["Password"] , PASSWORD_DEFAULT);
+            AjouterJoueur($_POST['alias'] , $_POST['nom'] , $_POST['prenom'] , $_POST['email'] , $hash);
+            EnvoyerEmail($_POST['email'] , getIDJoueur());
         }
         catch(Exception $e){
 
         }
-        header('location:index.php');
+       header('location:index.php');
     }
 }
 ?>
 <!-- body -->
-    <form class="container mt-3">
+    <form class="container mt-3" method="POST">
         <!-- alias, nom, prenom, email, mdp -->
         <div class="mb-3">
             <label for="alias" class="form-label">alias</label>
