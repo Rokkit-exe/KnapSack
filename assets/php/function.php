@@ -30,8 +30,17 @@ function GetPdo(){
 
 function getObjet(){
     $pdo = GetPdo();
-    $sql = "select idObjet , NomObjet, QuantiteStock , TypeObjet , Prix , Poids , Photo from Objet";//.DeciderOrder();
-    $stmt = $pdo->query($sql);
+    if(DeciderOrder()){
+        $sqlProcedure = "CALL AfficherTous ";
+    }
+    else{
+        $type = $_GET['type'];
+        $prixMax = $_GET['prix'];
+        $poidsMax = $_GET['poids'];
+        $ordre = $_GET['ordre'];
+        $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
+    }
+    $stmt = $pdo->query($sqlProcedure);
 
     foreach($stmt as $row){
         $id = $row['idObjet'];
@@ -57,29 +66,41 @@ function getObjet(){
                             <div class='col d-block'>
                                 <a href='details.php?id=$id&typeItem=$typeItem' class='btn btn-dark'>Details</a>
                                 <a href='acheter.php?id=$id&typeItem=$typeItem' class='btn btn-dark'>Acheter</a>
+                                <input type='submit' name='ajouterPanier' value='Acheter' class='btn btn-dark'>
                             </div>
+
                         </div>
                     </div>
                 </div>";
     }
 }
+function DeciderOrder(){
+    foreach($_GET as $val){
+        if(!empty($val)){
+            return True;
+        }
+    }
+    return False;
+        
+}
 function AjouterJoueur($pseudonyme , $nom , $prenom , $adresseCourriel , $motPass){
     $pdo = GetPdo();
-  
+    $sql = "CALL AjouterUser(?,?,?,?,?)";
     
     try{
-        
-        
-        
-        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$pseudonyme , $nom , $prenom , $adresseCourriel , $motPass]);       
     }catch (\Exception $e) {
-        
+         
     }
-  }
+}
   function getIDJoueur(){
-  
-  }
-  
-  
+    $pdo = getPdo();
+    $sql = "select LAST_INSERT_ID() from Joueurs";
+    return $pdo->query($sql);
+}
+  function EnvoyerEmail(){
+
+}
   ?>
-?>
+

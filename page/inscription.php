@@ -15,10 +15,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
        $erreur = "Un champ ou des champs n'ont pas été remplis ou ils sont invalides!";
     }
     else {
-        $hash = password_hash($_POST["password"] , PASSWORD_DEFAULT);
-        AjouterJoueur($_POST['alias'] , $_POST['Nom'] , $_POST['Prenom'] , $_POST['email'] , $_POST['motdepasse']);
-        getIDJoueur();
-        //EnvoyerEmail($_POST['Email'] , $rand);
+       
+        try{
+            $hash = password_hash($_POST["password"] , PASSWORD_DEFAULT);
+            AjouterJoueur($_POST['alias'] , $_POST['Nom'] , $_POST['Prenom'] , $_POST['email'] , $_POST['motdepasse']);
+            EnvoyerEmail($_POST['Email'] , getIDJoueur());
+        }
+        catch(Exception $e){
+
+        }
+        header('location:index.php');
     }
 }
 ?>
@@ -51,6 +57,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
         <p style="color: red;"><?$erreur?></p>
         <button type="submit" class="btn btn-primary">Créer votre compte</button>
+        
     </form>
 <!-- body -->
 

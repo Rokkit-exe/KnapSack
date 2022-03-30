@@ -1,8 +1,6 @@
 <?php 
     include('function.php');
-    GetPdo();
-    
-?>
+    GetPdo();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,4 +34,5 @@
 
         </div>
     </nav>
+</body>
     
