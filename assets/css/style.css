@@ -2,3 +2,9 @@
     margin-bottom: 20px;
 }
 
+.transaction {
+    position: fixed;
+    right: 15%;
+    width: 30%;
+    height: 30%;
+}
