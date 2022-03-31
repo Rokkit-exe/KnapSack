@@ -16,9 +16,10 @@ if(isset($_POST['ajouterPanier'])){
 
 <!-- body -->
 <div class="container mt-5">
-    <form style="display: inline" method="GET" action="">
-        <div class="d-inline p-2">
-            <select class="form-select" style="width: 200px;" name='type' id='type'>
+    <!-- filtres du magasin -->
+    <div class="text-center">
+        <form class="d-inline p-2 border border-dark rounded mb-3 p-3" method="GET" action="">
+            <select class="me-3" name='type' id='type'>
                 <option value=<?= null ?> selected>Type d'objets</option>
                 <option value="Armes">Armes</option>
                 <option value="Armures">Armures</option>
@@ -26,21 +27,22 @@ if(isset($_POST['ajouterPanier'])){
                 <option value="Nourriture">Nourriture</option>
                 <option value="Médicaments">Médicaments</option>
             </select>
-        </div>
-        <br>
-        <div class="d-inline p-2">
-            <input type="number" name="prixMax" id="prixMax" min=<?= PRIX_MIN ?> max=<?= PRIX_MAX ?> placeholder="Entrez un prix maximale...">
-        </div>
-        <br>
-        <div class="d-inline p-2">
-            <input type="number" name="poidsMax" id="poidsMax" min=<?= POIDS_MIN ?> max=<?= POIDS_MAX ?> placeholder="Entrez un poids maximal...">
-        </div>
-    </form>
-    <div class="row row-cols-4">
+            <label for="prixMax">Prix Maximum (caps): </label>
+            <input class="me-3" type="number" name="prixMax" id="prixMax" min=<?= PRIX_MIN ?> max=<?= PRIX_MAX ?>>
+            <label for="poidsMax">Poids Maximum (lbs): </label>
+            <input class="me-3" type="number" name="poidsMax" id="poidsMax" min=<?= POIDS_MIN ?> max=<?= POIDS_MAX ?>>
+            <button class="btn btn-primary">Appliquer</button>
+        </form>
+    </div>
+    <!-- filtres du magasin -->
+
+    <!-- affichage des items du magasin -->
+    <div class="row row-cols-4 mt-3">
         <?php getObjet() ?>
     </div>
+    <!-- affichage des items du magasin -->
+    
 </div>
-
 <!-- body -->
 
 <!-- footer -->
