@@ -48,9 +48,7 @@ function getObjet(){
         $prixMax = $_GET['prixMax'];
         $poidsMax = $_GET['poidsMax'];
         $ordre = $_GET['tri'];
-        if($type == ""){
-            $type = "1=1";
-        }
+        
         if($prixMax == ""){
             $prixMax = "500";
         }
@@ -58,7 +56,7 @@ function getObjet(){
             $poidsMax = "100";
         }
         if($ordre == ""){
-            $ordre = "Prix";
+            $ordre = "'Prix'";
         }
         $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
     }
@@ -71,7 +69,7 @@ function getObjet(){
         $typeItem = $row['TypeObjet'];
         $prix = $row['Prix'];
         $poids = $row['Poids'];
-        $photo = $row['Photo'];
+        $photo = $row['photo'];
         AjouterObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo);
     }
 }
