@@ -1,3 +1,9 @@
+<?php 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    
+}
+?>
+
 <!-- header -->
 <?php include('../assets/php/header.php')?>
 <!-- header -->
@@ -13,6 +19,7 @@
         <label for="Password" class="form-label">Password</label>
         <input type="password" class="form-control" id="Password">
     </div>
+
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
 

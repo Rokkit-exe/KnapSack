@@ -40,18 +40,29 @@ function GetPdo(){
 
 function getObjet(){
     $pdo = GetPdo();
-    /*if(DeciderOrder()){
-        $sqlProcedure = "CALL AfficherTous ";
+    if(!ContrainteOuPas()){
+        $sqlProcedure = "CALL AfficherTous";
     }
     else{
         $type = $_GET['type'];
-        $prixMax = $_GET['prix'];
-        $poidsMax = $_GET['poids'];
-        $ordre = $_GET['ordre'];
+        $prixMax = $_GET['prixMax'];
+        $poidsMax = $_GET['poidsMax'];
+        $ordre = $_GET['tri'];
+        if($type == ""){
+            $type = "1=1";
+        }
+        if($prixMax == ""){
+            $prixMax = "500";
+        }
+        if($poidsMax == ""){
+            $poidsMax = "100";
+        }
+        if($ordre == ""){
+            $ordre = "Prix";
+        }
         $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
-    }*/
-    $sql = "CALL AfficherTous";
-    $stmt = $pdo->query($sql);
+    }
+    $stmt = $pdo->query($sqlProcedure);
 
     foreach($stmt as $row){
         $id = $row['idObjet'];
@@ -86,9 +97,9 @@ function AjouterObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $ph
                     </div>
                 </div>";
 }
-function DeciderOrder(){
+function ContrainteOuPas(){
     foreach($_GET as $val){
-        if(!empty($val)){
+        if($val != ""){
             return True;
         }
     }
@@ -149,8 +160,44 @@ function ConfirmerInscription($id){
    
 
 }
+function ActiverEmail($id){
+    $pdo = GetPdo();
+    $sql = "CALL confirmerEmail(?)";
+}
 function AjouterPanier(){
 
+}
+function VerifierLogin($email , $password){
+    $pdo = GetPdo();
+    try{
+   
+        $sql = "CALL VerifierLogin(?)";
+        $stmt = $pdo->prepare($sql);
+        
+        
+        $stmt->execute([$email]);
+
+        
+        
+        foreach($stmt as $row){
+            if(password_verify($password ,$row['motdepasse']) && ($row['emailConfirmer'] == '1')){
+                $_SESSION['Nom'] = $row['Nom'];
+                $_SESSION['Prenom'] = $row['Prenom'];
+                $_SESSION['flag'] = $row['flag'];
+                $_SESSION['Email'] = $row['Email'];
+
+                
+            }
+            else{
+                echo"<p>Erreur!Mauvais mot de passe</p>";
+            }
+        }
+        header('location:index.php');
+        
+        
+    }catch(\Exception $e){
+        echo "error";
+    }
 }
   ?>
 
