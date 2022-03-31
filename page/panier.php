@@ -38,6 +38,7 @@
             </div>
         </div>
     </div>
+</div>
     <!-- item a ajouter dans le foreach de getPanier -->
 <!-- body -->
 
