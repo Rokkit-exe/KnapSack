@@ -8,3 +8,16 @@
     width: 30%;
     height: 30%;
 }
+
+.detail {
+    width: 100%;
+}
+
+.rating .bi {
+    color: #ff523b;
+}
+
+.icon {
+    height: 50px;
+    width: 50px;
+}
