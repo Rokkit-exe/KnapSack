@@ -112,16 +112,25 @@ function AjouterJoueur($pseudonyme , $nom , $prenom , $adresseCourriel , $motPas
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$pseudonyme , $nom , $prenom , $adresseCourriel , $motPass]);       
     }catch (\Exception $e) {
-         
+        $message = "impossible de créer l'utilisateur";
+        echo `<p>`.$message.`</p>`;
+        $_SESSION['erreur'] = $message;
+        header('location:inscription.php');
     }
 }
-  function getIDJoueur(){
+
+function getIDJoueur(){
     $pdo = getPdo();
     $sql = "select LAST_INSERT_ID() from Joueurs";
     $stmt = $pdo->query($sql);
+    $id = 0;
+    foreach($stmt as $row){
+        $id = $row['idJoueur'];
+    }
 
-    return 1;
+    return $id;
 }
+
 function EnvoyerEmail($email , $id){
     $mail = new PHPMailer(true);                              
 try {
@@ -155,47 +164,40 @@ function ConfirmerInscription($id){
     catch(Exception $e){
         return False;
     }
-   
+}
 
-}
-function ActiverEmail($id){
-    $pdo = GetPdo();
-    $sql = "CALL confirmerEmail(?)";
-}
 function AjouterPanier(){
 
 }
+
 function VerifierLogin($email , $password){
     $pdo = GetPdo();
     try{
-   
         $sql = "CALL VerifierLogin(?)";
         $stmt = $pdo->prepare($sql);
-        
-        
         $stmt->execute([$email]);
 
-        
-        
         foreach($stmt as $row){
             if(password_verify($password ,$row['motdepasse']) && ($row['emailConfirmer'] == '1')){
                 $_SESSION['Nom'] = $row['Nom'];
                 $_SESSION['Prenom'] = $row['Prenom'];
                 $_SESSION['flag'] = $row['flag'];
                 $_SESSION['Email'] = $row['Email'];
-
-                
+                $_SESSION['erreur'] = null;
+                header('location:index.php');
             }
             else{
-                echo"<p>Erreur!Mauvais mot de passe</p>";
+                $message = 'Erreur ! Email ou Mot de Passe incorrect';
+                echo `<p>$message</p>`;
+                $_SESSION['erreur'] = $message;
+                header('location:connection.php');
             }
         }
-        header('location:index.php');
-        
-        
     }catch(\Exception $e){
         echo "error";
     }
 }
-  ?>
+
+
+?>
 

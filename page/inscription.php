@@ -31,6 +31,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 ?>
 <!-- body -->
     <form class="container mt-3" method="POST">
+        <!-- message erreur création du compte -->
+        <?php if (isset($_SESSION['erreur'])) { echo `<p>`.$_SESSION['erreur'].`</p>`;}?>
         <!-- alias, nom, prenom, email, mdp -->
         <div class="mb-3">
             <label for="alias" class="form-label">alias</label>

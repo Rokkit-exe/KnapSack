@@ -1,6 +1,15 @@
 <?php 
+
+// validation serveur des info du login
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    
+    VerifierLogin($_POST['email'], $_POST['password']);
+}
+
+// alert de confirmation de la création du compte
+if (isset($_SESSION['confirmer'])) {
+    echo '<script type ="text/JavaScript">';  
+    echo `alert('`.$_SESSION['confirmer'].`')`;  
+    echo '</script>';
 }
 ?>
 
@@ -9,15 +18,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <!-- header -->
 
 <!-- body -->
-<form class="container mt-3">
+<form method="POST" class="container mt-3">
+    <!-- affichage du message d'erreur login -->
+    <?php if (isset($_SESSION['erreur'])) { echo `<p>`.$_SESSION['erreur'].`</p>`;}?>
     <div class="mb-3">
         <label for="Email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
+        <input type="email" name="email" class="form-control" id="Email" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text"></div>
     </div>
     <div class="mb-3">
         <label for="Password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="Password">
+        <input type="password" name="password" class="form-control" id="Password">
     </div>
 
     <button type="submit" class="btn btn-primary">Login</button>
