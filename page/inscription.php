@@ -13,19 +13,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
     if(!$bool) {
-       $erreur = "Un champ ou des champs n'ont pas été remplis ou ils sont invalides!";
+        $erreur = "Un champ ou des champs n'ont pas été remplis ou ils sont invalides!";
     }
     else {
-       
         try{
             $hash = password_hash($_POST["Password"] , PASSWORD_DEFAULT);
             AjouterJoueur($_POST['alias'] , $_POST['nom'] , $_POST['prenom'] , $_POST['email'] , $hash);
-            EnvoyerEmail($_POST['email'] , getIDJoueur());
+            EnvoyerEmail($_POST['email'] , getIDJoueur($_POST['email']));
+            echo $_POST['email'] .' '.getIDJoueur($_POST['email']);
         }
         catch(Exception $e){
 
         }
-       header('location:index.php');
+        //header('location:index.php');
     }
 }
 ?>

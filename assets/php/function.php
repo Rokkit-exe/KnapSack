@@ -119,13 +119,22 @@ function AjouterJoueur($pseudonyme , $nom , $prenom , $adresseCourriel , $motPas
     }
 }
 
-function getIDJoueur(){
+function getIDJoueur($email){
     $pdo = getPdo();
-    $sql = "select LAST_INSERT_ID() from Joueurs";
+    $sql = "CALL getUserID(?)";
     $stmt = $pdo->query($sql);
     $id = 0;
-    foreach($stmt as $row){
-        $id = $row['idJoueur'];
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$email]);
+        foreach($stmt as $row){
+            $id = $row['idJoueur'];
+        }
+        $_SESSION['erreur'] = null;
+    }catch (\Exception $e) {
+        $message = "impossible de trouver le joueur";
+        echo `<p>`.$message.`</p>`;
+        $_SESSION['erreur'] = $message;
     }
 
     return $id;
@@ -153,6 +162,8 @@ try {
     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 }
 }
+
+
 function ConfirmerInscription($id){
     $pdo = GetPdo();
     $sql = "CALL confirmerEmail(?)";
