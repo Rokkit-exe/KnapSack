@@ -1,3 +1,6 @@
+<!-- header -->
+<?php include('../assets/php/header.php')?>
+<!-- header -->
 <?php 
 
 // validation serveur des info du login
@@ -13,9 +16,7 @@ if (isset($_SESSION['confirmer'])) {
 }
 ?>
 
-<!-- header -->
-<?php include('../assets/php/header.php')?>
-<!-- header -->
+
 
 <!-- body -->
 <form method="POST" class="container mt-3">

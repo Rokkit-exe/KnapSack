@@ -122,22 +122,20 @@ function AjouterJoueur($pseudonyme , $nom , $prenom , $adresseCourriel , $motPas
 function getIDJoueur($email){
     $pdo = getPdo();
     $sql = "CALL getUserID(?)";
-    $stmt = $pdo->query($sql);
-    $id = 0;
+    
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$email]);
+        
         foreach($stmt as $row){
-            $id = $row['idJoueur'];
+            return $row['idJoueur'];
         }
-        $_SESSION['erreur'] = null;
     }catch (\Exception $e) {
-        $message = "impossible de trouver le joueur";
-        echo `<p>`.$message.`</p>`;
-        $_SESSION['erreur'] = $message;
+        echo `<p>`.$e.`</p>`;
+        $_SESSION['erreur'] = $e;
     }
-
-    return $id;
+    return null;
+    
 }
 
 function EnvoyerEmail($email , $id){
@@ -146,12 +144,12 @@ try {
     $mail->isSMTP(); // using SMTP protocol                                     
     $mail->Host = 'smtp.gmail.com'; // SMTP host as gmail 
     $mail->SMTPAuth = true;  // enable smtp authentication                             
-    $mail->Username = 'knapsak18@gmail.com';  // sender gmail host   
-    $mail->Password = 'wukqvnwcmughiwwo'; // sender gmail host password                          
+    $mail->Username = 'louisphilippe.rousseau248@gmail.com';  // sender gmail host   
+    $mail->Password = 'bupduxiydxhcccvq'; // sender gmail host password                          
     $mail->SMTPSecure = 'tls';  // for encrypted connection                           
     $mail->Port = 587;   // port for SMTP     
 
-    $mail->setFrom('knapsak18@gmail.com', "Knapsak18"); // sender's email and name
+    $mail->setFrom('louisphilippe.rousseau248@gmail.com', "Louis-Philippe Rousseau"); // sender's email and name
     $mail->addAddress($email, "Receiver");  // receiver's email and name
     $mail->Subject = 'Confirmer inscription a Knapsak !!!!!!!!!';
     $mail->Body    = 'Aller sur ce lien pour confirmer votre email : http://167.114.152.54/~knapsak18/KnapSack/page/verifierEmail.php?id='.$id;
