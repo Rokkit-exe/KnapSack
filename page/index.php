@@ -13,7 +13,10 @@ if(isset($_POST['idJoueur']) && isset($_POST['idObjet']) && isset($_POST['quanti
     AjouterPanier($_POST['idJoueur'], $_POST['idObjet'], $_POST['quantité']);
 }
 
-echo $_SESSION['erreur'];
+if(isset($_SESSION['erreur'])){
+    echo $_SESSION['erreur'];
+}
+
 ?>
 
 <!-- body -->

@@ -108,8 +108,10 @@ function VerifierLogin($email , $password){
                 $_SESSION['idJoueur'] = $row['idJoueur'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['erreur'] = null;
-                echo "oui";
-                //header('location:index.php');
+                $_SESSION['nom'] = $row['Nom'];
+                $_SESSION['prenom'] = $row['Prenom'];
+                
+                header('location:index.php');
             }
             else{
                 $message = 'Erreur ! Email ou Mot de Passe incorrect';
