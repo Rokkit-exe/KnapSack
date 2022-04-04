@@ -226,17 +226,18 @@ function getIDJoueur($email){
 // la fonction n'ajoute pas l'item au panier 
 // ************ a vérifier **************
 function AjouterPanier($idJoueur, $idObjet, $quantité){
+    
+
     $pdo = GetPdo();
     $sql = "CALL AjouterPanier(?,?,?)";
     
     try{
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$idJoueur, $idObjet, $quantité]); 
-        header('location:panier.php');
+        $stmt->execute([$idJoueur, $idObjet, $quantité]);
+        $_SESSION['erreur'] = null;
+        header('location:index.php');
     }catch (\Exception $e) {
         $message = "impossible d'ajouter l'objet au panier";
-        echo `<p>`.$message.`</p>`;
-        echo `$e`;
         $_SESSION['erreur'] = $message;
         header('location:index.php');
     }
