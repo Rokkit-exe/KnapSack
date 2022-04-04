@@ -1,15 +1,7 @@
 
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer; 
-use PHPMailer\PHPMailer\Exception;
-
-// Base files 
-require '../assets/email/PHPMailer-master/src/Exception.php';
-require '../assets/email/PHPMailer-master/src/PHPMailer.php';
-require '../assets/email/PHPMailer-master/src/SMTP.php';
-
-
+// ----------------------------------------------- connection BD ---------------------------------------------------------
 function GetPdo(){
     if(empty($pdo)){
         $host = '167.114.152.54';
@@ -38,105 +30,15 @@ function GetPdo(){
     return $pdo;
 }
 
-function getObjet(){
-    $pdo = GetPdo();
-    if(!ContrainteOuPas()){
-        $sqlProcedure = "CALL AfficherTous";
-    }
-    else{
-        $type = $_GET['type'];
-        $prixMax = $_GET['prixMax'];
-        $poidsMax = $_GET['poidsMax'];
-        $ordre = $_GET['tri'];
-        
-        if($prixMax == ""){
-            $prixMax = "500";
-        }
-        if($poidsMax == ""){
-            $poidsMax = "100";
-        }
-        if($ordre == ""){
-            $ordre = "'Prix'";
-        }
-        $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
-    }
-    $stmt = $pdo->query($sqlProcedure);
+// ---------------------------------------------------------- inscription/ php mailer ---------------------------------------------------
 
-    foreach($stmt as $row){
-        $id = $row['idObjet'];
-        $nom = $row['NomObjet'];
-        $quantité = $row['QuantiteStock'];
-        $typeItem = $row['TypeObjet'];
-        $prix = $row['Prix'];
-        $poids = $row['Poids'];
-        $photo = $row['photo'];
-        AjouterObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo);
-    }
-}
-function AjouterObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo){
-    echo "<div class='col'>
-                    <div class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
-                        <div class='card-img-top text-center'>
-                            <img src='../assets/img/$photo' alt='photo' height='250' width='250' class='rounded-3'>
-                        </div>
-                        <div class='row row-cols-2 mt-3 card-body'>
-                            <div class='w-100'><h3 class='title card-title'>$nom</h3></div>
-                            <div class='col text-start card-text'>
-                                <div>Quantité: $quantité</div>
-                                <div>Prix: $prix$</div>
-                                <div>Poids: $poids lbs</div>
-                            </div>
-                            <div class='col d-block'>
-                                <a href='details.php?id=$id&typeItem=$typeItem' class='btn btn-dark'>Details</a>
-                                <input type='submit' name='ajouterPanier' value='Acheter' class='btn btn-dark'>
-                            </div>
+use PHPMailer\PHPMailer\PHPMailer; 
+use PHPMailer\PHPMailer\Exception;
 
-                        </div>
-                    </div>
-                </div>";
-}
-function ContrainteOuPas(){
-    foreach($_GET as $val){
-        if($val != ""){
-            return True;
-        }
-    }
-    return False;
-        
-}
-function AjouterJoueur($pseudonyme , $nom , $prenom , $adresseCourriel , $motPass){
-    $pdo = GetPdo();
-    $sql = "CALL AjouterUser(?,?,?,?,?)";
-    
-    try{
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$pseudonyme , $nom , $prenom , $adresseCourriel , $motPass]);       
-    }catch (\Exception $e) {
-        $message = "impossible de créer l'utilisateur";
-        echo `<p>`.$message.`</p>`;
-        $_SESSION['erreur'] = $message;
-        header('location:inscription.php');
-    }
-}
-
-function getIDJoueur($email){
-    $pdo = getPdo();
-    $sql = "CALL getUserID(?)";
-    
-    try{
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$email]);
-        
-        foreach($stmt as $row){
-            return $row['idJoueur'];
-        }
-    }catch (\Exception $e) {
-        echo `<p>`.$e.`</p>`;
-        $_SESSION['erreur'] = $e;
-    }
-    return null;
-    
-}
+// Base files 
+require '../assets/email/PHPMailer-master/src/Exception.php';
+require '../assets/email/PHPMailer-master/src/PHPMailer.php';
+require '../assets/email/PHPMailer-master/src/SMTP.php';
 
 function EnvoyerEmail($email , $id){
     $mail = new PHPMailer(true);                              
@@ -175,9 +77,23 @@ function ConfirmerInscription($id){
     }
 }
 
-function AjouterPanier(){
-
+function AjouterJoueur($pseudonyme , $nom , $prenom , $adresseCourriel , $motPass){
+    $pdo = GetPdo();
+    $sql = "CALL AjouterUser(?,?,?,?,?)";
+    
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$pseudonyme , $nom , $prenom , $adresseCourriel , $motPass]);       
+    }catch (\Exception $e) {
+        $message = "impossible de créer l'utilisateur";
+        echo `<p>`.$message.`</p>`;
+        $_SESSION['erreur'] = $message;
+        header('location:inscription.php');
+    }
 }
+
+
+// ------------------------------------------------ Connection ----------------------------------------------------
 
 function VerifierLogin($email , $password){
     $pdo = GetPdo();
@@ -188,12 +104,12 @@ function VerifierLogin($email , $password){
 
         foreach($stmt as $row){
             if(password_verify($password ,$row['motdepasse']) && ($row['emailConfirmer'] == '1')){
-                $_SESSION['Nom'] = $row['Nom'];
-                $_SESSION['Prenom'] = $row['Prenom'];
-                $_SESSION['flag'] = $row['flag'];
-                $_SESSION['Email'] = $row['Email'];
+                session_start();
+                $_SESSION['idJoueur'] = $row['idJoueur'];
+                $_SESSION['email'] = $row['email'];
                 $_SESSION['erreur'] = null;
-                header('location:index.php');
+                echo "oui";
+                //header('location:index.php');
             }
             else{
                 $message = 'Erreur ! Email ou Mot de Passe incorrect';
@@ -207,6 +123,124 @@ function VerifierLogin($email , $password){
     }
 }
 
+// --------------------------------------------------------- get objets / afficher tous index -----------------------------------------
+
+function getObjet(){
+    $pdo = GetPdo();
+    if(!ContrainteOuPas()){
+        $sqlProcedure = "CALL AfficherTous";
+    }
+    else{
+        $type = $_GET['type'];
+        $prixMax = $_GET['prixMax'];
+        $poidsMax = $_GET['poidsMax'];
+        $ordre = $_GET['tri'];
+        
+        if($prixMax == ""){
+            $prixMax = "500";
+        }
+        if($poidsMax == ""){
+            $poidsMax = "100";
+        }
+        if($ordre == ""){
+            $ordre = "'Prix'";
+        }
+        $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
+    }
+    $stmt = $pdo->query($sqlProcedure);
+
+    foreach($stmt as $row){
+        $id = $row['idObjet'];
+        $nom = $row['NomObjet'];
+        $quantité = $row['QuantiteStock'];
+        $typeItem = $row['TypeObjet'];
+        $prix = $row['Prix'];
+        $poids = $row['Poids'];
+        $photo = $row['photo'];
+        AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo);
+    }
+}
+
+// ------------------------------------------------------- Ajouter objet -----------------------------------------------------
+function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo){
+    echo "<div class='col'>
+                    <div class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
+                        <div class='card-img-top text-center'>
+                            <img src='../assets/img/$photo' alt='photo' height='250' width='250' class='rounded-3'>
+                        </div>
+                        <div class='row row-cols-2 mt-3 card-body'>
+                            <div class='w-100'><h3 class='title card-title'>$nom</h3></div>
+                            <div class='col text-start card-text'>
+                                <div>Quantité: $quantité</div>
+                                <div>Prix: $prix$</div>
+                                <div>Poids: $poids lbs</div>
+                            </div>
+                            <div class='col d-block'>
+                                <a href='details.php?id=$id&typeItem=$typeItem' class='btn btn-dark'>Details</a>";
+                            if ($quantité >= 1 && isset($_SESSION['idJoueur'])) {
+                                echo "<form method='POST'>
+                                        <input type='hidden' name='idObjet' value='$id'>
+                                        <input type='hidden' name='idJoueur' value='". $_SESSION['idJoueur'] . "'>
+                                        <input type='hidden' name='quantité' value='1'>
+                                        <button class='btn btn-dark'>Acheter</button>
+                                    </form>";
+                            }
+                        echo "</div>
+                        </div>
+                    </div>
+                </div>";
+}
+
+function ContrainteOuPas(){
+    foreach($_GET as $val){
+        if($val != ""){
+            return True;
+        }
+    }
+    return False;
+        
+}
+
+
+function getIDJoueur($email){
+    $pdo = getPdo();
+    $sql = "CALL getUserID(?)";
+    
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$email]);
+        
+        foreach($stmt as $row){
+            return $row['idJoueur'];
+        }
+    }catch (\Exception $e) {
+        echo `<p>`.$e.`</p>`;
+        $_SESSION['erreur'] = $e;
+    }
+    return null;
+    
+}
+
+// ----------------------------------------------------- Ajouter Panier ------------------------------------------------------
+
+// la fonction n'ajoute pas l'item au panier 
+// ************ a vérifier **************
+function AjouterPanier($idJoueur, $idObjet, $quantité){
+    $pdo = GetPdo();
+    $sql = "CALL AjouterPanier(?,?,?)";
+    
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur, $idObjet, $quantité]); 
+        header('location:panier.php');
+    }catch (\Exception $e) {
+        $message = "impossible d'ajouter l'objet au panier";
+        echo `<p>`.$message.`</p>`;
+        echo `$e`;
+        $_SESSION['erreur'] = $message;
+        header('location:index.php');
+    }
+}
 
 ?>
 

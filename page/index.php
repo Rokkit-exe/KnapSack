@@ -1,18 +1,20 @@
 <?php
+session_start();
 define("PRIX_MAX", 100);
 define("PRIX_MIN", 1);
 define("POIDS_MAX", 20);
 define("POIDS_MIN", 1);
-?>
 
-<?php 
-if(isset($_POST['ajouterPanier'])){
-    AjouterPanier();
+// header 
+include('../assets/php/header.php');
+// header 
+
+if(isset($_POST['idJoueur']) && isset($_POST['idObjet']) && isset($_POST['quantité'])){
+    AjouterPanier($_POST['idJoueur'], $_POST['idObjet'], $_POST['quantité']);
 }
+
+echo $_SESSION['erreur'];
 ?>
-<!-- header -->
-<?php include('../assets/php/header.php')?>
-<!-- header -->
 
 <!-- body -->
 <div class="container mt-5">
