@@ -28,9 +28,12 @@
                     <li className="navbar-item">
                         <a href="panier.php" class="nav-link active">Panier</a>
                     </li>
+                    <li className="navbar-item">
+                        <a href="sac.php" class="nav-link active">Sac à Dos</a>
+                    </li>
                     <li className="navbar-item" >
                         <?php if(isset($_SESSION['idJoueur'])){
-                            echo "<p  class='nav-link active' >".$_SESSION['prenom']." ".$_SESSION['nom']."</p>";
+                            echo "<a href='profil.php' class='nav-link active' >".$_SESSION['prenom']." ".$_SESSION['nom']."</a>";
                             
                         }
                         else{

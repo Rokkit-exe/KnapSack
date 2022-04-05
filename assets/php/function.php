@@ -1,5 +1,7 @@
 
 <?php
+session_start();
+
 
 // ----------------------------------------------- connection BD ---------------------------------------------------------
 function GetPdo(){
@@ -244,6 +246,92 @@ function AjouterPanier($idJoueur, $idObjet, $quantité){
         header('location:index.php');
     }
 }
+function GetPanier($id){
+    $_SESSION['PrixPanierTotale'] = 0;
+    $_SESSION['PoidsPanierTotale'] = 0;
+    $pdo = GetPdo();
+    $sql = 'CALL AfficherPanier(?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id]);
+
+    foreach($stmt as $row){
+        AfficherPanier($row);
+    }
+
+}
+function AfficherPanier($row){
+    $nom = $row['NomObjet'];
+    $photo = $row['Photo'];
+    $prixTotale = $row['PrixTotale'];
+    $poidsTotale = $row['PoidsTotale'];
+    $description = $row['Description'];
+    $qty = $row['quantité'];
+    $idObjet = $row['idObjet'];
+    $_SESSION['PrixPanierTotale'] += $prixTotale;
+    $_SESSION['PoidsPanierTotale'] += $poidsTotale;
+    echo " 
+        <div class='card mb-3 border border-2 border-dark' style='max-width: 540px;'>
+            <div class='row g-0'>
+                <div class='col-md-4'>
+                    <img src='../assets/img/$photo' class='img-fluid rounded-start'>
+                </div>
+                <div class='col-md-8'>
+                    <div class='card-body'>
+                        <form method='POST'>
+                            <input type='hidden' name='idObjet' value=$idObjet></input>
+                            <h5 class='card-title'>$nom</h5>
+                            <p class='card-text'>$description</p>
+                            <div class='d-inline'>
+                                <p class='card-text'>quantité: $qty</p>
+                                <p class='card-text'>prix total: $prixTotale</p>
+                                <p class='card-text'>poids total: $poidsTotale</p>
+                                <button class='btn btn-dark' formaction='panier.php' name='ajouter'>+</button>
+                                <button class='btn btn-dark' formaction='panier.php' name='enlever'>-</button>
+
+                                <button class='btn btn-dark' formaction='panier.php' name='supprimer'>Supprimer du Panier</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        ";
+}
+function GetTotalePanier(){
+    $poidsTotale = $_SESSION['PoidsPanierTotale'];
+    $prixTotale = $_SESSION['PrixPanierTotale'];
+    echo $poidsTotale , $prixTotale;
+    echo "
+    ";
+    
+}
+function AjouterUnItemPanier($idObjet){
+    $pdo = GetPdo();
+    $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_SESSION['idJoueur'], $idObjet , 1]);
+
+    
+}
+function EnleverUnItemPanier($idObjet){
+    $pdo = GetPdo();
+    $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_SESSION['idJoueur'], $idObjet , 0]);
+}
+
+function SupprimerDuPanier($idObjet){
+    $pdo = GetPdo();
+    $sql = 'CALL SupprimerDuPanier(?,?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_SESSION['idJoueur'], $idObjet]);
+
+}
 
 ?>
+
+
+
+
 
