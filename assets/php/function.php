@@ -223,8 +223,7 @@ function getIDJoueur($email){
 
 // ----------------------------------------------------- Ajouter Panier ------------------------------------------------------
 
-// la fonction n'ajoute pas l'item au panier 
-// ************ a vérifier **************
+// modifier la procedure stocker pour augmenter la quantité et non une nouvelle ligne
 function AjouterPanier($idJoueur, $idObjet, $quantité){
     
 
