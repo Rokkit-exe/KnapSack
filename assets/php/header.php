@@ -1,6 +1,7 @@
 <?php 
     include('function.php');
-    GetPdo();?>
+    GetPdo();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
