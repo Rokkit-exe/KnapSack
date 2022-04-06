@@ -386,4 +386,30 @@ function AfficherSac($row){
             </div>
         </div>";
 }
+function GetTotalPanier(){
+    $pdo = GetPdo();
+    $sql = "CALL GetTotalPanier(?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_SESSION['idJoueur']]);
+
+    foreach($stmt as $row){
+        AfficherTotalPanier($row);
+    }
+
+}
+function AfficherTotalPanier($row){
+    $prixTotalPanier = $row['TotalPrixPanier'];
+    $poidsTotalPanier = $row['TotalPoidsPanier'];
+    echo "<div class='card transaction border border-2 border-success'>
+    <div class='card-body text-center'>
+        <h2 class='card-title mb-3'>Compléter votre Achat</h2>
+            <div class='mt-3'>
+                <h4 class='mt-2'>Poids Total: $prixTotalPanier </h4>
+                <h4 class='mt-2'>Sous-Total: $poidsTotalPanier</h4>
+                <h4 class='mt-2'>Total: $poidsTotalPanier</h4>
+            </div>
+    </div>
+    <button class='btn btn-success mt-3'>Passer la Commande</button>
+</div>";
+}
 ?>
