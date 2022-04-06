@@ -13,6 +13,7 @@ if(isset($_POST['supprimer'])){
 }
 if(isset($_POST['acheter'])){
     AcheterPanier();
+    updateDexteriter($_SESSION['idJoueur']);
 }
 if(!isset($_SESSION['idJoueur'])){
     $_SESSION['idJoueur']=55;
@@ -22,7 +23,6 @@ if(!isset($_SESSION['idJoueur'])){
 <!-- body -->
 
 <div class="container ">
-   
     <?php GetTotalPanier($_SESSION['idJoueur'])?>
     
     <?php getPanier($_SESSION['idJoueur'])?>

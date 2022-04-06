@@ -1,36 +1,25 @@
+<?php 
+    $poid = getPoids($_SESSION['idJoueur']);
+    $dexteriter = getDexteriter($_SESSION['idJoueur']);
+?>
+
 <!-- header -->
 <?php include('../assets/php/header.php')?>
 <!-- header -->
-
 <!-- body -->
 <div class="container mt-5">
-    <!-- filtres du magasin -->
-    <div class="text-center">
-        <form class="d-inline p-2 border border-dark rounded mb-3 p-3" method="GET" action="">
-            <select class="me-3" name='type' id='type'>
-                <option value="''" selected>Tout les types d'objets</option>
-                <option value="'Arme'">Armes</option>
-                <option value="'Armures'">Armures</option>
-                <option value="'Munitions'">Munitions</option>
-                <option value="'Nourriture'">Nourriture</option>
-                <option value="'Médicaments'">Médicaments</option>
-            </select>
-            <label for="prixMax">Prix Maximum (caps): </label>
-            <input class="me-3" type="number" name="prixMax" id="prixMax" min="" max="">
-            <label for="poidsMax">Poids Maximum (lbs): </label>
-            <input class="me-3" type="number" name="poidsMax" id="poidsMax" min="" max="">
-            <select class="me-3" name='tri' id='tri'>
-                <option value="" selected>Trier</option>
-                <option value="'Prix'">Prix ascendant</option>
-                <option value="'Poids'">Poids ascendant</option>
-                <option value="'Prix DESC'">Prix descendant</option>
-                <option value="'Poids DESC'">poids descendant</option>
-            </select>
-            <button class="btn btn-primary">Appliquer</button>
-            
-        </form>
+    
+    <!-- dextériter/poids du sac -->
+    <div class="d-flex flex-row border border-1 border-danger mt-4">
+        <h1>Sac À Dos</h1>
+        <div class="mx-3">
+            <h3>Poid Total du Sac: <!-- <?php echo $poid ?> --></h3>
+        </div>
+        <div class="mx-3">
+            <h3>Dexteriter: <?php echo $dexteriter ?></h3>
+        </div>
     </div>
-    <!-- filtres du magasin -->
+    <!-- dextériter/poids du sac -->
 
     <!-- affichage des items du magasin -->
     <div class="row row-cols-3 mt-3">

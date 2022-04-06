@@ -466,13 +466,33 @@ function CompleterAchat($id ,$qty,$idObjet,$prix){
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id , $idObjet , $qty , $prix]);
 }
-function getPoidsSac($id){
+
+function updateDexteriter($id) {
     $pdo = GetPdo();
-    $sql = 'CALL getPoidsSac(?)';
+    $poids = getPoids($id);
+    if ($poids > 50) {
+        $sql = 'CALL UpdateDexteriter(?,?)';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id, $poids - 50]);
+    }
+}
+function getPoids($id){
+    $pdo = GetPdo();
+    $sql = 'CALL getPoids(?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
     foreach($stmt as $row){
         return $row['PoidsTotalSac'];
+    }
+}
+
+function getDexteriter($id) {
+    $pdo = GetPdo();
+    $sql = 'CALL getDexteriter(?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id]);
+    foreach($stmt as $row){
+        return $row['Dexteriter'];
     }
 }
 ?>
