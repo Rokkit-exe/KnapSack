@@ -350,6 +350,7 @@ function AfficherSac($row){
     $nom = $row['NomObjet'];
     $photo = $row['Photo'];
     $description = $row['Description'];
+    $typeObjet = $row['TypeObjet'];
     $qty = $row['quantité'];
     $idObjet = $row['idObjet'];
     $prix = $row['Prix'];
@@ -363,18 +364,18 @@ function AfficherSac($row){
                 <div class='d-flex justify-content-center'><h3 class='title card-title'>$nom</h3></div>
                 <div class='mt-3 card-body d-flex justify-content-between'>
                     <div class='card-text'>
-                        <div>Quantité: $quantité</div>
+                        <div>Quantité: $qty</div>
                         <div>Poids: $poids lbs</div>
                     </div>
                     <div class=''>
-                        <a href='details.php?id=$id&typeItem=$typeItem' class='btn btn-dark'>Details</a>
+                        <a href='details.php?id=$idObjet&typeItem=$typeObjet' class='btn btn-dark'>Details</a>
                     </div>
                 </div>
                 <div class='mt-2 card-body d-flex justify-content-between'>
                         <div>vente: + $prix caps</div>
                         <div>
                             <form method='POST'>
-                                <input type='hidden' name='idObjet' value='$id'>
+                                <input type='hidden' name='idObjet' value='$idObjet'>
                                 <input type='hidden' name='idJoueur' value='".$_SESSION['idJoueur']."'>
                                 <input type='hidden' name='quantité' value='$qty'>
                                 <input type='hidden' name='prixVente' value='$prix'>
