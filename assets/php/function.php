@@ -333,6 +333,57 @@ function EnleverJoueurVide(){
     }
     
 }
+
+// ------------------------------------------------------ Sac à dos ---------------------------------------------------
+function GetSac($id){
+    $pdo = GetPdo();
+    $sql = 'CALL AfficherSac(?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id]);
+
+    foreach($stmt as $row){
+        AfficherSac($row);
+    }
+}
+
+function AfficherSac($row){
+    $nom = $row['NomObjet'];
+    $photo = $row['Photo'];
+    $description = $row['Description'];
+    $qty = $row['quantité'];
+    $idObjet = $row['idObjet'];
+    $prix = $row['Prix'];
+    $poids = $row['Poids'];
+    echo " 
+        <div class='col'>
+            <div class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
+                <div class='card-img-top text-center'>
+                    <img src='../assets/img/$photo' alt='photo' height='250' width='250' class='rounded-3'>
+                </div>
+                <div class='d-flex justify-content-center'><h3 class='title card-title'>$nom</h3></div>
+                <div class='mt-3 card-body d-flex justify-content-between'>
+                    <div class='card-text'>
+                        <div>Quantité: $quantité</div>
+                        <div>Poids: $poids lbs</div>
+                    </div>
+                    <div class=''>
+                        <a href='details.php?id=$id&typeItem=$typeItem' class='btn btn-dark'>Details</a>
+                    </div>
+                </div>
+                <div class='mt-2 card-body d-flex justify-content-between'>
+                        <div>vente: + $prix caps</div>
+                        <div>
+                            <form method='POST'>
+                                <input type='hidden' name='idObjet' value='$id'>
+                                <input type='hidden' name='idJoueur' value='".$_SESSION['idJoueur']."'>
+                                <input type='hidden' name='quantité' value='$qty'>
+                                <input type='hidden' name='prixVente' value='$prix'>
+                                <button class='btn btn-dark'>Vendre</button>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>"
 ?>
 
 
