@@ -1,11 +1,11 @@
-<?php 
-    $poid = getPoids($_SESSION['idJoueur']);
-    $dexteriter = getDexteriter($_SESSION['idJoueur']);
-?>
 
 <!-- header -->
 <?php include('../assets/php/header.php')?>
 <!-- header -->
+<?php 
+    $poid = getPoids($_SESSION['idJoueur']);
+    $dexteriter = getDexteriter($_SESSION['idJoueur']);
+?>
 <!-- body -->
 <div class="container mt-5">
     
