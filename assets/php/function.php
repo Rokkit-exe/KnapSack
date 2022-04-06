@@ -453,7 +453,7 @@ function VérifierAchat($row){
     $idObjet = $row['idObjet'];
     if($qty >= $qtyStock){
          
-        
+
     }
 
     if($capitale >= $prix && $qty <= $qtyStock){
