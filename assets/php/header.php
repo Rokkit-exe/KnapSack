@@ -21,38 +21,34 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="navbar-item">
                         <a href="about.php" class="nav-link active">About</a>
-                    
-                    
                     <li className="navbar-item">
                         <a href="index.php" class="nav-link active">Magasin</a>
                     </li>
-                    <li className="navbar-item">
-                        <a href="panier.php" class="nav-link active">Panier</a>
-                    </li>
-                    <li className="navbar-item">
-                        <a href="sac.php" class="nav-link active">Sac à Dos</a>
-                    </li>
-                    <li className="navbar-item" >
-                        <?php if(isset($_SESSION['idJoueur'])){
-                            echo "<a href='profil.php' class='nav-link active' >".$_SESSION['prenom']." ".$_SESSION['nom']."</a>";
-                            
+                    <?php 
+                        if(isset($_SESSION['idJoueur'])){
+                            echo 
+                                "<li className='navbar-item'>
+                                    <a href='panier.php' class='nav-link active'>Panier</a>
+                                </li>
+                                <li className='navbar-item'>
+                                    <a href='sac.php' class='nav-link active'>Sac à Dos</a>
+                                </li>
+                                <li className='navbar-item'>
+                                    <a href='profil.php' class='nav-link active' >".$_SESSION['prenom']." ".$_SESSION['nom']."</a>
+                                </li>
+                                <li className='navbar-item'>
+                                    <a href='deconecter.php' class='nav-link active'>Déconnecter</a>
+                                </li>";
                         }
                         else{
-                            echo "<a href='connection.php' class='nav-link active'>Connection</a>";
+                            echo 
+                                "<li className='navbar-item'>
+                                    <a href='connection.php' class='nav-link active'>Connection</a>
+                                </li>";
                         }
-                        ?>
-                        
-                    </li>
-                    <li className="navbar-item">
-                        <?php 
-                        if(isset($_SESSION['idJoueur'])){
-                            echo "<a href='deconecter.php' class='nav-link active'>Déconnecter</a>";
-                        }
-                        ?>
-                    </li>
+                    ?>
                 </ul>
             </div>
-
         </div>
     </nav>
     
