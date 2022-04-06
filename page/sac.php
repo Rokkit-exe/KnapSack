@@ -13,7 +13,7 @@
     <div class="d-flex flex-row border border-1 border-danger mt-4">
         <h1>Sac À Dos</h1>
         <div class="mx-3">
-            <h3>Poid Total du Sac: <!-- <?php echo $poid ?> --></h3>
+            <h3>Poid Total du Sac: <?php echo $poid ?></h3>
         </div>
         <div class="mx-3">
             <h3>Dexteriter: <?php echo $dexteriter ?></h3>
