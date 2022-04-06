@@ -383,10 +383,6 @@ function AfficherSac($row){
                         </div>
                 </div>
             </div>
-        </div>"
+        </div>";
+}
 ?>
-
-
-
-
-
