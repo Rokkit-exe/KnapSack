@@ -189,6 +189,9 @@ function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $p
                                         <button class='btn btn-dark'>Acheter</button>
                                     </form>";
                             }
+                            else {
+                                echo "<a href='connection.php' class='btn btn-dark'>Acheter</a>";
+                            }
                         echo "</div>
                         </div>
                     </div>
