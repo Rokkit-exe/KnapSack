@@ -146,8 +146,17 @@ function getObjet(){
         if($poidsMax == ""){
             $poidsMax = "100";
         }
-        if($ordre == ""){
-            $ordre = "'Prix'";
+        if($ordre == "1"){
+            $ordre = 'Prix';
+        }
+        else if($ordre == "2"){
+            $ordre = 'Poids';
+        }
+        else if($ordre == "3"){
+            $ordre = 'Prix DESC';
+        }
+        else if($ordre == "4"){
+            $ordre = 'Poids DESC';
         }
         $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
     }
@@ -444,8 +453,9 @@ function VérifierAchat($row){
     $idObjet = $row['idObjet'];
     if($qty >= $qtyStock){
          
+        
     }
-    
+
     if($capitale >= $prix && $qty <= $qtyStock){
         CompleterAchat($_SESSION['idJoueur'] , $qty , $idObjet, $prix);
     }
@@ -455,5 +465,14 @@ function CompleterAchat($id ,$qty,$idObjet,$prix){
     $sql = 'CALL CompleterAchat(?,?,?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id , $idObjet , $qty , $prix]);
+}
+function getPoidsSac($id){
+    $pdo = GetPdo();
+    $sql = 'CALL getPoidsSac(?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id]);
+    foreach($stmt as $row){
+        return $row['PoidsTotalSac'];
+    }
 }
 ?>
