@@ -382,7 +382,7 @@ function AfficherSac($row){
                                 <input type='hidden' name='idJoueur' value='".$_SESSION['idJoueur']."'>
                                 <input type='hidden' name='quantité' value='$qty'>
                                 <input type='hidden' name='prixVente' value='$prix'>
-                                <button class='btn btn-dark'>Vendre</button>
+                                <button   class='btn btn-dark'>Vendre</button>
                             </form>
                         </div>
                 </div>
@@ -403,7 +403,7 @@ function GetTotalPanier(){
 function AfficherTotalPanier($row){
     $prixTotalPanier = $row['TotalPrixPanier'];
     $poidsTotalPanier = $row['TotalPoidsPanier'];
-    echo "<div class='card transaction border border-2 border-success'>
+    echo "<form method='POST'><div class='card transaction border border-2 border-success'>
     <div class='card-body text-center'>
         <h2 class='card-title mb-3'>Compléter votre Achat</h2>
             <div class='mt-3'>
@@ -412,8 +412,8 @@ function AfficherTotalPanier($row){
                 <h4 class='mt-2'>Total: $poidsTotalPanier</h4>
             </div>
     </div>
-    <button class='btn btn-success mt-3'>Passer la Commande</button>
-</div>";
+    <button formaction='panier.php' name='acheter' class='btn btn-success mt-3'>Passer la Commande</button>
+</div></form>";
 }
 
 
@@ -422,5 +422,35 @@ function Alert($message){
     "<script type ='text/JavaScript'>  
         alert('".$message."')  
     </script>";
+}
+function AcheterPanier(){
+    $pdo = GetPdo();
+    $sql = 'CALL getDataAchat(?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_SESSION['idJoueur']]);
+
+    foreach($stmt as $row){
+        VérifierAchat($row);
+    }
+}
+function VérifierAchat($row){
+    $prix = $row['Prix'];
+    $qty = $row['quantité'];
+    $qtyStock = $row['QuantiteStock'];
+    $capitale = $row['capital'];
+    $idObjet = $row['idObjet'];
+    if($qty >= $qtyStock){
+         
+    }
+    
+    if($capitale >= $prix && $qty <= $qtyStock){
+        CompleterAchat($_SESSION['idJoueur'] , $qty , $idObjet, $prix);
+    }
+}
+function CompleterAchat($id ,$qty,$idObjet,$prix){
+    $pdo = GetPdo();
+    $sql = 'CALL CompleterAchat(?,?,?,?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id , $idObjet , $qty , $prix]);
 }
 ?>
