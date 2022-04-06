@@ -189,6 +189,9 @@ function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $p
                                         <button class='btn btn-dark'>Acheter</button>
                                     </form>";
                             }
+                            elseif ($quantité < 1 && isset($_SESSION['idJoueur'])) {
+                                echo "<div class='btn btn-secondary'>Acheter</div>";
+                            }
                             else {
                                 echo "<a href='connection.php' class='btn btn-dark'>Acheter</a>";
                             }
