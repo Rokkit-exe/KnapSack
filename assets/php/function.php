@@ -328,7 +328,12 @@ function SupprimerDuPanier($idObjet){
     $stmt->execute([$_SESSION['idJoueur'], $idObjet]);
 
 }
-
+function EnleverJoueurVide(){
+    if($_SESSION['idJoueur'] == 55){
+        session_unset();
+    }
+    
+}
 ?>
 
 

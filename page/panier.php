@@ -11,6 +11,9 @@ if(isset($_POST['enlever'])){
 if(isset($_POST['supprimer'])){
     SupprimerDuPanier($_POST['idObjet']);
 }
+if(!isset($_SESSION['idJoueur'])){
+    $_SESSION['idJoueur']=55;
+}
 ?>
 
 <!-- body -->
@@ -36,5 +39,7 @@ if(isset($_POST['supprimer'])){
 <!-- body -->
 
 <!-- footer -->
-<?php include('../assets/php/footer.php')?>
+<?php include('../assets/php/footer.php'); 
+EnleverJoueurVide();
+?>
 <!-- footer -->
