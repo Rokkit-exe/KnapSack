@@ -10,6 +10,7 @@ include('../assets/php/header.php');
 
 if(isset($_POST['idJoueur']) && isset($_POST['idObjet']) && isset($_POST['quantité'])){
     AjouterPanier($_POST['idJoueur'], $_POST['idObjet'], $_POST['quantité']);
+    Alert('Item ajouter au panier!');
 }
 
 if(isset($_SESSION['erreur'])){

@@ -10,9 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 // alert de confirmation de la création du compte
 if (isset($_SESSION['confirmer'])) {
-    echo '<script type ="text/JavaScript">';  
-    echo `alert('`.$_SESSION['confirmer'].`')`;  
-    echo '</script>';
+    Alert($_SESSION['confirmer']);
 }
 ?>
 

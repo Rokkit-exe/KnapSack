@@ -415,4 +415,12 @@ function AfficherTotalPanier($row){
     <button class='btn btn-success mt-3'>Passer la Commande</button>
 </div>";
 }
+
+
+function Alert($message){
+    echo 
+    "<script type ='text/JavaScript'>  
+        alert('".$message."')  
+    </script>";
+}
 ?>
