@@ -532,10 +532,15 @@ function AfficherDetails($row){
                     <i class="bi bi-star"></i>
                 </div>
                 <!-- rating stars -->
-            </div>
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-primary" formaction="panier.php" name="acheter">Acheter</button>
-            </div>
+            </div>';
+            if(!empty($_SESSION['idJoueur']) && !$_SESSION['idJoueur'] != null) {
+                echo '
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" formaction="panier.php" name="acheter">Acheter</button>
+                </div>
+                ';
+            }
+            echo '
             </div>
         </div>
     </div>
