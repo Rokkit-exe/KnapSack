@@ -177,9 +177,9 @@ function getObjet(){
 // ------------------------------------------------------- Ajouter objet -----------------------------------------------------
 function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo){
     echo "<div class='col'>
-                    <div style='width: 300px;' class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
+                    <div style='width: 20em;' class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
                         <div class='card-img-top text-center'>
-                            <img src='../assets/img/$photo' alt='photo' height='250' width='250' class='rounded-3'>
+                            <img src='../assets/img/$photo' alt='photo' height='100%' width='100%' class='rounded-3'>
                         </div>
                         <div class='row row-cols-2 mt-3 card-body'>
                             <div class='w-100'><h3 class='title card-title'>$nom</h3></div>
@@ -189,7 +189,7 @@ function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $p
                                 <div>Poids: $poids lbs</div>
                             </div>
                             <div class='col d-block'>
-                                <a href='details.php?id=$id&typeItem=$typeItem' class='btn btn-dark'>Details</a>";
+                                <a href='details.php?id=$id&typeItem=$typeItem' style='margin: 5px;' class='btn btn-dark'>Details</a>";
                             if ($quantité >= 1 && isset($_SESSION['idJoueur'])) {
                                 echo "<form method='POST'>
                                         <input type='hidden' name='idObjet' value='$id'>
@@ -199,10 +199,10 @@ function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $p
                                     </form>";
                             }
                             elseif ($quantité < 1 && isset($_SESSION['idJoueur'])) {
-                                echo "<div class='btn btn-secondary'>Acheter</div>";
+                                echo "<div style='margin: 5px;' class='btn btn-secondary'>Acheter</div>";
                             }
                             else {
-                                echo "<a href='connection.php' class='btn btn-dark'>Acheter</a>";
+                                echo "<a href='connection.php' style='margin: 5px;' class='btn btn-dark'>Acheter</a>";
                             }
                         echo "</div>
                         </div>
