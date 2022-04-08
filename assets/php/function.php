@@ -511,24 +511,21 @@ function AfficherDetails($row){
     $nom = $row['NomObjet'];
     $photo = $row['Photo'];
     $description = $row['Description'];
-    $typeObjet = $row['TypeObjet'];
-    $qty = $row['quantité'];
-    $idObjet = $row['idObjet'];
     $prix = $row['Prix'];
     $poids = $row['Poids'];
     echo '
     <div class="container">
     <div class="card mb-3 detail border border-2 border-dark">
         <div class="row g-0 p-2">
-            <div class="col-md-4">
+            <div style="margin-top: 25px;" class="col-md-4">
             <img src="../assets/img/'.$photo.'" class="img-fluid rounded-start border border-1 border-secondary" alt="...">
             </div>
             <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">DESCRIPTION:'.$description.'</p>
-                <p class="card-text">PRIX:'.$prix.'</p>
-                <p class="card-text">POIDS:'.$poids.'</p>
+                <h4 class="card-title">'.$nom.'</h4>
+                <p class="card-text">Description: '.$description.'</p>
+                <p class="card-text">Prix: '.$prix.'$</p>
+                <p class="card-text">Poids: '.$poids.' lbs</p>
                 <!-- rating stars -->
                 <div class="rating">
                     <i class="bi bi-star-fill"></i>
@@ -540,7 +537,7 @@ function AfficherDetails($row){
                 <!-- rating stars -->
             </div>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary">Acheter</button>
+                <button class="btn btn-primary" formaction="panier.php" name="acheter">Acheter</button>
             </div>
             </div>
         </div>
