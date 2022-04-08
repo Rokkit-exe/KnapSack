@@ -42,3 +42,16 @@ body::after {
     width:100%;
     height:100px;
 }
+.developpersContainer {
+    width: 20%; 
+    display: block; 
+    z-index: 2; 
+    border: 1px solid grey; 
+    background-color: lightgrey; 
+    font-family: Tahoma; 
+    padding: 10px; 
+    border-radius: 5px
+}
+.espacementTexte {
+    margin: 5px;
+}
