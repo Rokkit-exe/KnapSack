@@ -177,7 +177,7 @@ function getObjet(){
 // ------------------------------------------------------- Ajouter objet -----------------------------------------------------
 function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo){
     echo "<div class='col'>
-                    <div class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
+                    <div style='width: 300px;' class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
                         <div class='card-img-top text-center'>
                             <img src='../assets/img/$photo' alt='photo' height='250' width='250' class='rounded-3'>
                         </div>
