@@ -451,20 +451,17 @@ function VérifierAchat($row){
     $qtyStock = $row['QuantiteStock'];
     $capitale = $row['capital'];
     $idObjet = $row['idObjet'];
-    if($qty >= $qtyStock){
-         
-
-    }
+    $poids = $row['Poids'];
 
     if($capitale >= $prix && $qty <= $qtyStock){
-        CompleterAchat($_SESSION['idJoueur'] , $qty , $idObjet, $prix);
+        CompleterAchat($_SESSION['idJoueur'] , $qty , $idObjet, $prix, $poids);
     }
 }
-function CompleterAchat($id ,$qty,$idObjet,$prix){
+function CompleterAchat($id ,$qty,$idObjet,$prix,$poids){
     $pdo = GetPdo();
-    $sql = 'CALL CompleterAchat(?,?,?,?)';
+    $sql = 'CALL CompleterAchat(?,?,?,?,?)';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id , $idObjet , $qty , $prix]);
+    $stmt->execute([$id , $idObjet , $qty , $prix, $poids]);
 }
 
 function updateDexteriter($id) {
