@@ -371,8 +371,8 @@ function AfficherSac($row){
     $prix = $row['Prix'];
     $poids = $row['Poids'];
     echo " 
-        <div class='col'>
-            <div class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
+        <div class='col' >
+            <div class='border border-dark border-2 card m-2 shadow p-3' style='background-color: rgba(107, 98, 103, 0.57); color: #fff'>
                 <div class='card-img-top text-center'>
                     <img src='../assets/img/$photo' alt='photo' height='250' width='250' class='rounded-3'>
                 </div>
@@ -532,15 +532,10 @@ function AfficherDetails($row){
                     <i class="bi bi-star"></i>
                 </div>
                 <!-- rating stars -->
-            </div>';
-            if(!empty($_SESSION['idJoueur']) && !$_SESSION['idJoueur'] != null) {
-                echo '
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary" formaction="panier.php" name="acheter">Acheter</button>
-                </div>
-                ';
-            }
-            echo '
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary" formaction="panier.php" name="acheter">Acheter</button>
+            </div>
             </div>
         </div>
     </div>

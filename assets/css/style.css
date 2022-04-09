@@ -3,13 +3,14 @@ body {
     padding:0;
     min-height: 100vh;
     height:100%;
-    position:relative;
+    position: relative;
+    background: linear-gradient(to bottom, #663300 0%, #533618 100%);
 }
 
 body::after {
     content: '';
     display: block;
-    height: 110px; /* Set same as footer's height */
+    height: 100px; /* Set same as footer's height */
 }
 
 .header {
