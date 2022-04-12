@@ -13,8 +13,8 @@
     </p>
   </div>
   <br/>
-  <h3 class="espacementTexte">Vos développeurs:</h3>
-  <div class="developpersContainer text-light" >
+  <h3 class="espacementTexte mb-3">Vos développeurs:</h3>
+  <div class="text-light mx-5" >
     <p>- Francis Di-Folco</p>
     <p>- Alexandre Carle</p>   
     <p>- Kesava Canape Lussier</p>
