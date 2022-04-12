@@ -46,7 +46,7 @@
                         else{
                             echo 
                                 "<li className='navbar-item'>
-                                    <a href='connection.php' class='nav-link active'>Connection</a>
+                                    <a href='connection.php' class='nav-link active'>Connexion</a>
                                 </li>";
                         }
                     ?>
