@@ -17,7 +17,7 @@
     background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp3073549.jpg&f=1&nofb=1);
     backdrop-filter: blur(8px);
     ">
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg header">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg header shadow-lg">
         <div class="container ">
             <a href="index.php" class="navbar-brand">Knapsak</a>  
             <div class="collpase navbar-collapse justify-content-end">

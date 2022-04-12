@@ -177,7 +177,7 @@ function getObjet(){
 // ------------------------------------------------------- Ajouter objet -----------------------------------------------------
 function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo){
     echo "<div class='col'>
-                    <div style='width: 20em;' class='border border-dark border-2 card m-2 shadow p-3 bg-light'>
+                    <div style='width: 20em; background-color: rgba(33,37,41,0.7);' class='border border-dark border-2 card m-2 shadow p-3 text-light'>
                         <div class='card-img-top text-center'>
                             <img src='../assets/img/$photo' alt='photo' height='100%' width='100%' class='rounded-3'>
                         </div>
@@ -189,20 +189,20 @@ function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $p
                                 <div>Poids: $poids lbs</div>
                             </div>
                             <div class='col d-block'>
-                                <a href='details.php?id=$id&typeItem=$typeItem' style='margin: 5px;' class='btn btn-dark'>Details</a>";
+                                <a href='details.php?id=$id&typeItem=$typeItem' style='margin: 5px;' class='btn btn-primary'>Details</a>";
                             if ($quantité >= 1 && isset($_SESSION['idJoueur'])) {
                                 echo "<form method='POST'>
                                         <input type='hidden' name='idObjet' value='$id'>
                                         <input type='hidden' name='idJoueur' value='". $_SESSION['idJoueur'] . "'>
                                         <input type='hidden' name='quantité' value='1'>
-                                        <button class='btn btn-dark'>Acheter</button>
+                                        <button class='btn btn-primary'>Acheter</button>
                                     </form>";
                             }
                             elseif ($quantité < 1 && isset($_SESSION['idJoueur'])) {
-                                echo "<div style='margin: 5px;' class='btn btn-secondary'>Acheter</div>";
+                                echo "<div style='margin: 5px;' class='btn btn-primary'>Acheter</div>";
                             }
                             else {
-                                echo "<a href='connection.php' style='margin: 5px;' class='btn btn-dark'>Acheter</a>";
+                                echo "<a href='connection.php' style='margin: 5px;' class='btn btn-primary'>Acheter</a>";
                             }
                         echo "</div>
                         </div>
@@ -284,7 +284,7 @@ function AfficherPanier($row){
     $_SESSION['PrixPanierTotale'] += $prixTotale;
     $_SESSION['PoidsPanierTotale'] += $poidsTotale;
     echo " 
-        <div class='card mb-3 border border-2 border-dark' style='max-width: 540px;'>
+        <div class='card mb-3 border border-2 border-dark' style='max-width: 540px; background-color: rgba(33,37,41,0.7);'>
             <div class='row g-0'>
                 <div class='col-md-4'>
                     <img src='../assets/img/$photo' class='img-fluid rounded-start'>
@@ -371,8 +371,8 @@ function AfficherSac($row){
     $prix = $row['Prix'];
     $poids = $row['Poids'];
     echo " 
-        <div class='col' >
-            <div class='border border-dark border-2 card m-2 shadow p-3' style='background-color: rgba(107, 98, 103, 0.57); color: #fff'>
+        <div class='col text-light'>
+            <div class='border border-dark border-2 card m-2 shadow p-3' style='background-color: rgba(33,37,41,0.7)'>
                 <div class='card-img-top text-center'>
                     <img src='../assets/img/$photo' alt='photo' height='250' width='250' class='rounded-3'>
                 </div>
@@ -383,7 +383,7 @@ function AfficherSac($row){
                         <div>Poids: $poids lbs</div>
                     </div>
                     <div class=''>
-                        <a href='details.php?id=$idObjet&typeItem=$typeObjet' class='btn btn-dark'>Details</a>
+                        <a href='details.php?id=$idObjet&typeItem=$typeObjet' class='btn btn-primary'>Details</a>
                     </div>
                 </div>
                 <div class='mt-2 card-body d-flex justify-content-between'>
@@ -394,7 +394,7 @@ function AfficherSac($row){
                                 <input type='hidden' name='idJoueur' value='".$_SESSION['idJoueur']."'>
                                 <input type='hidden' name='quantité' value='$qty'>
                                 <input type='hidden' name='prixVente' value='$prix'>
-                                <button   class='btn btn-dark'>Vendre</button>
+                                <button   class='btn btn-primary'>Vendre</button>
                             </form>
                         </div>
                 </div>

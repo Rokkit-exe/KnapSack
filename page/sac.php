@@ -7,10 +7,10 @@
     $dexteriter = getDexteriter($_SESSION['idJoueur']);
 ?>
 <!-- body -->
-    <div class="container mt-5 rounded" style="background-color: rgba(0,0,0, 0.2);">
-        <h1>Sac À Dos</h1>
+    <div class="container mt-5 rounded">
+        <h1 class="text-light">Sac À Dos</h1>
         <!-- dextériter/poids du sac -->
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end text-light">
             <div class="mx-3 ">
                 <h3>Poid Total du Sac: <?php echo $poid ?></h3>
             </div>

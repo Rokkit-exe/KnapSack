@@ -56,3 +56,16 @@ body::after {
 .espacementTexte {
     margin: 5px;
 }
+
+.primary {
+    background-color: rgba(33,37,41,1)
+}
+
+.secondary {
+    background-color: rgb(143,123,100);
+}
+
+.text-light {
+    color: #fff;
+}
+

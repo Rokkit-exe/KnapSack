@@ -30,7 +30,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 ?>
 <!-- body -->
-    <form class="container mt-3" method="POST">
+<div class="container rounded p-4" style="background-color: rgba(33,37,41,0.7)">
+    <h1 class="text-light">Inscription</h1>
+    <form class="container mt-3 text-light" method="POST">
         <!-- message erreur création du compte -->
         <?php if (isset($_SESSION['erreur'])) { echo `<p>`.$_SESSION['erreur'].`</p>`;}?>
         <!-- alias, nom, prenom, email, mdp -->
@@ -62,6 +64,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <button type="submit" class="btn btn-primary">Créer votre compte</button>
         
     </form>
+</div>
 <!-- body -->
 
 <!-- footer -->
