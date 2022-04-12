@@ -22,10 +22,13 @@ if(!isset($_SESSION['idJoueur'])){
 
 <!-- body -->
 
-<div class="container ">
-    <?php GetTotalPanier($_SESSION['idJoueur'])?>
-    
-    <?php getPanier($_SESSION['idJoueur'])?>
+<div class="container d-flex justify-content-between">
+    <div>
+        <?php getPanier($_SESSION['idJoueur'])?>
+    </div>
+    <div style="width: 400px;">
+        <?php GetTotalPanier($_SESSION['idJoueur'])?>
+    </div>
 </div>
 <!-- body -->
 

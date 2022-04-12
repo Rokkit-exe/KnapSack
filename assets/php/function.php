@@ -284,7 +284,7 @@ function AfficherPanier($row){
     $_SESSION['PrixPanierTotale'] += $prixTotale;
     $_SESSION['PoidsPanierTotale'] += $poidsTotale;
     echo " 
-        <div class='card mb-3 border border-2 border-dark' style='max-width: 540px; background-color: rgba(33,37,41,0.7);'>
+        <div class='card mb-3 border border-2 border-dark text-light' style='max-width: 540px; background-color: rgba(33,37,41,0.7);'>
             <div class='row g-0'>
                 <div class='col-md-4'>
                     <img src='../assets/img/$photo' class='img-fluid rounded-start'>
@@ -299,10 +299,10 @@ function AfficherPanier($row){
                                 <p class='card-text'>quantité: $qty</p>
                                 <p class='card-text'>prix total: $prixTotale</p>
                                 <p class='card-text'>poids total: $poidsTotale</p>
-                                <button class='btn btn-dark' formaction='panier.php' name='ajouter'>+</button>
-                                <button class='btn btn-dark' formaction='panier.php' name='enlever'>-</button>
+                                <button class='btn btn-primary' formaction='panier.php' name='ajouter'>+</button>
+                                <button class='btn btn-primary' formaction='panier.php' name='enlever'>-</button>
 
-                                <button class='btn btn-dark' formaction='panier.php' name='supprimer'>Supprimer du Panier</button>
+                                <button class='btn btn-primary' formaction='panier.php' name='supprimer'>Supprimer du Panier</button>
                             </div>
 
                         </form>
@@ -415,7 +415,8 @@ function GetTotalPanier(){
 function AfficherTotalPanier($row){
     $prixTotalPanier = $row['TotalPrixPanier'];
     $poidsTotalPanier = $row['TotalPoidsPanier'];
-    echo "<form method='POST'><div class='card transaction border border-2 border-success'>
+    echo "<form method='POST'>
+    <div class='card border border-2 border-dark text-light' style='background-color: rgba(33,37,41,0.7);'>
     <div class='card-body text-center'>
         <h2 class='card-title mb-3'>Compléter votre Achat</h2>
             <div class='mt-3'>
