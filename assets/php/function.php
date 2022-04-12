@@ -146,18 +146,18 @@ function getObjet(){
         if($poidsMax == ""){
             $poidsMax = "100";
         }
-        if($ordre == "1"){
-            $ordre = 'Prix';
+/*         if($ordre == "1"){
+            $ordre = 'Objet.Prix ASC';
         }
         else if($ordre == "2"){
-            $ordre = 'Poids';
+            $ordre = 'Objet.Poids ASC';
         }
         else if($ordre == "3"){
-            $ordre = 'Prix DESC';
+            $ordre = 'Objet.Prix DESC';
         }
         else if($ordre == "4"){
-            $ordre = 'Poids DESC';
-        }
+            $ordre = 'Objet.Poids DESC';
+        } */
         $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
     }
     $stmt = $pdo->query($sqlProcedure);
@@ -385,8 +385,8 @@ function AfficherSac($row){
                     <div class=''>
                         <a href='details.php?id=$idObjet&typeItem=$typeObjet' class='btn btn-primary'>Details</a>
                     </div>
-                </div>
-                <div class='mt-2 card-body d-flex justify-content-between'>
+                </div>";
+                /* <div class='mt-2 card-body d-flex justify-content-between'>
                         <div>vente: + $prix caps</div>
                         <div>
                             <form method='POST'>
@@ -397,8 +397,8 @@ function AfficherSac($row){
                                 <button   class='btn btn-primary'>Vendre</button>
                             </form>
                         </div>
-                </div>
-            </div>
+                </div> */
+            echo "</div>
         </div>";
 }
 function GetTotalPanier(){
@@ -513,30 +513,27 @@ function AfficherDetails($row){
     $poids = $row['Poids'];
     echo '
     <div class="container">
-    <div class="card mb-3 detail border border-2 border-dark">
+    <div class="card mb-3 detail border border-2 border-dark text-light" style="background-color: rgba(33,37,41,0.7)">
         <div class="row g-0 p-2">
             <div style="margin-top: 25px;" class="col-md-4">
             <img src="../assets/img/'.$photo.'" class="img-fluid rounded-start border border-1 border-secondary" alt="...">
             </div>
             <div class="col-md-8">
-            <div class="card-body">
-                <h4 class="card-title">'.$nom.'</h4>
-                <p class="card-text">Description: '.$description.'</p>
-                <p class="card-text">Prix: '.$prix.'$</p>
-                <p class="card-text">Poids: '.$poids.' lbs</p>
-                <!-- rating stars -->
-                <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                    <i class="bi bi-star"></i>
+                <div class="card-body">
+                    <h4 class="card-title">'.$nom.'</h4>
+                    <p class="card-text">Description: '.$description.'</p>
+                    <p class="card-text">Prix: '.$prix.'$</p>
+                    <p class="card-text">Poids: '.$poids.' lbs</p>
+                    <!-- rating stars -->
+                    <div class="rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                        <i class="bi bi-star"></i>
+                    </div>
+                    <!-- rating stars -->
                 </div>
-                <!-- rating stars -->
-            </div>
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-primary" formaction="panier.php" name="acheter">Acheter</button>
-            </div>
             </div>
         </div>
     </div>
