@@ -173,13 +173,13 @@ function getObjet(){
         AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo);
     }
 }
-
+//<img src='../assets/img/$photo' alt='photo' height='100%' width='100%' class='rounded-3'>
 // ------------------------------------------------------- Ajouter objet -----------------------------------------------------
 function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo){
     echo "<div class='col'>
                     <div style='width: 20em; background-color: rgba(33,37,41,0.7);' class='border border-dark border-2 card m-2 shadow p-3 text-light'>
                         <div class='card-img-top text-center'>
-                            <img src='../assets/img/$photo' alt='photo' height='100%' width='100%' class='rounded-3'>
+                            <img src='$photo'alt='photo' height='100%' width='100%' class='rounded-3'>
                         </div>
                         <div class='row row-cols-2 mt-3 card-body'>
                             <div class='w-100'><h3 class='title card-title'>$nom</h3></div>
@@ -286,8 +286,9 @@ function AfficherPanier($row){
     echo " 
         <div class='card mb-3 border border-2 border-dark text-light' style='max-width: 540px; background-color: rgba(33,37,41,0.7);'>
             <div class='row g-0'>
-                <div class='col-md-4'>
-                    <img src='../assets/img/$photo' class='img-fluid rounded-start'>
+                <div class='col-md-8'>
+                <img src='$photo'alt='photo' height='100%' width='100%' class='rounded-3'>
+                    
                 </div>
                 <div class='col-md-8'>
                     <div class='card-body'>
@@ -374,7 +375,7 @@ function AfficherSac($row){
         <div class='col text-light'>
             <div class='border border-dark border-2 card m-2 shadow p-3' style='background-color: rgba(33,37,41,0.7)'>
                 <div class='card-img-top text-center'>
-                    <img src='../assets/img/$photo' alt='photo' height='250' width='250' class='rounded-3'>
+                    <img src='$photo'alt='photo' height='100%' width='100%' class='rounded-3'>
                 </div>
                 <div class='d-flex justify-content-center'><h3 class='title card-title'>$nom</h3></div>
                 <div class='mt-3 card-body d-flex justify-content-between'>
@@ -516,7 +517,9 @@ function AfficherDetails($row){
     <div class="card mb-3 detail border border-2 border-dark text-light" style="background-color: rgba(33,37,41,0.7)">
         <div class="row g-0 p-2">
             <div style="margin-top: 25px;" class="col-md-4">
-            <img src="../assets/img/'.$photo.'" class="img-fluid rounded-start border border-1 border-secondary" alt="...">
+                <img src='.$photo.' alt="photo" height="100%" width="100%" class="rounded-3">
+                
+            
             </div>
             <div class="col-md-8">
                 <div class="card-body">
