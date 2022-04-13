@@ -112,6 +112,8 @@ function VerifierLogin($email , $password){
                 $_SESSION['erreur'] = null;
                 $_SESSION['nom'] = $row['Nom'];
                 $_SESSION['prenom'] = $row['Prenom'];
+                $_SESSION['flag'] = $row['flag'];
+                
                 
                 header('location:index.php');
             }
@@ -284,13 +286,12 @@ function AfficherPanier($row){
     $_SESSION['PrixPanierTotale'] += $prixTotale;
     $_SESSION['PoidsPanierTotale'] += $poidsTotale;
     echo " 
-        <div class='card mb-3 border border-2 border-dark text-light' style='max-width: 540px; background-color: rgba(33,37,41,0.7);'>
+        <div class='card mb-3 border border-2 border-dark text-light' style='max-width: 700px; background-color: rgba(33,37,41,0.7);'>
             <div class='row g-0'>
-                <div class='col-md-8'>
-                <img src='$photo'alt='photo' height='100%' width='100%' class='rounded-3'>
-                    
+                <div class='col-md-7'>
+                <img src='$photo'alt='photo' width='100%' class='rounded-3'>   
                 </div>
-                <div class='col-md-8'>
+                <div class='col-md-5'>
                     <div class='card-body'>
                         <form method='POST'>
                             <input type='hidden' name='idObjet' value=$idObjet></input>

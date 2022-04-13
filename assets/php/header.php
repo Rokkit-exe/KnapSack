@@ -42,13 +42,20 @@
                                 <li className='navbar-item'>
                                     <a href='deconecter.php' class='nav-link active'>Déconnecter</a>
                                 </li>";
+                                if($_SESSION['flag'] == 'A'){
+                                    echo "<li className='navbar-item'>
+                                        <a href='admin.php' class='nav-link active'>Admin</a>
+                                        </li>";
+                                }
                         }
+                        
                         else{
                             echo 
                                 "<li className='navbar-item'>
                                     <a href='connection.php' class='nav-link active'>Connexion</a>
                                 </li>";
                         }
+                        
                     ?>
                 </ul>
             </div>
