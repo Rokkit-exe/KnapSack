@@ -34,6 +34,5 @@ if(!isset($_SESSION['idJoueur'])){
 
 <!-- footer -->
 <?php include('../assets/php/footer.php'); 
-EnleverJoueurVide();
 ?>
 <!-- footer -->

@@ -233,7 +233,6 @@ function getIDJoueur($email){
 
 // ----------------------------------------------------- Ajouter Panier ------------------------------------------------------
 
-// modifier la procedure stocker pour augmenter la quantité et non une nouvelle ligne
 function AjouterPanier($idJoueur, $idObjet, $quantité){
     $pdo = GetPdo();
     $sql = "CALL AjouterPanier(?,?,?)";
@@ -252,6 +251,7 @@ function AjouterPanier($idJoueur, $idObjet, $quantité){
         header('location:index.php');
     }
 }
+
 function GetPanier($id){
     $_SESSION['PrixPanierTotale'] = 0;
     $_SESSION['PoidsPanierTotale'] = 0;
@@ -332,6 +332,36 @@ function AfficherPanier($row){
         ";
 }
 
+function GetTotalPanier(){
+    $pdo = GetPdo();
+    $sql = "CALL GetTotalPanier(?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_SESSION['idJoueur']]);
+
+    foreach($stmt as $row){
+        AfficherTotalPanier($row);
+    }
+}
+
+function AfficherTotalPanier($row){
+    $prixTotalPanier = $row['TotalPrixPanier'];
+    $poidsTotalPanier = $row['TotalPoidsPanier'];
+    echo 
+    "<form method='POST'>
+        <div class='card border border-2 border-dark text-light' style='background-color: rgba(33,37,41,0.7);'>
+            <div class='card-body text-center'>
+                <h2 class='card-title mb-3'>Compléter votre Achat</h2>
+                    <div class='mt-3'>
+                        <h4 class='mt-2'>Poids Total: $poidsTotalPanier </h4>
+                        <h4 class='mt-2'>Sous-Total: $prixTotalPanier</h4>
+                        <h4 class='mt-2'>Total: $prixTotalPanier</h4>
+                    </div>
+            </div>
+            <button formaction='panier.php' name='acheter' class='btn btn-success mt-3'>Passer la Commande</button>
+        </div>
+    </form>";
+}
+
 
 function GetQuantiteObjet($idObjet){
     $pdo = GetPdo();
@@ -344,8 +374,6 @@ function GetQuantiteObjet($idObjet){
     }
 }
 
-
-
 function AjouterUnItemPanier($idObjet){
     $pdo = GetPdo();
     $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
@@ -357,9 +385,6 @@ function AjouterUnItemPanier($idObjet){
     catch(Exception $e){
         console_log($e);
     }
-    
-
-    
 }
 function EnleverUnItemPanier($idObjet){
     $pdo = GetPdo();
@@ -372,7 +397,6 @@ function EnleverUnItemPanier($idObjet){
     catch(Exception $e){
         console_log($e);
     }
-    
 }
 
 function SupprimerDuPanier($idObjet){
@@ -385,13 +409,6 @@ function SupprimerDuPanier($idObjet){
     }
     catch(Exception $e){
         console_log($e);
-    }
-    
-
-}
-function EnleverJoueurVide(){
-    if($_SESSION['idJoueur'] == 55){
-        session_unset();
     }
 }
 
@@ -447,33 +464,7 @@ function AfficherSac($row){
             echo "</div>
         </div>";
 }
-function GetTotalPanier(){
-    $pdo = GetPdo();
-    $sql = "CALL GetTotalPanier(?)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_SESSION['idJoueur']]);
 
-    foreach($stmt as $row){
-        AfficherTotalPanier($row);
-    }
-}
-
-function AfficherTotalPanier($row){
-    $prixTotalPanier = $row['TotalPrixPanier'];
-    $poidsTotalPanier = $row['TotalPoidsPanier'];
-    echo "<form method='POST'>
-    <div class='card border border-2 border-dark text-light' style='background-color: rgba(33,37,41,0.7);'>
-    <div class='card-body text-center'>
-        <h2 class='card-title mb-3'>Compléter votre Achat</h2>
-            <div class='mt-3'>
-                <h4 class='mt-2'>Poids Total: $poidsTotalPanier </h4>
-                <h4 class='mt-2'>Sous-Total: $prixTotalPanier</h4>
-                <h4 class='mt-2'>Total: $prixTotalPanier</h4>
-            </div>
-    </div>
-    <button formaction='panier.php' name='acheter' class='btn btn-success mt-3'>Passer la Commande</button>
-</div></form>";
-}
 
 
 function Alert($message){
