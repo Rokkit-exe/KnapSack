@@ -207,7 +207,6 @@ function ContrainteOuPas(){
         }
     }
     return False;
-        
 }
 
 
@@ -259,7 +258,6 @@ function GetPanier($id){
     foreach($stmt as $row){
         AfficherPanier($row);
     }
-
 }
 function AfficherPanier($row){
     $nom = $row['NomObjet'];
@@ -284,12 +282,23 @@ function AfficherPanier($row){
                             <h5 class='card-title'>$nom</h5>
                             <p class='card-text'>$description</p>
                             <div class='d-inline'>
+                                <input type='hidden' name='quantite' value=$qty></input>
                                 <p class='card-text'>quantité: $qty</p>
                                 <p class='card-text'>prix total: $prixTotale</p>
-                                <p class='card-text'>poids total: $poidsTotale</p>
-                                <button class='btn btn-primary' formaction='panier.php' name='ajouter'>+</button>
-                                <button class='btn btn-primary' formaction='panier.php' name='enlever'>-</button>
-
+                                <p class='card-text'>poids total: $poidsTotale</p>";
+                                if ($qty >= GetQuantiteObjet($idObjet)){
+                                    echo "<div class='btn btn-secondary'>+</div>";
+                                }
+                                else{
+                                    echo "<button class='btn btn-primary' formaction='panier.php' name='ajouter'>+</button>";
+                                }
+                                if ($qty == 1) {
+                                    echo "<div class='btn btn-secondary'>-</div>";
+                                }
+                                else {
+                                    echo "<button class='btn btn-primary' formaction='panier.php' name='enlever'>-</button>";
+                                }
+                                echo "
                                 <button class='btn btn-primary' formaction='panier.php' name='supprimer'>Supprimer du Panier</button>
                             </div>
 
@@ -308,13 +317,22 @@ function GetTotalePanier(){
     ";
     
 }
+
+function GetQuantiteObjet($idObjet){
+    $pdo = GetPdo();
+    $sql = 'CALL getQuantiteObjet(?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$idObjet]);
+
+    foreach($stmt as $row){
+        return $row['QuantiteStock'];
+    }
+}
 function AjouterUnItemPanier($idObjet){
     $pdo = GetPdo();
     $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['idJoueur'], $idObjet , 1]);
-
-    
 }
 function EnleverUnItemPanier($idObjet){
     $pdo = GetPdo();
@@ -328,13 +346,11 @@ function SupprimerDuPanier($idObjet){
     $sql = 'CALL SupprimerDuPanier(?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['idJoueur'], $idObjet]);
-
 }
 function EnleverJoueurVide(){
     if($_SESSION['idJoueur'] == 55){
         session_unset();
     }
-    
 }
 
 // ------------------------------------------------------ Sac à dos ---------------------------------------------------
@@ -398,8 +414,8 @@ function GetTotalPanier(){
     foreach($stmt as $row){
         AfficherTotalPanier($row);
     }
-
 }
+
 function AfficherTotalPanier($row){
     $prixTotalPanier = $row['TotalPrixPanier'];
     $poidsTotalPanier = $row['TotalPoidsPanier'];
@@ -420,8 +436,9 @@ function AfficherTotalPanier($row){
 
 function Alert($message){
     echo 
-    "<script type ='text/JavaScript'>  
-        alert('".$message."')  
+    "<script type ='text/JavaScript'>
+        let message = $message
+        alert(message)  
     </script>";
 }
 function AcheterPanier(){
@@ -446,6 +463,7 @@ function VérifierAchat($row){
         CompleterAchat($_SESSION['idJoueur'] , $qty , $idObjet, $prix, $poids);
     }
 }
+
 function CompleterAchat($id ,$qty,$idObjet,$prix,$poids){
     $pdo = GetPdo();
     $sql = 'CALL CompleterAchat(?,?,?,?,?)';
@@ -462,6 +480,7 @@ function updateDexteriter($id) {
         $stmt->execute([$id, $poids - 50]);
     }
 }
+
 function getPoids($id){
     $pdo = GetPdo();
     $sql = 'CALL getPoids(?)';
