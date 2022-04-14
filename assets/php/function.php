@@ -149,18 +149,6 @@ function getObjet(){
         if($poidsMax == ""){
             $poidsMax = "100";
         }
-/*         if($ordre == "1"){
-            $ordre = 'Objet.Prix ASC';
-        }
-        else if($ordre == "2"){
-            $ordre = 'Objet.Poids ASC';
-        }
-        else if($ordre == "3"){
-            $ordre = 'Objet.Prix DESC';
-        }
-        else if($ordre == "4"){
-            $ordre = 'Objet.Poids DESC';
-        } */
         $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
     }
     $stmt = $pdo->query($sqlProcedure);
@@ -247,8 +235,6 @@ function getIDJoueur($email){
 
 // modifier la procedure stocker pour augmenter la quantité et non une nouvelle ligne
 function AjouterPanier($idJoueur, $idObjet, $quantité){
-    
-
     $pdo = GetPdo();
     $sql = "CALL AjouterPanier(?,?,?)";
     
