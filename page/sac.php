@@ -5,6 +5,7 @@
 <?php 
     $poid = getPoids($_SESSION['idJoueur']);
     $dexteriter = getDexteriter($_SESSION['idJoueur']);
+    $caps = GetCaps($_SESSION['idJoueur']);
 ?>
 <!-- body -->
     <div class="container mt-5 rounded">
@@ -17,6 +18,9 @@
                 </div>
                 <div class="mx-3">
                     <h3>Dexteriter: <?php echo $dexteriter ?></h3>
+                </div>
+                <div class="mx-3">
+                    <h3>Nombre de caps : <?php echo $caps ?></h3>
                 </div>
             </div>
         </div>

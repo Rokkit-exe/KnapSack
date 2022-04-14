@@ -512,6 +512,7 @@ function CompleterAchat($id ,$qty,$idObjet,$prix,$poids){
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id , $idObjet , $qty , $prix, $poids]);
         console_log("Achat complété");
+        updateDexteriter($_SESSION['idJoueur']);
     }
     catch(Exception $e){
         console_log($e);

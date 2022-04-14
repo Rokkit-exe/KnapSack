@@ -13,7 +13,7 @@ if(isset($_POST['supprimer'])){
 }
 if(isset($_POST['acheter'])){
     AcheterPanier();
-    updateDexteriter($_SESSION['idJoueur']);
+    
 }
 if(!isset($_SESSION['idJoueur'])){
     $_SESSION['idJoueur']=55;
