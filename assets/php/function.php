@@ -313,7 +313,7 @@ function AfficherPanier($row){
         </div>
         ";
 }
-<<<<<<< HEAD
+
 function GetTotalePanier(){
     $poidsTotale = $_SESSION['PoidsPanierTotale'];
     $prixTotale = $_SESSION['PrixPanierTotale'];
@@ -333,12 +333,8 @@ function GetQuantiteObjet($idObjet){
         return $row['QuantiteStock'];
     }
 }
-function AjouterUnItemPanier($idObjet){
-    $pdo = GetPdo();
-    $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_SESSION['idJoueur'], $idObjet , 1]);
-=======
+
+
 
 function AjouterUnItemPanier($idObjet){
     $pdo = GetPdo();
@@ -354,7 +350,6 @@ function AjouterUnItemPanier($idObjet){
     
 
     
->>>>>>> 892666b394d60923ff1f116be6c251bd35e167f0
 }
 function EnleverUnItemPanier($idObjet){
     $pdo = GetPdo();
@@ -373,10 +368,6 @@ function EnleverUnItemPanier($idObjet){
 function SupprimerDuPanier($idObjet){
     $pdo = GetPdo();
     $sql = 'CALL SupprimerDuPanier(?,?)';
-<<<<<<< HEAD
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_SESSION['idJoueur'], $idObjet]);
-=======
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$_SESSION['idJoueur'], $idObjet]);
@@ -387,7 +378,6 @@ function SupprimerDuPanier($idObjet){
     }
     
 
->>>>>>> 892666b394d60923ff1f116be6c251bd35e167f0
 }
 function EnleverJoueurVide(){
     if($_SESSION['idJoueur'] == 55){
@@ -536,13 +526,9 @@ function updateDexteriter($id) {
         
     }
 }
-<<<<<<< HEAD
-
-=======
 function console_log($message){
     echo "<script type ='text/JavaScript'>console.log($message)</script>";
 }
->>>>>>> 892666b394d60923ff1f116be6c251bd35e167f0
 function getPoids($id){
     $pdo = GetPdo();
     $sql = 'CALL getPoids(?)';
