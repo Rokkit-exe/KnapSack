@@ -72,10 +72,10 @@ function ConfirmerInscription($id){
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);  
-        return True;
+        console_log("email confirmer du joueur : $id");
     }
     catch(Exception $e){
-        return False;
+        console_log($e);
     }
 }
 
@@ -85,11 +85,10 @@ function AjouterJoueur($pseudonyme , $nom , $prenom , $adresseCourriel , $motPas
     
     try{
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$pseudonyme , $nom , $prenom , $adresseCourriel , $motPass]);       
+        $stmt->execute([$pseudonyme , $nom , $prenom , $adresseCourriel , $motPass]);
+        console_log("Joueur $pseudonyme ajouter");   
     }catch (\Exception $e) {
-        $message = "impossible de créer l'utilisateur";
-        echo `<p>`.$message.`</p>`;
-        $_SESSION['erreur'] = $message;
+        console_log($e);
         header('location:inscription.php');
     }
 }
@@ -113,15 +112,16 @@ function VerifierLogin($email , $password){
                 $_SESSION['nom'] = $row['Nom'];
                 $_SESSION['prenom'] = $row['Prenom'];
                 $_SESSION['flag'] = $row['flag'];
-                
-                
+                console_log("Login sucessful !");
                 header('location:index.php');
             }
             else{
                 $message = 'Erreur ! Email ou Mot de Passe incorrect';
                 echo `<p>$message</p>`;
                 $_SESSION['erreur'] = $message;
+                console_log("Login unsucessful");
                 header('location:connection.php');
+                
             }
         }
     }catch(\Exception $e){
@@ -221,9 +221,11 @@ function getIDJoueur($email){
         foreach($stmt as $row){
             return $row['idJoueur'];
         }
+        
     }catch (\Exception $e) {
         echo `<p>`.$e.`</p>`;
         $_SESSION['erreur'] = $e;
+        console_log($e);
     }
     return null;
     
@@ -240,10 +242,12 @@ function AjouterPanier($idJoueur, $idObjet, $quantité){
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$idJoueur, $idObjet, $quantité]);
         $_SESSION['erreur'] = null;
+        console_log("item : $idObjet ajouter au panier de $idJoueur : qty : $quantité");
         header('location:index.php');
     }catch (\Exception $e) {
         $message = "impossible d'ajouter l'objet au panier";
         $_SESSION['erreur'] = $message;
+        console_log($message + " " + $e);
         header('location:index.php');
     }
 }
@@ -309,6 +313,7 @@ function AfficherPanier($row){
         </div>
         ";
 }
+<<<<<<< HEAD
 function GetTotalePanier(){
     $poidsTotale = $_SESSION['PoidsPanierTotale'];
     $prixTotale = $_SESSION['PrixPanierTotale'];
@@ -333,19 +338,56 @@ function AjouterUnItemPanier($idObjet){
     $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['idJoueur'], $idObjet , 1]);
+=======
+
+function AjouterUnItemPanier($idObjet){
+    $pdo = GetPdo();
+    $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$_SESSION['idJoueur'], $idObjet , 1]);
+        console_log("item : $idObjet qty augmenter de 1");
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+    
+
+    
+>>>>>>> 892666b394d60923ff1f116be6c251bd35e167f0
 }
 function EnleverUnItemPanier($idObjet){
     $pdo = GetPdo();
     $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_SESSION['idJoueur'], $idObjet , 0]);
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$_SESSION['idJoueur'], $idObjet , 0]);
+        console_log("item : $idObjet qty réduite de 1");
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+    
 }
 
 function SupprimerDuPanier($idObjet){
     $pdo = GetPdo();
     $sql = 'CALL SupprimerDuPanier(?,?)';
+<<<<<<< HEAD
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['idJoueur'], $idObjet]);
+=======
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$_SESSION['idJoueur'], $idObjet]);
+        console_log("Suppression du panier complété");
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+    
+
+>>>>>>> 892666b394d60923ff1f116be6c251bd35e167f0
 }
 function EnleverJoueurVide(){
     if($_SESSION['idJoueur'] == 55){
@@ -467,8 +509,15 @@ function VérifierAchat($row){
 function CompleterAchat($id ,$qty,$idObjet,$prix,$poids){
     $pdo = GetPdo();
     $sql = 'CALL CompleterAchat(?,?,?,?,?)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id , $idObjet , $qty , $prix, $poids]);
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id , $idObjet , $qty , $prix, $poids]);
+        console_log("Achat complété");
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+    
 }
 
 function updateDexteriter($id) {
@@ -476,11 +525,24 @@ function updateDexteriter($id) {
     $poids = getPoids($id);
     if ($poids > 50) {
         $sql = 'CALL UpdateDexteriter(?,?)';
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$id, $poids - 50]);
+        try{
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$id, $poids - 50]);
+            console_log("Update de dextérité fait");
+        }
+        catch(Exception $e){
+            console_log($e);
+        }
+        
     }
 }
+<<<<<<< HEAD
 
+=======
+function console_log($message){
+    echo "<script type ='text/JavaScript'>console.log($message)</script>";
+}
+>>>>>>> 892666b394d60923ff1f116be6c251bd35e167f0
 function getPoids($id){
     $pdo = GetPdo();
     $sql = 'CALL getPoids(?)';
