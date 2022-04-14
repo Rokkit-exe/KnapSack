@@ -263,6 +263,23 @@ function GetPanier($id){
         AfficherPanier($row);
     }
 }
+function GetCaps($id){
+    $pdo = GetPdo();
+    $sql = 'CALL getCapsJoueur(?)';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+        foreach($stmt as $row){
+            return $row['caps'];
+        }
+        
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+
+}
 function AfficherPanier($row){
     $nom = $row['NomObjet'];
     $photo = $row['Photo'];
@@ -314,14 +331,6 @@ function AfficherPanier($row){
         ";
 }
 
-function GetTotalePanier(){
-    $poidsTotale = $_SESSION['PoidsPanierTotale'];
-    $prixTotale = $_SESSION['PrixPanierTotale'];
-    echo $poidsTotale , $prixTotale;
-    echo "
-    ";
-    
-}
 
 function GetQuantiteObjet($idObjet){
     $pdo = GetPdo();
@@ -456,9 +465,9 @@ function AfficherTotalPanier($row){
     <div class='card-body text-center'>
         <h2 class='card-title mb-3'>Compléter votre Achat</h2>
             <div class='mt-3'>
-                <h4 class='mt-2'>Poids Total: $prixTotalPanier </h4>
-                <h4 class='mt-2'>Sous-Total: $poidsTotalPanier</h4>
-                <h4 class='mt-2'>Total: $poidsTotalPanier</h4>
+                <h4 class='mt-2'>Poids Total: $poidsTotalPanier </h4>
+                <h4 class='mt-2'>Sous-Total: $prixTotalPanier</h4>
+                <h4 class='mt-2'>Total: $prixTotalPanier</h4>
             </div>
     </div>
     <button formaction='panier.php' name='acheter' class='btn btn-success mt-3'>Passer la Commande</button>
@@ -491,7 +500,7 @@ function VérifierAchat($row){
     $idObjet = $row['idObjet'];
     $poids = $row['Poids'];
 
-    if($capitale >= $prix && $qty <= $qtyStock){
+    if($capitale >= $prix * $qty && $qty <= $qtyStock){
         CompleterAchat($_SESSION['idJoueur'] , $qty , $idObjet, $prix, $poids);
     }
 }
