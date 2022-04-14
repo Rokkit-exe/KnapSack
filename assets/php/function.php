@@ -113,15 +113,16 @@ function VerifierLogin($email , $password){
                 $_SESSION['nom'] = $row['Nom'];
                 $_SESSION['prenom'] = $row['Prenom'];
                 $_SESSION['flag'] = $row['flag'];
-                
-                
+
                 header('location:index.php');
             }
             else{
                 $message = 'Erreur ! Email ou Mot de Passe incorrect';
                 echo `<p>$message</p>`;
                 $_SESSION['erreur'] = $message;
+           
                 header('location:connection.php');
+                
             }
         }
     }catch(\Exception $e){
@@ -318,30 +319,47 @@ function GetTotalePanier(){
     $poidsTotale = $_SESSION['PoidsPanierTotale'];
     $prixTotale = $_SESSION['PrixPanierTotale'];
     echo $poidsTotale , $prixTotale;
-    echo "
-    ";
+    echo "";
     
 }
 function AjouterUnItemPanier($idObjet){
     $pdo = GetPdo();
     $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_SESSION['idJoueur'], $idObjet , 1]);
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$_SESSION['idJoueur'], $idObjet , 1]);
+    }
+    catch(Exception $e){
+        $_SESSION['erreur'] = $e;
+    }
+    
 
     
 }
 function EnleverUnItemPanier($idObjet){
     $pdo = GetPdo();
     $sql = 'CALL ModifierQuantitéPanier(?,?,?)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_SESSION['idJoueur'], $idObjet , 0]);
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$_SESSION['idJoueur'], $idObjet , 0]);
+    }
+    catch(Exception $e){
+        $_SESSION['erreur'] = $e;
+    }
+    
 }
 
 function SupprimerDuPanier($idObjet){
     $pdo = GetPdo();
     $sql = 'CALL SupprimerDuPanier(?,?)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_SESSION['idJoueur'], $idObjet]);
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$_SESSION['idJoueur'], $idObjet]);
+    }
+    catch(Exception $e){
+        $_SESSION['erreur'] = $e;
+    }
+    
 
 }
 function EnleverJoueurVide(){
