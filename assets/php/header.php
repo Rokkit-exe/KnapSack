@@ -1,6 +1,7 @@
 <?php 
     include('function.php');
     GetPdo();
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,9 +30,10 @@
                     </li>
                     <?php 
                         if(isset($_SESSION['idJoueur'])){
+                            $_SESSION['nbItemPanier'] = getQtyItemPanier($_SESSION['idJoueur']);
                             echo 
                                 "<li className='navbar-item'>
-                                    <a href='panier.php' class='nav-link active'>Panier</a>
+                                    <a href='panier.php' class='nav-link active'>Panier(".$_SESSION['nbItemPanier'].")</a>
                                 </li>
                                 <li className='navbar-item'>
                                     <a href='sac.php' class='nav-link active'>Sac à Dos</a>

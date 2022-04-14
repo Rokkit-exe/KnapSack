@@ -243,6 +243,7 @@ function AjouterPanier($idJoueur, $idObjet, $quantité){
         $stmt->execute([$idJoueur, $idObjet, $quantité]);
         $_SESSION['erreur'] = null;
         console_log("item : $idObjet ajouter au panier de $idJoueur : qty : $quantité");
+        $_SESSION['nbItemPanier'] = getQtyItemPanier($_SESSION['idJoueur']);
         header('location:index.php');
     }catch (\Exception $e) {
         $message = "impossible d'ajouter l'objet au panier";
@@ -518,6 +519,21 @@ function CompleterAchat($id ,$qty,$idObjet,$prix,$poids){
         console_log($e);
     }
     
+}
+function getQtyItemPanier($id){
+    $pdo = GetPdo();
+    $sql = 'Call GetQtyPanier(?)';
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+        
+        foreach($stmt as $row){
+            return $row['nbItems'];
+        }
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
 }
 
 function updateDexteriter($id) {
