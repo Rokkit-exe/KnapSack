@@ -1,8 +1,18 @@
+
 <!-- header -->
 <?php include('../assets/php/header.php')?>
 <!-- header -->
+<?php 
 
-<div class="card" style="width: 18rem;">
+if(isset($_GET['typeItem'])){
+  if($_GET['typeItem'] == 'Arme'){
+    $_SESSION['munition'] = getMunitions();
+  }
+}
+?>
+
+<div class="container text-light p-5 rounded mb-3" style="background-color: rgba(33,37,41,0.7);">
+<div class="card text-dark" style="width: 18rem;">
   <?php //ici get les demandes des usagers?>
   <div class="card-body">
     <h5 class="card-title">Demande des pauvres</h5>
@@ -13,6 +23,16 @@
 
 <form method="POST">
   <h1>Ajouter Item</h1>
+  <form method="GET">
+    <select name="typeItem" id="type">
+      <option value="Arme">Arme</option>
+      <option value="Armure">Armure</option>
+      <option value="Medicament">Médicament</option>
+      <option value="Nourriture">Nourriture</option>
+      <option value="Munition">Munition</option>
+  </select>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
   <div class="mb-3">
     <label for="nomItem" class="form-label">Nom Item</label>
     <input type="text" name="nomItem" class="form-control" id="nomItem" aria-describedby="">
@@ -34,7 +54,7 @@
   </div>
   <div class="mb-3">
     <label for="poids" class="form-label">Poids individuelle</label>
-    <input type="number" class="form-control" id="poids" name="poidsIndividuelle" aria-describedby="">
+    <input type="numeric" class="form-control" id="poids" name="poidsIndividuelle" aria-describedby="">
     <div id="poidsHelp" class="form-text"></div>
   </div>
   <div class="mb-3">
@@ -44,33 +64,15 @@
   </div>
   
   <?php //ici section pour les differente données (Armes , Armures , Medicaments , etc?>
-  <div class="mb-3">
-    <label for="" class="form-label"></label>
-    <input type="text" class="form-control" id="" aria-describedby="">
-    <div id="" class="form-text"></div>
-  </div>
-  <div class="mb-3">
-    <label for="" class="form-label"></label>
-    <input type="text" class="form-control" id="" aria-describedby="">
-    <div id="" class="form-text"></div>
-  </div>
-  <div class="mb-3">
-    <label for="" class="form-label"></label>
-    <input type="text" class="form-control" id="" aria-describedby="">
-    <div id="" class="form-text"></div>
-  </div>
+  <?php if(isset($_GET['typeItem'])){
+    AfficherFormTypeItem($_GET['typeItem']);
+  }?>
+
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<form method="GET">
-  <select name="typeItem" id="type">
-    <option value="Arme">Arme</option>
-    <option value="Armures">Armure</option>
-    <option value="Medicament">Médicament</option>
-    <option value="Nourrite">Nourriture</option>
-    <option value="Munition">Munition</option>
-  </select>
-</form>
+
+</div>
 <!-- footer -->
 <?php include('../assets/php/footer.php')?>
 <!-- footer -->

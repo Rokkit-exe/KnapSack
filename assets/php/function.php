@@ -613,19 +613,122 @@ function AfficherDetails($row){
     </div>
 </div>';
 }
+function getMunitions(){
 
+    $pdo = GetPdo();
+    $sql = 'CALL getMunition';
+    try{
+        
+        $stmt = $pdo->query($sql);
+        $tab = array();
+        foreach($stmt as $row){
+            array_push( $tab , [$row['Nom'] ,$row['idMunition']]);
+        }
+        if($tab != null){
+            return $tab;
+        }
+        else{
+            return null;
+        }
+        
+    }
+    catch(Exception $e){
+        console_log($e);
+       
+        return null;
+    }   
+}
+function AfficherListeDeroulante($tabMunition){
+    echo"<select>";
+    foreach($tabMunition as $row){
+        $nom = $row[0];
+        $id = $row[1];
+        echo"<option value='$id'>$nom</option>";
+    }
+    echo"</select>";
+
+}
+function AfficherFormArme(){
+    echo'<div class="mb-3">
+            <label for="efficaciter" class="form-label">Efficaciter</label>
+            <input type="number" class="form-control" name="efficaciter" id="efficaciter" aria-describedby="">
+            <div id="efficaciterHelp" class="form-text"></div>
+          </div>
+          <div class="mb-3">
+            <label for="genreArme" class="form-label">Genre Arme</label>
+            <input type="text" class="form-control" id="genreArme" name="genreArme" aria-describedby="">
+            <div id="genreArmeHelp" class="form-text"></div>
+          </div>
+          ';
+         if(isset($_SESSION['munition'])){
+              AfficherListeDeroulante($_SESSION['munition']);
+        }
+         
+}
 function AfficherFormTypeItem($type){
     switch($type){
         case 'Arme':
-            echo"";
+            AfficherFormArme();
             break;
         case 'Armure':
-            echo"";
+            AfficherFormArmure();
+
             break;
         case 'Nourriture':
-            echo"";
+            AfficherFormNourriture();
+
             break;
         case 'Munition';
+            AfficherFormMunition();
+
+            break;
+        case 'Medicament':
+            AfficherFormMedicament();
+
+            break;
     }
+}
+function AfficherFormArmure(){
+    echo '<div class="mb-3">
+    <label for="taille" class="form-label">Taille</label>
+    <select name="typeItem" id="type">
+        <option value="Grand">Grand</option>
+        <option value="Moyen">Moyen</option>
+        <option value="Petit">Petit</option>
+    </select>
+    <div id="tailleHelp" class="form-text"></div>
+     </div>
+  <div class="mb-3">
+    <label for="matiere" class="form-label">Matière</label>
+    <input type="text" class="form-control" id="matiere" name="matiere" aria-describedby="">
+    <div id="matiereHelp" class="form-text"></div>
+  </div>';
+}
+function AfficherFormNourriture(){
+    echo'<div class="mb-3">
+    <label for="pointsDeVie" class="form-label">Points de vie</label>
+    <input type="number" class="form-control" id="pointsDeVie" name="pointsDeVie" aria-describedby="">
+    <div id="pointsDeVieHelp" class="form-text"></div>
+  </div>';
+}
+
+function AfficherFormMunition(){
+    echo'<div class="mb-3">
+    <label for="calibre" class="form-label">Calibre</label>
+    <input type="number" class="form-control" id="calibre" name="calibre" aria-describedby="">
+    <div id="calibreHelp" class="form-text"></div>
+  </div>';
+}
+function AfficherFormMedicament(){
+    echo '<div class="mb-3">
+    <label for="duree" class="form-label">Durée</label>
+    <input type="number" class="form-control" id="duree" name="duree" aria-describedby="">
+    <div id="dureeHelp" class="form-text"></div>
+  </div>
+  <div class="mb-3">
+    <label for="effet" class="form-label">Effet</label>
+    <input type="text" class="form-control" id="effet" name="effet" aria-describedby="">
+    <div id="effetHelp" class="form-text"></div>
+  </div>';
 }
 ?>
