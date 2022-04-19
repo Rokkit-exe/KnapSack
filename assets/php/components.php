@@ -184,3 +184,11 @@ function AfficherDetails($row){
     </div>
 </div>';
 }
+
+function AfficherEvaluation() {
+
+}
+
+function AfficherNote() {
+    
+}

@@ -628,4 +628,15 @@ function AfficherFormTypeItem($type){
         case 'Munition';
     }
 }
+
+function getEvaluation($idObjet) {
+    $pdo = GetPdo();
+    $sql = 'Call getEvaluation(?)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$idObjet]);
+
+    foreach($stmt as $row){
+        AfficherDetails($row);
+    }
+}
 ?>
