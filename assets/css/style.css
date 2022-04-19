@@ -66,4 +66,7 @@ body::after {
 .text-light {
     color: #fff;
 }
+.text-dark{
+    color: black;
+}
 
