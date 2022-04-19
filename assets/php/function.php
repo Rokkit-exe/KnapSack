@@ -651,12 +651,12 @@ function AfficherListeDeroulante($tabMunition){
 function AfficherFormArme(){
     echo'<div class="mb-3">
             <label for="efficaciter" class="form-label">Efficaciter</label>
-            <input type="number" class="form-control" name="efficaciter" id="efficaciter" aria-describedby="">
+            <input type="number"  min=1 max=50 class="rounded w-25 form-control" name="efficaciter" id="efficaciter" aria-describedby="">
             <div id="efficaciterHelp" class="form-text"></div>
           </div>
           <div class="mb-3">
             <label for="genreArme" class="form-label">Genre Arme</label>
-            <input type="text" class="form-control" id="genreArme" name="genreArme" aria-describedby="">
+            <input type="text" class="rounded w-25 form-control" id="genreArme" name="genreArme" aria-describedby="">
             <div id="genreArmeHelp" class="form-text"></div>
           </div>
           ';
@@ -700,14 +700,14 @@ function AfficherFormArmure(){
      </div>
   <div class="mb-3">
     <label for="matiere" class="form-label">Matière</label>
-    <input type="text" class="form-control" id="matiere" name="matiere" aria-describedby="">
+    <input type="text" class="rounded w-25 form-control" id="matiere" name="matiere" aria-describedby="">
     <div id="matiereHelp" class="form-text"></div>
   </div>';
 }
 function AfficherFormNourriture(){
     echo'<div class="mb-3">
     <label for="pointsDeVie" class="form-label">Points de vie</label>
-    <input type="number" class="form-control" id="pointsDeVie" name="pointsDeVie" aria-describedby="">
+    <input type="number" class="rounded w-25 form-control" id="pointsDeVie" name="pointsDeVie" aria-describedby="">
     <div id="pointsDeVieHelp" class="form-text"></div>
   </div>';
 }
@@ -715,19 +715,19 @@ function AfficherFormNourriture(){
 function AfficherFormMunition(){
     echo'<div class="mb-3">
     <label for="calibre" class="form-label">Calibre</label>
-    <input type="number" class="form-control" id="calibre" name="calibre" aria-describedby="">
+    <input type="number" class="rounded w-25 form-control" id="calibre" name="calibre" aria-describedby="">
     <div id="calibreHelp" class="form-text"></div>
   </div>';
 }
 function AfficherFormMedicament(){
     echo '<div class="mb-3">
     <label for="duree" class="form-label">Durée</label>
-    <input type="number" class="form-control" id="duree" name="duree" aria-describedby="">
+    <input type="number" class="rounded w-25 form-control" id="duree" name="duree" aria-describedby="">
     <div id="dureeHelp" class="form-text"></div>
   </div>
   <div class="mb-3">
     <label for="effet" class="form-label">Effet</label>
-    <input type="text" class="form-control" id="effet" name="effet" aria-describedby="">
+    <input type="text" class="rounded w-25 form-control" id="effet" name="effet" aria-describedby="">
     <div id="effetHelp" class="form-text"></div>
   </div>';
 }
