@@ -634,7 +634,6 @@ function getMunitions(){
     }
     catch(Exception $e){
         console_log($e);
-       
         return null;
     }   
 }
