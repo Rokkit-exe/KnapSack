@@ -613,4 +613,19 @@ function AfficherDetails($row){
     </div>
 </div>';
 }
+
+function AfficherFormTypeItem($type){
+    switch($type){
+        case 'Arme':
+            echo"";
+            break;
+        case 'Armure':
+            echo"";
+            break;
+        case 'Nourriture':
+            echo"";
+            break;
+        case 'Munition';
+    }
+}
 ?>
