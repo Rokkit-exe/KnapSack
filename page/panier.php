@@ -13,7 +13,6 @@ if(isset($_POST['supprimer'])){
 }
 if(isset($_POST['acheter'])){
     AcheterPanier();
-    
 }
 if(!isset($_SESSION['idJoueur'])){
     $_SESSION['idJoueur']=55;
