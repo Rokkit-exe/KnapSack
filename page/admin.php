@@ -28,6 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <h1>Ajouter Item</h1>
 <form method="GET">
     <select name="typeItem" id="type">
+      <option value=" " selected> </option>
       <option value="Arme">Arme</option>
       <option value="Armure">Armure</option>
       <option value="Medicament">Médicament</option>
@@ -37,6 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 <form method="POST">
+  <h3><?php if(isset($_SESSION['type'])){echo $_SESSION['type'];}?></h3>
   <div class="mb-3">
     <label for="nomItem" class="form-label">Nom Item</label>
     <input  class="rounded w-25 form-control"  type="text" name="nomItem" class="form-control" id="nomItem" aria-describedby="">
