@@ -5,6 +5,7 @@
 <?php 
 
 if(isset($_GET['typeItem'])){
+  $_SESSION['type'] = $_GET['typeItem'];
   if($_GET['typeItem'] == 'Arme'){
     $_SESSION['munition'] = getMunitions();
   }
