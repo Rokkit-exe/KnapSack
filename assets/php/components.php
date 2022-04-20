@@ -177,35 +177,32 @@ function AfficherDetails($row){
             <div class="p-2">'
                 .AfficherNote($listeEvaluation).
             '</div>
-            <div>';
+            <div class="p-2">';
                 foreach($listeEvaluation as $row){
-                    AfficherCommentaire($row[0],$row[1],$row[2],$row[3],$row[4]);
+                    echo AfficherCommentaire($row[0],$row[1],$row[2],$row[3],$row[4]);
                 }
             echo '</div>
         </div>
-        
     </div>';
 }
 
 function AfficherCommentaire($idObjet, $idJoueur, $alias, $commentaire, $note) {
     return 
-    `<div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
+    '<div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
         <div class="card-header d-flex justify-content-between">
-            <div>$alias</div>
-            <!-- rating stars -->
-            <div class="rating>`.
+            <div>'.$alias.'</div>
+            <div class="rating">'.
                 AfficherÉtoile($note).
-            `</div>
-            <!-- rating stars -->
+            '</div>
         </div>
-        <div class="card-body ">
+        <div class="card-body">
             <div class="blockquote mb-0">
-                <p>$commentaire</p>
+                <p>'.$commentaire.'</p>
             </div>
         </div>
-        <input type='hidden' name='idObjet' value='$idObjet'>
-        <input type='hidden' name='idJoueur' value='$idJoueur'>
-    </div>`;
+        <input type="hidden" name="idObjet" value="'.$idObjet.'">
+        <input type="hidden" name="idJoueur" value="'.$idJoueur.'">
+    </div>';
 }
 
 function AfficherÉtoile($note) {
