@@ -1,7 +1,24 @@
 <!-- header -->
 <?php include('../assets/php/header.php')?>
-<!-- header -->
 
+<?php 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    FaireDemandeCaps($_SESSION['idJoueur'] , $_POST['caps']);
+}
+?>
+<!-- header -->
+<form class="row row-cols-lg-auto g-3 align-items-center" method="POST">
+  <div class="col-12">
+    <div>Faire une demande de 100 caps</div>
+  </div>
+
+  <div class="col-12">
+    <?php 
+    
+    ?>
+    <button type="submit"  class="btn btn-primary">Demande</button>
+  </div>
+</form>
 <!-- body -->
 <div class="container text-light p-5 rounded mb-3" style="background-color: rgba(33,37,41,0.7);">
     <h1>Profil</h1>

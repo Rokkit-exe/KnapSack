@@ -10,20 +10,20 @@ if(isset($_GET['typeItem'])){
     $_SESSION['munition'] = getMunitions();
   }
 }
-
+if(isset($_POST['demande'])){
+  //accepter demande
+}
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
   AjouterObjet($_POST);
+
 }
 ?>
 
 <div class="container text-light p-5 rounded mb-3" style="background-color: rgba(33,37,41,0.7);">
-<div class="card text-dark" style="width: 18rem;">
-  <?php //ici get les demandes des usagers?>
-  <div class="card-body">
-    <h5 class="card-title">Demande des pauvres</h5>
-    <p class="card-text">ici on va choisir si on donne du $ au joueurs</p>
-    <a href="#" class="btn btn-primary">Donner</a>
-  </div>
+<form method="POST">
+  <input type="hidden" name="demande" id="demande">
+  <?php getDemandesCaps(); ?>
+</form>
 </div>
 <h1>Ajouter Item</h1>
 <form method="GET">
