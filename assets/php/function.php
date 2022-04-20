@@ -708,6 +708,68 @@ function getSqlProcedureAjouter(){
         }
     }
 }*/
+function FaireDemandeCaps($id){
+    $pdo = GetPdo();
+    $sql = "CALL FaireDemandeCaps(?)";
 
+    if(VerifierDemandeCaps($id)){
+        return 'Erreur , vous pouvez faire que une demande de caps à ladmin a la fois';
+    }
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+function VerifierDemandeCaps($id){
+    $pdo = GetPdo();
+    $sql = 'CALL getDemandeIds()';
+
+    try{
+        $stmt = $pdo->query($sql);
+        
+        foreach($stmt as $row){
+            if($row['id'] == $id){
+                return True;
+            }
+        }
+        return False;
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+
+function getDemandesCaps(){
+    $pdo = GetPdo();
+    $sql = 'CALL getDemandeCaps';
+    
+    
+    try{
+        $stmt = $pdo->query($sql); 
+        foreach($stmt as $row){
+            echo AfficherDemandeCaps($row['id'] , $row['nom'] , $row['solde']);
+        }
+        
+    }
+    catch(Exception $e){
+
+    }
+}
+function EnvoyerCaps($id){
+    $pdo = GetPdo();
+    $sql = "CALL EnvoyerCaps(?)";
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
 
 ?>

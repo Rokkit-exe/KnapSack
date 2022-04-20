@@ -1,7 +1,8 @@
 <!-- header -->
 <?php include('../assets/php/header.php')?>
-<!-- header -->
 
+
+<!-- header -->
 <!-- body -->
 <div class="container text-light p-5 rounded mb-3" style="background-color: rgba(33,37,41,0.7);">
     <h1>Profil</h1>

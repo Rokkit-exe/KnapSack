@@ -410,3 +410,16 @@ function AfficherFormMedicament() {
     <div id="effetHelp" class="form-text"></div>
     </div>';
 }
+function AfficherDemandeCaps($id , $nom , $solde){
+    return "<div class='mb-3'>
+    <label for='nom' class='form-label'>Nom : </label>
+    <input type='hidden' class='form-control' id='nom' name='nom' aria-describedby='nomHelp' value='$id'>
+    <div id='nom' class='form-control'>$nom</div>
+  </div>
+  <div class='mb-3'>
+    <label for='solde' class='form-label'>Solde du Joueur : </label>
+    <div id='solde' class='form-control'>$solde</div>
+  </div>
+  
+  <button type='submit' class='btn btn-primary'>Accepter sa demande</button>";
+}

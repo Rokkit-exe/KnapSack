@@ -17,14 +17,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 ?>
 
 <div class="container text-light p-5 rounded mb-3" style="background-color: rgba(33,37,41,0.7);">
-<div class="card text-dark" style="width: 18rem;">
-  <?php //ici get les demandes des usagers?>
-  <div class="card-body">
-    <h5 class="card-title">Demande des pauvres</h5>
-    <p class="card-text">ici on va choisir si on donne du $ au joueurs</p>
-    <a href="#" class="btn btn-primary">Donner</a>
-  </div>
-</div>
 <h1>Ajouter Item</h1>
 <form method="GET">
     <select name="typeItem" id="type">
@@ -77,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-
+<a href="demandeCaps.php">Voir demandes de caps</a>
 </div>
 <!-- footer -->
 <?php include('../assets/php/footer.php')?>
