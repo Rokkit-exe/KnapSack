@@ -409,7 +409,7 @@ function AfficherFormMedicament() {
     </div>';
 }
 function AfficherDemandeCaps($id , $nom , $solde){
-    echo"<div class='mb-3'>
+    return "<div class='mb-3'>
     <label for='nom' class='form-label'>Nom : </label>
     <input type='hidden' class='form-control' id='nom' name='nom' aria-describedby='nomHelp' value='$id'>
     <div id='nom' class='form-control'>$nom</div>

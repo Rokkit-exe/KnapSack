@@ -7,6 +7,11 @@
     $dexteriter = getDexteriter($_SESSION['idJoueur']);
     $caps = GetCaps($_SESSION['idJoueur']);
 ?>
+<?php 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    FaireDemandeCaps($_SESSION['idJoueur']);
+}
+?>
 <!-- body -->
     <div class="container mt-5 rounded">
         <div class="container m-3 text-light rounded border border-2 border-dark" style="background-color: rgba(33,37,41,0.7);">
@@ -22,6 +27,15 @@
                 <div class="mx-3">
                     <h3>Nombre de caps : <?php echo $caps ?></h3>
                 </div>
+                <form class="row row-cols-lg-auto g-3 align-items-center" method="POST">
+                    <div class="col-12">
+                        <div>Faire une demande de 100 caps</div>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit"  class="btn btn-primary">Demande</button>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- dextériter/poids du sac -->

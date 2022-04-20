@@ -10,21 +10,13 @@ if(isset($_GET['typeItem'])){
     $_SESSION['munition'] = getMunitions();
   }
 }
-if(isset($_POST['demande'])){
-  //accepter demande
-}
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
   AjouterObjet($_POST);
-
 }
 ?>
 
 <div class="container text-light p-5 rounded mb-3" style="background-color: rgba(33,37,41,0.7);">
-<form method="POST">
-  <input type="hidden" name="demande" id="demande">
-  <?php getDemandesCaps(); ?>
-</form>
-</div>
 <h1>Ajouter Item</h1>
 <form method="GET">
     <select name="typeItem" id="type">
@@ -77,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-
+<a href="demandeCaps.php">Voir demandes de caps</a>
 </div>
 <!-- footer -->
 <?php include('../assets/php/footer.php')?>
