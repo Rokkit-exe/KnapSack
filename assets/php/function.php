@@ -504,15 +504,15 @@ function getPourcentageNote($listeEvaluation) {
         $note4 = 0;
         $note5 = 0;
         foreach($listeEvaluation as $row){
-            if ($row[3] == 1)
+            if ($row[4] == 1)
                 $note1 += 1;
-            if ($row[3] == 2)
+            if ($row[4] == 2)
                 $note2 += 1;
-            if ($row[3] == 3)
+            if ($row[4] == 3)
                 $note3 += 1;
-            if ($row[3] == 4)
+            if ($row[4] == 4)
                 $note4 += 1;
-            if ($row[3] == 5)
+            if ($row[4] == 5)
                 $note5 += 1;
         }
         $listePourcentage = array(Pourcentage($note1,$nbEvaluation), 
@@ -541,9 +541,9 @@ function Moyenne($liste, $nb) {
 
 function GetListeNotes($listeEvaluation) {
     $listeNote = array();
-    if ($listeEvaluation != null){
+    if (count($listeEvaluation) > 0){
         foreach($listeEvaluation as $eval) {
-            array_push($listeNote, $eval['Note']);
+            array_push($listeNote, $eval[4]);
         }
     }
     else {
@@ -560,7 +560,7 @@ function getEvaluation($idObjet) {
         $stmt->execute([$idObjet]);
         $tab = array();
         foreach($stmt as $row){
-            array_push( $tab , [$row['idObjet'] ,$row['idJoueurs'], $row['Commentaire'], $row['Note']]);
+            array_push( $tab , [$row['idObjet'] ,$row['idJoueurs'], $row['alias'], $row['Commentaire'], $row['Note']]);
         }
         if($tab != null){
             return $tab;
