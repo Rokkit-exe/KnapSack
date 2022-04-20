@@ -158,31 +158,37 @@ function AfficherDetails($row){
     $listeEvaluation = getEvaluation($idObjet);
     echo '
     <div class="container">
-    <div class="card mb-3 detail border border-2 border-dark text-light" style="background-color: rgba(33,37,41,0.7)">
-        <div class="row g-0 p-2">
-            <div style="margin-top: 25px;" class="col-md-4">
-                <img src='.$photo.' alt="photo" height="100%" width="100%" class="rounded-3">
+        <div class="card mb-3 detail border border-2 border-dark text-light" style="background-color: rgba(33,37,41,0.7)">
+            <div class="row g-0 p-2">
+                <div style="margin-top: 25px;" class="col-md-4">
+                    <img src='.$photo.' alt="photo" height="100%" width="100%" class="rounded-3">
+                    
                 
-            
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h4 class="card-title">'.$nom.'</h4>
-                    <p class="card-text">Description: '.$description.'</p>
-                    <p class="card-text">Prix: '.$prix.'$</p>
-                    <p class="card-text">Poids: '.$poids.' lbs</p>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title">'.$nom.'</h4>
+                        <p class="card-text">Description: '.$description.'</p>
+                        <p class="card-text">Prix: '.$prix.'$</p>
+                        <p class="card-text">Poids: '.$poids.' lbs</p>
+                    </div>
                 </div>
             </div>
-        </div>'
-            .AfficherNote($listeEvaluation).
-        '<div>
+            <div class="p-2">'
+                .AfficherNote($listeEvaluation).
+            '</div>
+            <div>';
+                foreach($listeEvaluation as $row){
+                    AfficherCommentaire($row[0],$row[1],$row[2],$row[3],$row[4]);
+                }
+            echo '</div>
         </div>
-    </div>
-</div>';
+        
+    </div>';
 }
 
-function AfficherEvaluation($idObjet, $idJoueur, $alias, $commentaire, $note) {
-    echo 
+function AfficherCommentaire($idObjet, $idJoueur, $alias, $commentaire, $note) {
+    return 
     `<div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
         <div class="card-header d-flex justify-content-between">
             <div>$alias</div>
@@ -204,7 +210,7 @@ function AfficherEvaluation($idObjet, $idJoueur, $alias, $commentaire, $note) {
 
 function AfficherÉtoile($note) {
     if ($note >= 0 && $note <= 0.25){
-        echo 
+        return 
         '<i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
@@ -212,7 +218,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star"></i>';
     }
     if ($note > 0.25 && $note <= 0.75){
-        echo 
+        return 
         '<i class="bi bi-star-half"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
@@ -220,7 +226,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star"></i>';
     }
     if ($note > 0.75 && $note <= 1.25){
-        echo 
+        return 
         '<i class="bi bi-star-fill"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
@@ -228,7 +234,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star"></i>';
     }
     if ($note > 1.25 && $note <= 1.75){
-        echo 
+        return 
         '<i class="bi bi-star-fill"></i>
         <i class="bi bi-star-half"></i>
         <i class="bi bi-star"></i>
@@ -236,7 +242,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star"></i>';
     }
     if ($note > 1.75 && $note <= 2.25){
-        echo 
+        return 
         '<i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
         <i class="bi bi-star"></i>
@@ -244,7 +250,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star"></i>';
     }
     if ($note > 2.25 && $note <= 2.75){
-        echo 
+        return 
         '<i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
         <i class="bi bi-star-half"></i>
@@ -252,7 +258,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star"></i>';
     }
     if ($note > 2.75 && $note <= 3.25){
-        echo 
+        return 
         '<i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
@@ -260,7 +266,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star"></i>';
     }
     if ($note > 3.25 && $note <= 3.75){
-        echo 
+        return 
         '<i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
@@ -268,7 +274,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star"></i>';
     }
     if ($note > 3.75 && $note <= 4.25){
-        echo 
+        return 
         '<i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
@@ -276,7 +282,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star"></i>';
     }
     if ($note > 4.25 && $note <= 4.75){
-        echo 
+        return 
         '<i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
@@ -284,7 +290,7 @@ function AfficherÉtoile($note) {
         <i class="bi bi-star-half"></i>';
     }
     if ($note > 4.75 && $note <= 5){
-        echo 
+        return 
         '<i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
         <i class="bi bi-star-fill"></i>
@@ -304,43 +310,43 @@ function AfficherNote($listeEvaluation) {
     $note3 = $listePourcentageNote[2];
     $note4 = $listePourcentageNote[3];
     $note5 = $listePourcentageNote[4];
-    echo 
-    `<div class="card w-25 text-light mb-2 p-3" style="background-color: rgba(33,37,41,0.7)">
+    return
+    '<div class="card w-25 text-light mb-2 p-3" style="background-color: rgba(33,37,41,0.7)">
         <div class="mb-3">
-            <div class="rating mb-2">`
-                .AfficherÉtoile($moyenne).
-                `$moyenne sur 5
+            <div class="rating mb-2">'
+                .AfficherÉtoile($moyenne).' '.
+                $moyenne .' sur 5
             </div>
-            <div>5 Évaluations Total</div>
+            <div>'.$nbEvaluation.' Évaluations Total</div>
         </div>
         <div>
             <div>
                 5 étoiles
-                <progress class="rounded" value="$note5" max="100"></progress>
-                $note5%
+                <progress class="rounded" value="'.$note5.'" max="100"></progress>
+                '.$note5.'%
             </div>
             <div>
                 4 étoiles
-                <progress class="rounded" value="$note4" max="100"></progress>
-                $note4%
+                <progress class="rounded" value="'.$note4.'" max="100"></progress>
+                '.$note4.'%
             </div>
             <div>
                 3 étoiles
-                <progress class="rounded" value="$note3" max="100"></progress>
-                $note3%
+                <progress class="rounded" value="'.$note3.'" max="100"></progress>
+                '.$note3.'%
             </div>
             <div>
                 2 étoiles
-                <progress class="rounded" value="$note2" max="100"></progress>
-                $note2%
+                <progress class="rounded" value="'.$note2.'" max="100"></progress>
+                '.$note2.'%
             </div>
             <div>
                 1 étoiles
-                <progress class="rounded" value="$note1" max="100"></progress>
-                $note1%
+                <progress class="rounded" value="'.$note1.'" max="100"></progress>
+                '.$note1.'%
             </div>
         </div>
-    </div>`;
+    </div>';
     }
 }
 
