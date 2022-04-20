@@ -495,30 +495,35 @@ function AfficherFormTypeItem($type){
 }
 
 function getPourcentageNote($listeEvaluation) {
-    $nbEvaluation = count($listeEvaluation);
-    $note1 = 0;
-    $note2 = 0;
-    $note3 = 0;
-    $note4 = 0;
-    $note5 = 0;
-    foreach($listeEvaluation as $row){
-        if ($row[3] == 1)
-            $note1 += 1;
-        if ($row[3] == 2)
-            $note2 += 1;
-        if ($row[3] == 3)
-            $note3 += 1;
-        if ($row[3] == 4)
-            $note4 += 1;
-        if ($row[3] == 5)
-            $note5 += 1;
-    }
     
-    $listePourcentage = array(Pourcentage($note1,$nbEvaluation), 
+    if ($listeEvaluation != null){
+        $nbEvaluation = count($listeEvaluation);
+        $note1 = 0;
+        $note2 = 0;
+        $note3 = 0;
+        $note4 = 0;
+        $note5 = 0;
+        foreach($listeEvaluation as $row){
+            if ($row[3] == 1)
+                $note1 += 1;
+            if ($row[3] == 2)
+                $note2 += 1;
+            if ($row[3] == 3)
+                $note3 += 1;
+            if ($row[3] == 4)
+                $note4 += 1;
+            if ($row[3] == 5)
+                $note5 += 1;
+        }
+        $listePourcentage = array(Pourcentage($note1,$nbEvaluation), 
                                 Pourcentage($note2,$nbEvaluation), 
                                 Pourcentage($note3,$nbEvaluation), 
                                 Pourcentage($note4, $nbEvaluation), 
                                 Pourcentage($note5,$nbEvaluation));
+    }
+    else {
+        $listePourcentage = array(0, 0, 0, 0, 0);
+    }
     return $listePourcentage;
 }
 
@@ -536,8 +541,13 @@ function Moyenne($liste, $nb) {
 
 function GetListeNotes($listeEvaluation) {
     $listeNote = array();
-    foreach($listeEvaluation as $eval) {
-        array_push($listeNote, $eval['Note']);
+    if ($listeEvaluation != null){
+        foreach($listeEvaluation as $eval) {
+            array_push($listeNote, $eval['Note']);
+        }
+    }
+    else {
+        $listeNote = null;
     }
     return $listeNote;
 }

@@ -294,7 +294,8 @@ function AfficherÉtoile($note) {
 }
 
 function AfficherNote($listeEvaluation) {
-    $listeNotes = GetListeNotes($listeEvaluation);
+    if ($listeEvaluation != null){
+        $listeNotes = GetListeNotes($listeEvaluation);
     $nbEvaluation = count($listeEvaluation);
     $moyenne = Moyenne($listeNotes, $nbEvaluation);
     $listePourcentageNote = getPourcentageNote($listeEvaluation);
@@ -340,6 +341,7 @@ function AfficherNote($listeEvaluation) {
             </div>
         </div>
     </div>`;
+    }
 }
 
 function AfficherFormArme(){
