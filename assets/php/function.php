@@ -709,23 +709,5 @@ function getSqlProcedureAjouter(){
     }
 }*/
 
-function userExists($pdo, $alias, $email) {
-    $sql = "CALL getUsers();";
-    try {
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
 
-        foreach($stmt as $row) {
-            if ($row['alias'] == $alias || $row['email'] == $email)
-                return true;
-            else
-                return false;
-        }
-    }
-    catch (Exception $e) {
-        $error = "cantverifieuser";
-        header("location: ../signup.php?error=".$error);
-        exit();
-    }
-}
 ?>
