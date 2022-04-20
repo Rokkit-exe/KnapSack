@@ -149,11 +149,13 @@ function AfficherSac($row){
 }
 
 function AfficherDetails($row){
+    $idObjet = $row['idObjet'];
     $nom = $row['NomObjet'];
     $photo = $row['Photo'];
     $description = $row['Description'];
     $prix = $row['Prix'];
     $poids = $row['Poids'];
+    $listeEvaluation = getEvaluation($idObjet);
     echo '
     <div class="container">
     <div class="card mb-3 detail border border-2 border-dark text-light" style="background-color: rgba(33,37,41,0.7)">
@@ -169,26 +171,235 @@ function AfficherDetails($row){
                     <p class="card-text">Description: '.$description.'</p>
                     <p class="card-text">Prix: '.$prix.'$</p>
                     <p class="card-text">Poids: '.$poids.' lbs</p>
-                    <!-- rating stars -->
-                    <div class="rating">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-half"></i>
-                        <i class="bi bi-star"></i>
-                    </div>
-                    <!-- rating stars -->
                 </div>
             </div>
+        </div>'
+            .AfficherNote($listeEvaluation).
+        '<div>
         </div>
     </div>
 </div>';
 }
 
-function AfficherEvaluation() {
-
+function AfficherEvaluation($idObjet, $idJoueur, $alias, $commentaire, $note) {
+    echo 
+    `<div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
+        <div class="card-header d-flex justify-content-between">
+            <div>$alias</div>
+            <!-- rating stars -->
+            <div class="rating>`.
+                AfficherÉtoile($note).
+            `</div>
+            <!-- rating stars -->
+        </div>
+        <div class="card-body ">
+            <div class="blockquote mb-0">
+                <p>$commentaire</p>
+            </div>
+        </div>
+        <input type='hidden' name='idObjet' value='$idObjet'>
+        <input type='hidden' name='idJoueur' value='$idJoueur'>
+    </div>`;
 }
 
-function AfficherNote() {
-    
+function AfficherÉtoile($note) {
+    if ($note >= 0 && $note <= 0.25){
+        echo 
+        '<i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>';
+    }
+    if ($note > 0.25 && $note <= 0.75){
+        echo 
+        '<i class="bi bi-star-half"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>';
+    }
+    if ($note > 0.75 && $note <= 1.25){
+        echo 
+        '<i class="bi bi-star-fill"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>';
+    }
+    if ($note > 1.25 && $note <= 1.75){
+        echo 
+        '<i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>';
+    }
+    if ($note > 1.75 && $note <= 2.25){
+        echo 
+        '<i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>';
+    }
+    if ($note > 2.25 && $note <= 2.75){
+        echo 
+        '<i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>';
+    }
+    if ($note > 2.75 && $note <= 3.25){
+        echo 
+        '<i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>';
+    }
+    if ($note > 3.25 && $note <= 3.75){
+        echo 
+        '<i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star"></i>';
+    }
+    if ($note > 3.75 && $note <= 4.25){
+        echo 
+        '<i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star"></i>';
+    }
+    if ($note > 4.25 && $note <= 4.75){
+        echo 
+        '<i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-half"></i>';
+    }
+    if ($note > 4.75 && $note <= 5){
+        echo 
+        '<i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>';
+    }
+}
+
+function AfficherNote($listeEvaluation) {
+    $listeNotes = GetListeNotes($listeEvaluation);
+    $nbEvaluation = count($listeEvaluation);
+    $moyenne = Moyenne($listeNotes, $nbEvaluation);
+    $listePourcentageNote = getPourcentageNote($listeEvaluation);
+    $note1 = $listePourcentageNote[0];
+    $note2 = $listePourcentageNote[1];
+    $note3 = $listePourcentageNote[2];
+    $note4 = $listePourcentageNote[3];
+    $note5 = $listePourcentageNote[4];
+    echo 
+    `<div class="card w-25 text-light mb-2 p-3" style="background-color: rgba(33,37,41,0.7)">
+        <div class="mb-3">
+            <div class="rating mb-2">`
+                .AfficherÉtoile($moyenne).
+                `$moyenne sur 5
+            </div>
+            <div>5 Évaluations Total</div>
+        </div>
+        <div>
+            <div>
+                5 étoiles
+                <progress class="rounded" value="$note5" max="100"></progress>
+                $note5%
+            </div>
+            <div>
+                4 étoiles
+                <progress class="rounded" value="$note4" max="100"></progress>
+                $note4%
+            </div>
+            <div>
+                3 étoiles
+                <progress class="rounded" value="$note3" max="100"></progress>
+                $note3%
+            </div>
+            <div>
+                2 étoiles
+                <progress class="rounded" value="$note2" max="100"></progress>
+                $note2%
+            </div>
+            <div>
+                1 étoiles
+                <progress class="rounded" value="$note1" max="100"></progress>
+                $note1%
+            </div>
+        </div>
+    </div>`;
+}
+
+function AfficherFormArme(){
+    echo
+    '<div class="mb-3">
+        <label for="efficaciter" class="form-label">Efficaciter</label>
+        <input type="number"  min=1 max=50 class="rounded w-25 form-control" name="efficaciter" id="efficaciter" aria-describedby="">
+        <div id="efficaciterHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="genreArme" class="form-label">Genre Arme</label>
+        <input type="text" class="rounded w-25 form-control" id="genreArme" name="genreArme" aria-describedby="">
+        <div id="genreArmeHelp" class="form-text"></div>
+    </div>
+    ';
+    if(isset($_SESSION['munition'])){
+        AfficherListeDeroulante($_SESSION['munition']);
+    }
+}
+
+function AfficherFormArmure(){
+    echo '<div class="mb-3">
+    <label for="taille" class="form-label">Taille</label>
+    <select name="typeItem" id="type">
+        <option value="Grand">Grand</option>
+        <option value="Moyen">Moyen</option>
+        <option value="Petit">Petit</option>
+    </select>
+    <div id="tailleHelp" class="form-text"></div>
+        </div>
+    <div class="mb-3">
+    <label for="matiere" class="form-label">Matière</label>
+    <input type="text" class="rounded w-25 form-control" id="matiere" name="matiere" aria-describedby="">
+    <div id="matiereHelp" class="form-text"></div>
+    </div>';
+}
+function AfficherFormNourriture(){
+    echo'<div class="mb-3">
+    <label for="pointsDeVie" class="form-label">Points de vie</label>
+    <input type="number" class="rounded w-25 form-control" id="pointsDeVie" name="pointsDeVie" aria-describedby="">
+    <div id="pointsDeVieHelp" class="form-text"></div>
+    </div>';
+}
+
+function AfficherFormMunition(){
+    echo'<div class="mb-3">
+    <label for="calibre" class="form-label">Calibre</label>
+    <input type="number" class="rounded w-25 form-control" id="calibre" name="calibre" aria-describedby="">
+    <div id="calibreHelp" class="form-text"></div>
+    </div>';
+}
+function AfficherFormMedicament() {
+    echo '<div class="mb-3">
+    <label for="duree" class="form-label">Durée</label>
+    <input type="number" class="rounded w-25 form-control" id="duree" name="duree" aria-describedby="">
+    <div id="dureeHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+    <label for="effet" class="form-label">Effet</label>
+    <input type="text" class="rounded w-25 form-control" id="effet" name="effet" aria-describedby="">
+    <div id="effetHelp" class="form-text"></div>
+    </div>';
 }

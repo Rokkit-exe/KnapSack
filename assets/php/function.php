@@ -163,42 +163,8 @@ function getObjet(){
         AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo);
     }
 }
-//<img src='../assets/img/$photo' alt='photo' height='100%' width='100%' class='rounded-3'>
 // ------------------------------------------------------- Ajouter objet -----------------------------------------------------
-function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo){
-    echo "<div class='col'>
-                    <div style='width: 20em; background-color: rgba(33,37,41,0.7);' class='border border-dark border-2 card m-2 shadow p-3 text-light'>
-                        <div class='card-img-top text-center'>
-                            <img src='$photo'alt='photo' height='100%' width='100%' class='rounded-3'>
-                        </div>
-                        <div class='row row-cols-2 mt-3 card-body'>
-                            <div class='w-100'><h3 class='title card-title'>$nom</h3></div>
-                            <div class='col text-start card-text'>
-                                <div>Quantité: $quantité</div>
-                                <div>Prix: $prix$</div>
-                                <div>Poids: $poids lbs</div>
-                            </div>
-                            <div class='col d-block'>
-                                <a href='details.php?id=$id&typeItem=$typeItem' style='margin: 5px;' class='btn btn-primary'>Details</a>";
-                            if ($quantité >= 1 && isset($_SESSION['idJoueur'])) {
-                                echo "<form method='POST'>
-                                        <input type='hidden' name='idObjet' value='$id'>
-                                        <input type='hidden' name='idJoueur' value='". $_SESSION['idJoueur'] . "'>
-                                        <input type='hidden' name='quantité' value='1'>
-                                        <button class='btn btn-primary'>Acheter</button>
-                                    </form>";
-                            }
-                            elseif ($quantité < 1 && isset($_SESSION['idJoueur'])) {
-                                echo "<div style='margin: 5px;' class='btn btn-primary'>Acheter</div>";
-                            }
-                            else {
-                                echo "<a href='connection.php' style='margin: 5px;' class='btn btn-primary'>Acheter</a>";
-                            }
-                        echo "</div>
-                        </div>
-                    </div>
-                </div>";
-}
+
 
 function ContrainteOuPas(){
     foreach($_GET as $val){
@@ -281,56 +247,7 @@ function GetCaps($id){
     }
 
 }
-function AfficherPanier($row){
-    $nom = $row['NomObjet'];
-    $photo = $row['Photo'];
-    $prixTotale = $row['PrixTotale'];
-    $poidsTotale = $row['PoidsTotale'];
-    $description = $row['Description'];
-    $qty = $row['quantité'];
-    $idObjet = $row['idObjet'];
-    $_SESSION['PrixPanierTotale'] += $prixTotale;
-    $_SESSION['PoidsPanierTotale'] += $poidsTotale;
-    echo " 
-        <div class='card mb-3 border border-2 border-dark text-light' style='max-width: 700px; background-color: rgba(33,37,41,0.7);'>
-            <div class='row g-0'>
-                <div class='col-md-7'>
-                <img src='$photo'alt='photo' width='100%' class='rounded-3'>   
-                </div>
-                <div class='col-md-5'>
-                    <div class='card-body'>
-                        <form method='POST'>
-                            <input type='hidden' name='idObjet' value=$idObjet></input>
-                            <h5 class='card-title'>$nom</h5>
-                            <p class='card-text'>$description</p>
-                            <div class='d-inline'>
-                                <input type='hidden' name='quantite' value=$qty></input>
-                                <p class='card-text'>quantité: $qty</p>
-                                <p class='card-text'>prix total: $prixTotale</p>
-                                <p class='card-text'>poids total: $poidsTotale</p>";
-                                if ($qty >= GetQuantiteObjet($idObjet)){
-                                    echo "<div class='btn btn-secondary'>+</div>";
-                                }
-                                else{
-                                    echo "<button class='btn btn-primary' formaction='panier.php' name='ajouter'>+</button>";
-                                }
-                                if ($qty == 1) {
-                                    echo "<div class='btn btn-secondary'>-</div>";
-                                }
-                                else {
-                                    echo "<button class='btn btn-primary' formaction='panier.php' name='enlever'>-</button>";
-                                }
-                                echo "
-                                <button class='btn btn-primary' formaction='panier.php' name='supprimer'>Supprimer du Panier</button>
-                            </div>
 
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        ";
-}
 
 function GetTotalPanier(){
     $pdo = GetPdo();
@@ -343,24 +260,6 @@ function GetTotalPanier(){
     }
 }
 
-function AfficherTotalPanier($row){
-    $prixTotalPanier = $row['TotalPrixPanier'];
-    $poidsTotalPanier = $row['TotalPoidsPanier'];
-    echo 
-    "<form method='POST'>
-        <div class='card border border-2 border-dark text-light' style='background-color: rgba(33,37,41,0.7);'>
-            <div class='card-body text-center'>
-                <h2 class='card-title mb-3'>Compléter votre Achat</h2>
-                    <div class='mt-3'>
-                        <h4 class='mt-2'>Poids Total: $poidsTotalPanier </h4>
-                        <h4 class='mt-2'>Sous-Total: $prixTotalPanier</h4>
-                        <h4 class='mt-2'>Total: $prixTotalPanier</h4>
-                    </div>
-            </div>
-            <button formaction='panier.php' name='acheter' class='btn btn-success mt-3'>Passer la Commande</button>
-        </div>
-    </form>";
-}
 
 
 function GetQuantiteObjet($idObjet){
@@ -424,46 +323,6 @@ function GetSac($id){
     }
 }
 
-function AfficherSac($row){
-    $nom = $row['NomObjet'];
-    $photo = $row['Photo'];
-    $description = $row['Description'];
-    $typeObjet = $row['TypeObjet'];
-    $qty = $row['quantité'];
-    $idObjet = $row['idObjet'];
-    $prix = $row['Prix'];
-    $poids = $row['Poids'];
-    echo " 
-        <div class='col text-light'>
-            <div class='border border-dark border-2 card m-2 shadow p-3' style='background-color: rgba(33,37,41,0.7)'>
-                <div class='card-img-top text-center'>
-                    <img src='$photo'alt='photo' height='100%' width='100%' class='rounded-3'>
-                </div>
-                <div class='d-flex justify-content-center'><h3 class='title card-title'>$nom</h3></div>
-                <div class='mt-3 card-body d-flex justify-content-between'>
-                    <div class='card-text'>
-                        <div>Quantité: $qty</div>
-                        <div>Poids: $poids lbs</div>
-                    </div>
-                    <div class=''>
-                        <a href='details.php?id=$idObjet&typeItem=$typeObjet' class='btn btn-primary'>Details</a>
-                    </div>
-                </div>";
-                /* <div class='mt-2 card-body d-flex justify-content-between'>
-                        <div>vente: + $prix caps</div>
-                        <div>
-                            <form method='POST'>
-                                <input type='hidden' name='idObjet' value='$idObjet'>
-                                <input type='hidden' name='idJoueur' value='".$_SESSION['idJoueur']."'>
-                                <input type='hidden' name='quantité' value='$qty'>
-                                <input type='hidden' name='prixVente' value='$prix'>
-                                <button   class='btn btn-primary'>Vendre</button>
-                            </form>
-                        </div>
-                </div> */
-            echo "</div>
-        </div>";
-}
 
 
 
@@ -577,44 +436,8 @@ function GetDetails($id){
     }
 }
 
-function AfficherDetails($row){
-    $nom = $row['NomObjet'];
-    $photo = $row['Photo'];
-    $description = $row['Description'];
-    $prix = $row['Prix'];
-    $poids = $row['Poids'];
-    echo '
-    <div class="container">
-    <div class="card mb-3 detail border border-2 border-dark text-light" style="background-color: rgba(33,37,41,0.7)">
-        <div class="row g-0 p-2">
-            <div style="margin-top: 25px;" class="col-md-4">
-                <img src='.$photo.' alt="photo" height="100%" width="100%" class="rounded-3">
-                
-            
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h4 class="card-title">'.$nom.'</h4>
-                    <p class="card-text">Description: '.$description.'</p>
-                    <p class="card-text">Prix: '.$prix.'$</p>
-                    <p class="card-text">Poids: '.$poids.' lbs</p>
-                    <!-- rating stars -->
-                    <div class="rating">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-half"></i>
-                        <i class="bi bi-star"></i>
-                    </div>
-                    <!-- rating stars -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>';
-}
-function getMunitions(){
 
+function getMunitions(){
     $pdo = GetPdo();
     $sql = 'CALL getMunition';
     try{
@@ -647,23 +470,7 @@ function AfficherListeDeroulante($tabMunition){
     echo"</select>";
 
 }
-function AfficherFormArme(){
-    echo'<div class="mb-3">
-            <label for="efficaciter" class="form-label">Efficaciter</label>
-            <input type="number"  min=1 max=50 class="rounded w-25 form-control" name="efficaciter" id="efficaciter" aria-describedby="">
-            <div id="efficaciterHelp" class="form-text"></div>
-          </div>
-          <div class="mb-3">
-            <label for="genreArme" class="form-label">Genre Arme</label>
-            <input type="text" class="rounded w-25 form-control" id="genreArme" name="genreArme" aria-describedby="">
-            <div id="genreArmeHelp" class="form-text"></div>
-          </div>
-          ';
-         if(isset($_SESSION['munition'])){
-              AfficherListeDeroulante($_SESSION['munition']);
-        }
-         
-}
+
 function AfficherFormTypeItem($type){
     switch($type){
         case 'Arme':
@@ -683,64 +490,79 @@ function AfficherFormTypeItem($type){
             break;
         case 'Medicament':
             AfficherFormMedicament();
-
             break;
     }
 }
-<<<<<<< HEAD
+
+function getPourcentageNote($listeEvaluation) {
+    $nbEvaluation = count($listeEvaluation);
+    $note1 = 0;
+    $note2 = 0;
+    $note3 = 0;
+    $note4 = 0;
+    $note5 = 0;
+    foreach($listeEvaluation as $row){
+        if ($row[3] == 1)
+            $note1 += 1;
+        if ($row[3] == 2)
+            $note2 += 1;
+        if ($row[3] == 3)
+            $note3 += 1;
+        if ($row[3] == 4)
+            $note4 += 1;
+        if ($row[3] == 5)
+            $note5 += 1;
+    }
+    
+    $listePourcentage = array(Pourcentage($note1,$nbEvaluation), 
+                                Pourcentage($note2,$nbEvaluation), 
+                                Pourcentage($note3,$nbEvaluation), 
+                                Pourcentage($note4, $nbEvaluation), 
+                                Pourcentage($note5,$nbEvaluation));
+    return $listePourcentage;
+}
+
+function Pourcentage($note, $nb){
+    return $note * 100 / $nb;
+}
+
+function Moyenne($liste, $nb) {
+    $total = 0;
+    foreach($liste as $item) {
+        $total += $item;
+    }
+    return $total / $nb;
+}
+
+function GetListeNotes($listeEvaluation) {
+    $listeNote = array();
+    foreach($listeEvaluation as $eval) {
+        array_push($listeNote, $eval['Note']);
+    }
+    return $listeNote;
+}
 
 function getEvaluation($idObjet) {
     $pdo = GetPdo();
     $sql = 'Call getEvaluation(?)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$idObjet]);
-
-    foreach($stmt as $row){
-        AfficherDetails($row);
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idObjet]);
+        $tab = array();
+        foreach($stmt as $row){
+            array_push( $tab , [$row['idObjet'] ,$row['idJoueurs'], $row['Commentaire'], $row['Note']]);
+        }
+        if($tab != null){
+            return $tab;
+        }
+        else{
+            return null;
+        }
+        
     }
-=======
-function AfficherFormArmure(){
-    echo '<div class="mb-3">
-    <label for="taille" class="form-label">Taille</label>
-    <select name="typeItem" id="type">
-        <option value="Grand">Grand</option>
-        <option value="Moyen">Moyen</option>
-        <option value="Petit">Petit</option>
-    </select>
-    <div id="tailleHelp" class="form-text"></div>
-     </div>
-  <div class="mb-3">
-    <label for="matiere" class="form-label">Matière</label>
-    <input type="text" class="rounded w-25 form-control" id="matiere" name="matiere" aria-describedby="">
-    <div id="matiereHelp" class="form-text"></div>
-  </div>';
-}
-function AfficherFormNourriture(){
-    echo'<div class="mb-3">
-    <label for="pointsDeVie" class="form-label">Points de vie</label>
-    <input type="number" class="rounded w-25 form-control" id="pointsDeVie" name="pointsDeVie" aria-describedby="">
-    <div id="pointsDeVieHelp" class="form-text"></div>
-  </div>';
-}
-
-function AfficherFormMunition(){
-    echo'<div class="mb-3">
-    <label for="calibre" class="form-label">Calibre</label>
-    <input type="number" class="rounded w-25 form-control" id="calibre" name="calibre" aria-describedby="">
-    <div id="calibreHelp" class="form-text"></div>
-  </div>';
-}
-function AfficherFormMedicament(){
-    echo '<div class="mb-3">
-    <label for="duree" class="form-label">Durée</label>
-    <input type="number" class="rounded w-25 form-control" id="duree" name="duree" aria-describedby="">
-    <div id="dureeHelp" class="form-text"></div>
-  </div>
-  <div class="mb-3">
-    <label for="effet" class="form-label">Effet</label>
-    <input type="text" class="rounded w-25 form-control" id="effet" name="effet" aria-describedby="">
-    <div id="effetHelp" class="form-text"></div>
-  </div>';
->>>>>>> adddeda5bd47ef466ad912041241575ab877b35e
+    catch(Exception $e){
+        console_log($e);
+        return null;
+    }
 }
 ?>

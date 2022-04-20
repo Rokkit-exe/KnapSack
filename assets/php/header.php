@@ -1,5 +1,6 @@
 <?php 
     include('function.php');
+    include('components.php');
     GetPdo();
     
 ?>
