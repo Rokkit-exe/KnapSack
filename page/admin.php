@@ -48,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   </div>
   <div class="mb-3">
     <label class="form-label" for="qtyStock">Quantité en stock</label>
-    <input class="rounded w-25 form-control"  type="text" class="form-check-input" nom="qtyStock" id="qtyStock">
+    <input class="rounded w-25 form-control"  type="text" class="form-check-input" name="qtyStock" id="qtyStock">
     
   </div>
   <div class="mb-3">

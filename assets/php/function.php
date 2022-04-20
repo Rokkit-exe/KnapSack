@@ -577,28 +577,96 @@ function getEvaluation($idObjet) {
 }
 function AjouterObjet($donner){
     if(isset($_SESSION['type'])){
+        if(strlen($donner['nomItem']) > 50 || strlen($donner['nomItem']) < 0){
+            return 'Nom trop long ou trop petit';
+        }
+        $regexUrl = "/^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$/";
+
+        if(!preg_match($regexUrl ,  $donner['url'])){
+            return 'Erreur url invalide';
+        }
+        if($donner['qtyStock'] <= 0){
+            return 'Erreur , ne pas ajouter un objet ayant moin de 1 en stock';
+        }
+        if($donner['prixIndividuelle'] >= 100 || $donner['prixIndividuelle'] < 0 ){
+            return 'Erreur , le prix doit être entre 1 et 100 caps';
+        }
+        if($donner['poidsIndividuelle'] >= 50 || $donner['poidsIndividuelle'] < 0){
+            return 'Erreur , le poids doit être entre 1 et 50 lbs';
+        }
+        if(strlen($donner['desc']) < 1){
+            return 'Erreur , la description doit contenir au moin un charactère';
+        }
         switch($_SESSION['type']){
             case 'Arme':
                 AjouterArme($donner);
                 break;
             case 'Armure':
-                
+                AjouterArmure($donner);
                 break;
             case 'Nourriture':
-                
+                AjouterNourriture($donner);
                 break;
             case 'Medicament':
-                
+                AjouterMedicament($donner);
                 break;
             case 'Munition':
-                
+                AjouterMunition($donner);
                 break;
             default :
-                return 'ERROR';
+                return 'whattypeisit';
                 break;
         }
     }
        
+}
+function AjouterArmure($donner){
+    $pdo = GetPdo();
+    $sql =  'CALL AjouterArmure(?,?,?,?,?,?,?,?)';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['taille'],$donner['matiere']]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+function AjouterNourriture($donner){
+    $pdo = GetPdo();
+    $sql =  'CALL AjouterNourriture(?,?,?,?,?,?,?)';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['pointsDeVie']]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+function AjouterMedicament($donner){
+    $pdo = GetPdo();
+    $sql =  'CALL AjouterMédicament(?,?,?,?,?,?,?,?)';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['duree'],$donner['effet']]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+function AjouterMunition($donner){
+    $pdo = GetPdo();
+    $sql =  'CALL AjouterMunition(?,?,?,?,?,?,?)';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['calibre']]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
 }
 function AjouterArme($donner){
     $pdo = GetPdo();

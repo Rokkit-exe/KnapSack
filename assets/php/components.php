@@ -365,7 +365,7 @@ function AfficherFormArme(){
 function AfficherFormArmure(){
     echo '<div class="mb-3">
     <label for="taille" class="form-label">Taille</label>
-    <select name="typeItem" id="type">
+    <select name="taille" id="type">
         <option value="Grand">Grand</option>
         <option value="Moyen">Moyen</option>
         <option value="Petit">Petit</option>
