@@ -178,9 +178,11 @@ function AfficherDetails($row){
                 .AfficherNote($listeEvaluation).
             '</div>
             <div class="p-2">';
+            if ($listeEvaluation != null){
                 foreach($listeEvaluation as $row){
                     echo AfficherCommentaire($row[0],$row[1],$row[2],$row[3],$row[4]);
                 }
+            }
             echo '</div>
         </div>
     </div>';

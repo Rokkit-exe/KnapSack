@@ -771,3 +771,5 @@ function EnvoyerCaps($id){
         console_log($e);
     }
 }
+
+?>
