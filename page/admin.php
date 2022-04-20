@@ -9,6 +9,10 @@ if(isset($_GET['typeItem'])){
     $_SESSION['munition'] = getMunitions();
   }
 }
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+  AjouterObjet($_POST);
+}
 ?>
 
 <div class="container text-light p-5 rounded mb-3" style="background-color: rgba(33,37,41,0.7);">

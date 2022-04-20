@@ -461,7 +461,7 @@ function getMunitions(){
     }   
 }
 function AfficherListeDeroulante($tabMunition){
-    echo"<select>";
+    echo"<select name='idMunition'>";
     foreach($tabMunition as $row){
         $nom = $row[0];
         $id = $row[1];
@@ -575,4 +575,69 @@ function getEvaluation($idObjet) {
         return null;
     }
 }
+function AjouterObjet($donner){
+    if(isset($_SESSION['type'])){
+        switch($_SESSION['type']){
+            case 'Arme':
+                AjouterArme($donner);
+                break;
+            case 'Armure':
+                
+                break;
+            case 'Nourriture':
+                
+                break;
+            case 'Medicament':
+                
+                break;
+            case 'Munition':
+                
+                break;
+            default :
+                return 'ERROR';
+                break;
+        }
+    }
+       
+}
+function AjouterArme($donner){
+    $pdo = GetPdo();
+    $sql =  'CALL AjouterArme(?,?,?,?,?,?,?,?,?)';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['efficaciter'],$donner['genreArme'],$donner['idMunition']]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+
+
+
+}
+/*
+function getSqlProcedureAjouter(){
+    if(isset($_SESSION['type'])){
+        switch($_SESSION['type']){
+            case 'Arme':
+                return 'CALL AjouterArme(?,?,?,?,?,?,?,?,?)';
+                break;
+            case 'Armure':
+                return 'CALL AjouterArmure(?,?,?,?,?,?,?,?)';
+                break;
+            case 'Nourriture':
+                return 'CALL AjouterNourriture(?,?,?,?,?,?,?)';
+                break;
+            case 'Medicament':
+                return 'CALL AjouterMédicament(?,?,?,?,?,?,?,?)';
+                break;
+            case 'Munition':
+                return 'CALL AjouterMunition(?,?,?,?,?,?,?)';
+                break;
+            default :
+                return 'ERROR';
+                break;
+        }
+    }
+}*/
 ?>
