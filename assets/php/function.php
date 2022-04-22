@@ -683,31 +683,7 @@ function AjouterArme($donner){
 
 
 }
-/*
-function getSqlProcedureAjouter(){
-    if(isset($_SESSION['type'])){
-        switch($_SESSION['type']){
-            case 'Arme':
-                return 'CALL AjouterArme(?,?,?,?,?,?,?,?,?)';
-                break;
-            case 'Armure':
-                return 'CALL AjouterArmure(?,?,?,?,?,?,?,?)';
-                break;
-            case 'Nourriture':
-                return 'CALL AjouterNourriture(?,?,?,?,?,?,?)';
-                break;
-            case 'Medicament':
-                return 'CALL AjouterMédicament(?,?,?,?,?,?,?,?)';
-                break;
-            case 'Munition':
-                return 'CALL AjouterMunition(?,?,?,?,?,?,?)';
-                break;
-            default :
-                return 'ERROR';
-                break;
-        }
-    }
-}*/
+
 function FaireDemandeCaps($id){
     $pdo = GetPdo();
     $sql = "CALL FaireDemandeCaps(?)";

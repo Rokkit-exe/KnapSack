@@ -177,6 +177,9 @@ function AfficherDetails($row){
             <div class="p-2">'
                 .AfficherNote($listeEvaluation).
             '</div>
+            <div class="p-2">'
+            .AfficherBoxCommentaire().
+            '</div>
             <div class="p-2">';
             if ($listeEvaluation != null){
                 foreach($listeEvaluation as $row){
@@ -206,7 +209,22 @@ function AfficherCommentaire($idObjet, $idJoueur, $alias, $commentaire, $note) {
         <input type="hidden" name="idJoueur" value="'.$idJoueur.'">
     </div>';
 }
-
+function AfficherBoxCommentaire(){
+    return '<form method="POST"><div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
+    <div class="card-header d-flex justify-content-between">
+        <div>Ajoutez un commentaire</div>
+        <div class="rating">'.
+            //AfficherÉtoile($note).
+        '</div>
+    </div>
+    <div class="card-body">
+        <div class="blockquote mb-0">
+            <input type="textarea" name="comment" id="comment">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajoutez Commentaire</button>
+</div></form>';
+}
 function AfficherÉtoile($note) {
     if ($note >= 0 && $note <= 0.25){
         return 
