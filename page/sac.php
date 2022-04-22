@@ -10,6 +10,7 @@
 <?php 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     FaireDemandeCaps($_SESSION['idJoueur']);
+    $erreurCaps = $_SESSION['erreurCaps'];
 }
 ?>
 <!-- body -->
@@ -29,11 +30,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 </div>
                 <form class="row row-cols-lg-auto g-3 align-items-center" method="POST">
                     <div class="col-12">
-                        <div>Faire une demande de 100 caps</div>
+                        <div>Faire une demande de 200 caps</div>
                     </div>
 
                     <div class="col-12">
                         <button type="submit"  class="btn btn-primary">Demande</button>
+                        <p><?php echo $erreurCaps?></p>
                     </div>
                 </form>
             </div>

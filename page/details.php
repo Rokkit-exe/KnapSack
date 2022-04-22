@@ -1,7 +1,11 @@
 <!-- header -->
 <?php include('../assets/php/header.php')?>
 <!-- header -->
-<?php ?>
+<?php 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    AddEvaluation($_SESSION['idJoueur'],$_POST['comment'] , $_POST['note']);
+}
+?>
 <!-- body -->
 <?php GetDetails($_GET['id'])?>
 <!-- body -->

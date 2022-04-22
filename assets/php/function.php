@@ -688,13 +688,12 @@ function FaireDemandeCaps($id){
     $pdo = GetPdo();
     $sql = "CALL FaireDemandeCaps(?)";
 
-    if(VerifierDemandeCaps($id)){
-        return 'Erreur , vous pouvez faire que une demande de caps à ladmin a la fois';
-    }
-
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);
+        if(VerifierDemandeCaps($id)){
+            $_SESSION['erreurCaps'] = ' Erreur , vous avez déja fait 3 demande a ladmin ';
+        }
     }
     catch(Exception $e){
         console_log($e);
@@ -702,13 +701,14 @@ function FaireDemandeCaps($id){
 }
 function VerifierDemandeCaps($id){
     $pdo = GetPdo();
-    $sql = 'CALL getDemandeIds()';
+    $sql = 'CALL getDemandeIds(?)';
 
     try{
-        $stmt = $pdo->query($sql);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
         
         foreach($stmt as $row){
-            if($row['id'] == $id){
+            if($row['nbDemandeCaps'] >2){
                 return True;
             }
         }
@@ -748,4 +748,15 @@ function EnvoyerCaps($id){
     }
 }
 
+function AddEvaluation($id , $comment , $note){
+    $pdo = GetPdo();
+    $sql = 'CALL AddEvaluation(?,?,?)';
+
+    try{
+
+    }
+    catch(Exception $e){
+
+    }
+}
 ?>
