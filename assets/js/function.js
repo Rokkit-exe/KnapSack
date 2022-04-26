@@ -1,14 +1,17 @@
 
-function FillStar(nb) {
+
+function OnClickStar(nb) {
     var stars = document.getElementsByName("star");
-    var star_fill = document.createElement("i");
-    star_fill.setAttribute("class", "bi bi-star-fill")
+    var input = document.getElementById("ratingStar");
     var count = 0
     stars.forEach(element => {
         count += 1;
         if (count <= nb) {
-            element.replaceWith(star_fill);
+            element.setAttribute("class", "bi bi-star-fill");
+        }
+        else{
+            element.setAttribute("class", "bi bi-star");
         }
     });
-    console.log("hello")
+    input.setAttribute("value", nb)
 }

@@ -162,8 +162,6 @@ function AfficherDetails($row){
             <div class="row g-0 p-2">
                 <div style="margin-top: 25px;" class="col-md-4">
                     <img src='.$photo.' alt="photo" height="100%" width="100%" class="rounded-3">
-                    
-                
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -214,7 +212,7 @@ function AfficherBoxCommentaire(){
     <div class="card-header d-flex justify-content-between">
         <div>Ajoutez un commentaire</div>
         <div class="rating">'.
-            //AfficherÉtoile($note).
+            AfficherRatingÉtoile().
         '</div>
     </div>
     <div class="card-body">
@@ -224,6 +222,20 @@ function AfficherBoxCommentaire(){
     </div>
     <button type="submit" class="btn btn-primary">Ajoutez Commentaire</button>
 </div></form>';
+}
+
+function AfficherRatingÉtoile() {
+    return 
+    '
+        <div class="rating mb-2">
+            <i class="bi bi-star"  onclick="OnClickStar(1)" name="star"></i>
+            <i class="bi bi-star"  onclick="OnClickStar(2)" name="star"></i>
+            <i class="bi bi-star"  onclick="OnClickStar(3)" name="star"></i>
+            <i class="bi bi-star"  onclick="OnClickStar(4)" name="star"></i>
+            <i class="bi bi-star"  onclick="OnClickStar(5)" name="star"></i>
+            <input type="hidden" name="note" id="ratingStar" value="">
+        </div>
+    ';
 }
 function AfficherÉtoile($note) {
     if ($note >= 0 && $note <= 0.25){
