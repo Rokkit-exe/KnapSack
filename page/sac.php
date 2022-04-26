@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                     <div class="col-12">
                         <button type="submit"  class="btn btn-primary">Demande</button>
-                        <p><?php echo $erreurCaps?></p>
+                        <p><?php if(isset($erreurCaps)){echo $erreurCaps;}?></p>
                     </div>
                 </form>
             </div>

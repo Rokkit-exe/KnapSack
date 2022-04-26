@@ -748,15 +748,33 @@ function EnvoyerCaps($id){
     }
 }
 
-function AddEvaluation($id , $comment , $note){
+function AddEvaluation($id ,$idObjet ,  $comment , $note){
     $pdo = GetPdo();
-    $sql = 'CALL AddEvaluation(?,?,?)';
+    $sql = 'CALL EvaluerItem(?,?,?,?)';
 
     try{
-
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idObjet ,$id ,  $comment , $note]);
     }
     catch(Exception $e){
-
+        console_log($e);
     }
 }
+function itemEstDansSac($idObjet , $idJoueur){
+    $pdo = GetPdo();
+    $sql = 'SELECT itemEstDansSac(?,?) as itemEstDansSac';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idObjet ,$idJoueur]);
+
+        foreach($stmt as $row){
+            return $row['itemEstDansSac'];
+        }
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+
 ?>

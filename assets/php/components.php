@@ -156,6 +156,9 @@ function AfficherDetails($row){
     $prix = $row['Prix'];
     $poids = $row['Poids'];
     $listeEvaluation = getEvaluation($idObjet);
+    if(isset($_SESSION['idJoueur'])){
+        $idJoueur = $_SESSION['idJoueur'];
+    }
     echo '
     <div class="container">
         <div class="card mb-3 detail border border-2 border-dark text-light" style="background-color: rgba(33,37,41,0.7)">
@@ -174,10 +177,14 @@ function AfficherDetails($row){
             </div>
             <div class="p-2">'
                 .AfficherNote($listeEvaluation).
-            '</div>
-            <div class="p-2">'
-            .AfficherBoxCommentaire().
-            '</div>
+            '</div>';
+            if(isset($_SESSION['idJoueur']) && itemEstDansSac($idObjet , $idJoueur)){
+                echo '
+                <div class="p-2">'
+                .AfficherBoxCommentaire($idObjet).
+                '</div>';
+            }
+            echo'
             <div class="p-2">';
             if ($listeEvaluation != null){
                 foreach($listeEvaluation as $row){
@@ -207,7 +214,7 @@ function AfficherCommentaire($idObjet, $idJoueur, $alias, $commentaire, $note) {
         <input type="hidden" name="idJoueur" value="'.$idJoueur.'">
     </div>';
 }
-function AfficherBoxCommentaire(){
+function AfficherBoxCommentaire($idObjet){
     return '<form method="POST"><div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
     <div class="card-header d-flex justify-content-between">
         <div>Ajoutez un commentaire</div>
@@ -220,6 +227,7 @@ function AfficherBoxCommentaire(){
             <input type="textarea" name="comment" id="comment">
         </div>
     </div>
+    <input type="hidden" name="idObjet" value="'.$idObjet.'">
     <button type="submit" class="btn btn-primary">Ajoutez Commentaire</button>
 </div></form>';
 }
