@@ -10,7 +10,10 @@
 <?php 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     FaireDemandeCaps($_SESSION['idJoueur']);
-    $erreurCaps = $_SESSION['erreurCaps'];
+    if(isset($_SESSION['erreurCaps'])){
+        $erreurCaps = $_SESSION['erreurCaps'];
+    }
+    
 }
 ?>
 <!-- body -->
