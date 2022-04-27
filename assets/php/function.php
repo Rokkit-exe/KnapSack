@@ -182,17 +182,12 @@ function GetUserInfo($idJoueur) {
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$idJoueur]);
-        $tab = array();
         foreach($stmt as $row){
-            array_push( $tab , [$row['alias'] ,$row['Prenom'], $row['Nom'], $row['email']]);
-        }
-        if($tab != null){
-            return $tab;
-        }
-        else{
-            return null;
-        }
-        
+            $_SESSION['alias'] = $row['alias'];
+            $_SESSION['Prenom'] = $row['Prenom'];
+            $_SESSION['Nom'] = $row['Nom'];
+            $_SESSION['email'] = $row['email'];
+        }    
     }catch (\Exception $e) {
         echo `<p>`.$e.`</p>`;
         $_SESSION['erreur'] = $e;
@@ -200,14 +195,14 @@ function GetUserInfo($idJoueur) {
     }
 }
 
-function UpdatePassword($password, $passwordConfirmation) {
+function UpdatePassword($idJoueur, $password, $passwordConfirmation) {
     $pdo = GetPdo();
-    $sql = "CALL UpdatePassword(?)";
+    $sql = "CALL UpdatePassword(?,?)";
     if ($password == $passwordConfirmation) {
         $password = password_hash($password , PASSWORD_DEFAULT);
         try{
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$password]);
+            $stmt->execute([$idJoueur, $password]);
             $_SESSION['erreur'] = null;
             console_log("Mot de passe modifier avec succès!");
         }catch (\Exception $e) {
@@ -222,13 +217,13 @@ function UpdatePassword($password, $passwordConfirmation) {
     }
 }
 
-function UpdateProfil($idJoueur, $alias, $prenom, $nom, $email) {
+function UpdateProfil($idJoueur, $alias, $prenom, $nom) {
     $pdo = GetPdo();
-    $sql = "CALL UpdateProfil(?,?,?,?,?)";
+    $sql = "CALL UpdateProfil(?,?,?,?)";
     
     try{
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$idJoueur, $alias, $prenom, $nom, $email]);
+        $stmt->execute([$idJoueur, $alias, $prenom, $nom]);
         $_SESSION['erreur'] = null;
         console_log("Profil modifier avec succès");
     }catch (\Exception $e) {
@@ -868,5 +863,45 @@ function EstCommenter($idJoueur , $idObjet){
     catch(Exception $e){
         console_log($e);
     }
+}
+
+function inputVide($alias, $nom, $prenom, $email, $mdp, $mdpConfirm) {
+    if (empty($alias) || empty($nom) || empty($prenom) || empty($email) || empty($mdp) || empty($mdpConfirm)){
+        $result = true;
+    }
+    else {
+        $result = false;
+    }
+    return $result;
+}
+
+function aliasInvalide($alias) {
+    if (!preg_match("/^[a-zA-Z0-9]*$/", $alias)) {
+        $result = true;
+    }
+    else {
+        $result = false;
+    }
+    return $result;
+}
+
+function emailInvalide($email) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $result = true;
+    }
+    else {
+        $result = false;
+    }
+    return $result;
+}
+
+function mdpMatch($mdp, $mdpConfirm) {
+    if ($mdp !== $mdpConfirm) {
+        $result = true;
+    }
+    else {
+        $result = false;
+    }
+    return $result;
 }
 ?>

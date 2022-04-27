@@ -1,15 +1,16 @@
 <!-- header -->
 <?php 
     include('../assets/php/header.php');
-    $profil = GetUserInfo($_SESSION['idJoueur']);
-
-    if (isset($_POST['Password']) && isset($_POST['Password'])){
-        UpdatePassword($_POST['Password'], $_POST['PasswordConfirmation']);
+    
+    if (isset($_POST['Password']) && isset($_POST['PasswordConfirmation'])){
+        UpdatePassword($_SESSION['idJoueur'], $_POST['Password'], $_POST['PasswordConfirmation']);
     }
 
-    if (isset($_POST['alias']) && isset($_POST['Prenom']) && isset($_POST['Nom']) && isset($_POST['email'])) {
-        UpdateProfil($_SESSION['idJoueur'], $_POST['alias'], $_POST['Prenom'], $_POST['Nom'], $_POST['email']);
+    if (isset($_POST['alias']) && isset($_POST['Prenom']) && isset($_POST['Nom'])) {
+        UpdateProfil($_SESSION['idJoueur'], $_POST['alias'], $_POST['Prenom'], $_POST['Nom']);
     }
+
+    GetUserInfo($_SESSION['idJoueur']);
 ?>
 
 <!-- header -->
@@ -20,22 +21,22 @@
         <!-- alias, nom, prenom, email, mdp -->
         <div class="mb-3">
             <label for="alias" class="form-label">alias</label>
-            <input type="username" name="alias" class="form-control" id="alias" value="<?php echo $profil['alias']; ?>" aria-describedby="usernameHelp">
+            <input type="username" name="alias" class="form-control" id="alias" value="<?php echo $_SESSION['alias']; ?>" aria-describedby="usernameHelp">
             <div id="aliasHelp" class="form-text"></div>
         </div>
         <div class="mb-3">
             <label for="Prenom" class="form-label">Prenom</label>
-            <input type="prenom" name="prenom" class="form-control" id="Prenom" value="<?php echo $profil['Prenom']; ?>" aria-describedby="prenomHelp">
+            <input type="prenom" name="Prenom" class="form-control" id="Prenom" value="<?php echo $_SESSION['Prenom']; ?>" aria-describedby="prenomHelp">
             <div id="prenomHelp" class="form-text"></div>
         </div>
         <div class="mb-3">
             <label for="Nom" class="form-label">Nom</label>
-            <input type="nom" name="nom" class="form-control" id="Nom" value="<?php echo $profil['Nom']; ?>" aria-describedby="nomHelp">
+            <input type="nom" name="Nom" class="form-control" id="Nom" value="<?php echo $_SESSION['Nom']; ?>" aria-describedby="nomHelp">
             <div id="nomHelp" class="form-text"></div>
         </div>
         <div class="mb-3">
             <label for="Email" class="form-label">Adresse email</label>
-            <label for="Email" class="form-control text-muted"><?php echo $profil['email']; ?></label>
+            <label for="Email" class="form-control text-muted"><?php echo $_SESSION['email']; ?></label>
             <div id="emailHelp" class="form-text"></div>
         </div>
         <button type="submit" class="btn btn-primary">Modifier</button>
