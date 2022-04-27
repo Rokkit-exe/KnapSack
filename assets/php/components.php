@@ -181,7 +181,7 @@ function AfficherDetails($row){
             if(isset($_SESSION['idJoueur']) && itemEstDansSac($idObjet , $idJoueur)){
                 echo '
                 <div class="p-2">'
-                .AfficherBoxCommentaire($idObjet).
+                .AfficherBoxCommentaire($idObjet , $idJoueur).
                 '</div>';
             }
             echo'
@@ -214,10 +214,23 @@ function AfficherCommentaire($idObjet, $idJoueur, $alias, $commentaire, $note) {
         <input type="hidden" name="idJoueur" value="'.$idJoueur.'">
     </div>';
 }
-function AfficherBoxCommentaire($idObjet){
+function AfficherBoxCommentaire($idObjet , $idJoueur){
+    $input = '';
+    $txt = '';
+    if(EstCommenter($idJoueur , $idObjet)){
+        $txt = 'Modifier Commentaire';
+        $input =  '<button type="submit" class="btn btn-primary">Modifiez Commentaire</button>
+        <input type="hidden" name="editOuAdd" value="edit">';    
+    }
+    else{
+        $txt = 'Ajouter Commentaire';
+        $input = '
+    <button type="submit" class="btn btn-primary">Ajoutez Commentaire</button>
+    <input type="hidden" name="editOuAdd" value="Add">';
+    }
     return '<form method="POST"><div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
     <div class="card-header d-flex justify-content-between">
-        <div>Ajoutez un commentaire</div>
+        <div>'.$txt.'</div>
         <div class="rating">'.
             AfficherRatingÉtoile().
         '</div>
@@ -228,8 +241,7 @@ function AfficherBoxCommentaire($idObjet){
         </div>
     </div>
     <input type="hidden" name="idObjet" value="'.$idObjet.'">
-    <button type="submit" class="btn btn-primary">Ajoutez Commentaire</button>
-</div></form>';
+    '.$input.'</div></form>';
 }
 
 function AfficherRatingÉtoile() {

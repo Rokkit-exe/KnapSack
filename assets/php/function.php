@@ -811,6 +811,7 @@ function EnvoyerCaps($id){
 
 function AddEvaluation($id ,$idObjet ,  $comment , $note){
     $pdo = GetPdo();
+    
     $sql = 'CALL EvaluerItem(?,?,?,?)';
 
     try{
@@ -837,5 +838,35 @@ function itemEstDansSac($idObjet , $idJoueur){
         console_log($e);
     }
 }
+function editCommentaire($idJoueur , $idObjet , $comment , $note){
+    $pdo = GetPdo();
 
+    $sql = 'CALL EditCommentaire(?,?,?,?)';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur ,$idObjet ,  $comment , $note]);
+
+    }
+    catch(Exception $e){
+        console_log($e);
+
+    }
+}
+function EstCommenter($idJoueur , $idObjet){
+    $pdo = GetPdo();
+    $sql = 'SELECT EstCommenter(?,?) as EstCommenter';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idObjet ,$idJoueur]);
+
+        foreach($stmt as $row){
+            return $row['EstCommenter'];
+        }
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
 ?>
