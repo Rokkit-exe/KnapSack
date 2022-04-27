@@ -175,6 +175,68 @@ function ContrainteOuPas(){
     return False;
 }
 
+function GetUserInfo($idJoueur) {
+    $pdo = getPdo();
+    $sql = "CALL getUser(?)";
+    
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur]);
+        $tab = array();
+        foreach($stmt as $row){
+            array_push( $tab , [$row['alias'] ,$row['Prenom'], $row['Nom'], $row['email']]);
+        }
+        if($tab != null){
+            return $tab;
+        }
+        else{
+            return null;
+        }
+        
+    }catch (\Exception $e) {
+        echo `<p>`.$e.`</p>`;
+        $_SESSION['erreur'] = $e;
+        console_log($e);
+    }
+}
+
+function UpdatePassword($password, $passwordConfirmation) {
+    $pdo = GetPdo();
+    $sql = "CALL UpdatePassword(?)";
+    if ($password == $passwordConfirmation) {
+        $password = password_hash($password , PASSWORD_DEFAULT);
+        try{
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$password]);
+            $_SESSION['erreur'] = null;
+            console_log("Mot de passe modifier avec succès!");
+        }catch (\Exception $e) {
+            $message = "Impossible de modifier le mot de passe";
+            $_SESSION['erreur'] = $message;
+            console_log($message + " " + $e);
+        }
+    }
+    else {
+        $message = "Les mot de passe ne corespondent pas!";
+        $_SESSION['erreur'] = $message;
+    }
+}
+
+function UpdateProfil($idJoueur, $alias, $prenom, $nom, $email) {
+    $pdo = GetPdo();
+    $sql = "CALL UpdateProfil(?,?,?,?,?)";
+    
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur, $alias, $prenom, $nom, $email]);
+        $_SESSION['erreur'] = null;
+        console_log("Profil modifier avec succès");
+    }catch (\Exception $e) {
+        $message = "impossible de modifier le profil";
+        $_SESSION['erreur'] = $message;
+        console_log($message + " " + $e);
+    }
+}
 
 function getIDJoueur($email){
     $pdo = getPdo();
@@ -618,7 +680,6 @@ function AjouterObjet($donner){
                 break;
         }
     }
-       
 }
 function AjouterArmure($donner){
     $pdo = GetPdo();
