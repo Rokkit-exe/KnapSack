@@ -3,8 +3,11 @@
 <!-- header -->
 <?php 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if( empty($_POST['comment']) || empty($_POST['note'])){
-        
+    if(isset($_POST['supprimerEval'])){
+        SupprimerEvaluation($_POST['idObjet'] , $_POST['idJoueur']);
+    }
+    if(empty($_POST['comment']) || empty($_POST['note'])){
+        //mettre comment et note pas bonne
     }
     else{
         if($_POST['editOuAdd'] == 'Add'){
@@ -14,7 +17,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             editCommentaire($_SESSION['idJoueur'], $_POST['idObjet'] , $_POST['comment'] , $_POST['note']);
         }
     }
-    
 }
 ?>
 <!-- body -->

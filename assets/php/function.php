@@ -869,4 +869,17 @@ function EstCommenter($idJoueur , $idObjet){
         console_log($e);
     }
 }
+function SupprimerEvaluation($idObjet , $idJoueur){
+    $pdo = GetPdo();
+    $sql = 'CALL SupprimerEvaluation(?,?)';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur ,$idObjet]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+
+}
 ?>

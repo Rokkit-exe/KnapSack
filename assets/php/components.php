@@ -196,9 +196,10 @@ function AfficherDetails($row){
     </div>';
 }
 
-function AfficherCommentaire($idObjet, $idJoueur, $alias, $commentaire, $note) {
-    return 
-    '<div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
+function AfficherCommentaire($idObjet, $idJoueur, $alias, $comment, $note) {
+    $commentaire = "";
+    if($_SESSION['flag'] == 'A' || $_SESSION['idJoueur'] == $idJoueur){
+        $commentaire = '<form method="POST"><div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
         <div class="card-header d-flex justify-content-between">
             <div>'.$alias.'</div>
             <div class="rating">'.
@@ -207,12 +208,37 @@ function AfficherCommentaire($idObjet, $idJoueur, $alias, $commentaire, $note) {
         </div>
         <div class="card-body">
             <div class="blockquote mb-0">
-                <p>'.$commentaire.'</p>
+                <p>'.$comment.'</p>
             </div>
         </div>
+        <br/>
+        <br/>
+        <button type="submit" class="btn btn-primary">SupprimezCommentaire</button>
+        <input type="hidden" name="supprimerEval" value="oue">
+        <input type="hidden" name="idObjet" value="'.$idObjet.'">
+        <input type="hidden" name="idJoueur" value="'.$idJoueur.'">
+    </div></form>';
+    }
+    else{
+        $commentaire = '<div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
+        <div class="card-header d-flex justify-content-between">
+            <div>'.$alias.'</div>
+            <div class="rating">'.
+                AfficherÉtoile($note).
+            '</div>
+        </div>
+        <div class="card-body">
+            <div class="blockquote mb-0">
+                <p>'.$comment.'</p>
+            </div>
+        </div>
+    
         <input type="hidden" name="idObjet" value="'.$idObjet.'">
         <input type="hidden" name="idJoueur" value="'.$idJoueur.'">
     </div>';
+    }
+    return $commentaire;
+
 }
 function AfficherBoxCommentaire($idObjet , $idJoueur){
     $input = '';
