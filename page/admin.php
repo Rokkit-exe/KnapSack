@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
       <option value="Nourriture">Nourriture</option>
       <option value="Munition">Munition</option>
   </select>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Changer type Item</button>
 </form>
 <form method="POST">
   <h3><?php if(isset($_SESSION['type'])){echo $_SESSION['type'];}?></h3>
@@ -66,7 +66,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     AfficherFormTypeItem($_GET['typeItem']);
   }?>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Ajouter Item</button>
 </form>
 
 <a href="demandeCaps.php">Voir demandes de caps</a>
