@@ -182,17 +182,12 @@ function GetUserInfo($idJoueur) {
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$idJoueur]);
-        $tab = array();
         foreach($stmt as $row){
-            array_push( $tab , [$row['alias'] ,$row['Prenom'], $row['Nom'], $row['email']]);
+            $_SESSION['alias'] = $row['alias'];
+            $_SESSION['Prenom'] = $row['Prenom'];
+            $_SESSION['Nom'] = $row['Nom'];
+            $_SESSION['email'] = $row['email'];
         }
-        if($tab != null){
-            return $tab;
-        }
-        else{
-            return null;
-        }
-        
     }catch (\Exception $e) {
         echo `<p>`.$e.`</p>`;
         $_SESSION['erreur'] = $e;
@@ -222,13 +217,13 @@ function UpdatePassword($password, $passwordConfirmation) {
     }
 }
 
-function UpdateProfil($idJoueur, $alias, $prenom, $nom, $email) {
+function UpdateProfil($idJoueur, $alias, $prenom, $nom) {
     $pdo = GetPdo();
-    $sql = "CALL UpdateProfil(?,?,?,?,?)";
+    $sql = "CALL UpdateProfil(?,?,?,?)";
     
     try{
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$idJoueur, $alias, $prenom, $nom, $email]);
+        $stmt->execute([$idJoueur, $alias, $prenom, $nom]);
         $_SESSION['erreur'] = null;
         console_log("Profil modifier avec succès");
     }catch (\Exception $e) {

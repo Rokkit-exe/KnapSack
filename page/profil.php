@@ -7,7 +7,7 @@
     }
 
     if (isset($_POST['alias']) && isset($_POST['Prenom']) && isset($_POST['Nom'])) {
-        UpdateProfil($_SESSION['idJoueur'], $_POST['alias'], $_POST['Prenom'], $_POST['Nom'] , $_POST['email']);
+        UpdateProfil($_SESSION['idJoueur'], $_POST['alias'], $_POST['Prenom'], $_POST['Nom']);
     }
 
     GetUserInfo($_SESSION['idJoueur']);
