@@ -8,8 +8,10 @@
     $caps = GetCaps($_SESSION['idJoueur']);
 ?>
 <?php 
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     FaireDemandeCaps($_SESSION['idJoueur']);
+    
 }
 ?>
 <!-- body -->

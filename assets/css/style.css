@@ -69,4 +69,15 @@ body::after {
 .text-dark{
     color: black;
 }
-
+@media screen and (max-width: 900px) {
+    .col{
+        flex: 0 0 auto;
+        width: 25%;
+    }
+}
+@media screen and (max-width: 600) {
+    .col{
+        flex: 0 0 auto;
+        width: 33.333333333333%;
+    }
+}

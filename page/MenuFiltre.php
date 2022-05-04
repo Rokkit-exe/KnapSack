@@ -1,5 +1,5 @@
 <div class="text-center text-light">
-    <form class="d-inline p-2 border border-dark rounded mb-3 p-3" method="GET" action="" style="background-color: rgba(33,37,41,0.7)">
+    <form class="d-block container-sm-d-inline p-2 border border-dark rounded mb-3 p-3" method="GET" action="" style="background-color: rgba(33,37,41,0.7)">
         <select class="me-3 rounded" name='type' id='type'>
             <option value="''" selected>Tout les types d'objets</option>
             <option value="'Arme'">Armes</option>

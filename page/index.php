@@ -27,7 +27,7 @@ if(isset($_SESSION['erreur'])){
     <!-- filtres du magasin -->
 
     <!-- affichage des items du magasin -->
-    <div class="row row-cols-4 mt-3">
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mt-3">
         <?php getObjet() ?>
     </div>
     <!-- affichage des items du magasin -->

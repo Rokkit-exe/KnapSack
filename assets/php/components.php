@@ -1,7 +1,7 @@
 <?php
 
 function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo){
-    echo "<div class='col'>
+    echo "<div class='col col-sm col-md col-lg'>
                     <div style='width: 20em; background-color: rgba(33,37,41,0.7);' class='border border-dark border-2 card m-2 shadow p-3 text-light'>
                         <div class='card-img-top text-center'>
                             <img src='$photo'alt='photo' height='100%' width='100%' class='rounded-3'>
@@ -116,6 +116,7 @@ function AfficherSac($row){
     $idObjet = $row['idObjet'];
     $prix = $row['Prix'];
     $poids = $row['Poids'];
+    $idJoueur = $_SESSION['idJoueur'];
     echo " 
         <div class='col text-light'>
             <div class='border border-dark border-2 card m-2 shadow p-3' style='background-color: rgba(33,37,41,0.7)'>
@@ -131,19 +132,13 @@ function AfficherSac($row){
                     <div class=''>
                         <a href='details.php?id=$idObjet&typeItem=$typeObjet' class='btn btn-primary'>Details</a>
                     </div>
-                </div>";
-                /* <div class='mt-2 card-body d-flex justify-content-between'>
+                </div>
+                <div class='mt-2 card-body d-flex justify-content-between'>
                         <div>vente: + $prix caps</div>
                         <div>
-                            <form method='POST'>
-                                <input type='hidden' name='idObjet' value='$idObjet'>
-                                <input type='hidden' name='idJoueur' value='".$_SESSION['idJoueur']."'>
-                                <input type='hidden' name='quantité' value='$qty'>
-                                <input type='hidden' name='prixVente' value='$prix'>
-                                <button   class='btn btn-primary'>Vendre</button>
-                            </form>
+                        <a href='vendre.php?idJoueur=$idJoueur&idObjet=$idObjet' class='btn btn-primary'>Vendre 1x</a>
                         </div>
-                </div> */
+                </div>";
             echo "</div>
         </div>";
 }
@@ -198,7 +193,8 @@ function AfficherDetails($row){
 
 function AfficherCommentaire($idObjet, $idJoueur, $alias, $comment, $note) {
     $commentaire = "";
-    if($_SESSION['flag'] == 'A' || $_SESSION['idJoueur'] == $idJoueur){
+    
+    if(isset($_SESSION['flag']) && isset($_SESSION['idJoueur']) && ($_SESSION['flag'] == 'A' || $_SESSION['idJoueur'] == $idJoueur)){
         $commentaire = '<form method="POST"><div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
         <div class="card-header d-flex justify-content-between">
             <div>'.$alias.'</div>

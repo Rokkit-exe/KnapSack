@@ -446,18 +446,16 @@ function getQtyItemPanier($id){
 function updateDexteriter($id) {
     $pdo = GetPdo();
     $poids = getPoids($id);
-    if ($poids > 50) {
-        $sql = 'CALL UpdateDexteriter(?,?)';
-        try{
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$id, $poids - 50]);
-            console_log("Update de dextérité fait");
-        }
-        catch(Exception $e){
-            console_log($e);
-        }
-        
+    $sql = 'CALL UpdateDexteriter(?,?)';
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id, $poids - 50]);
+        console_log("Update de dextérité fait");
     }
+    catch(Exception $e){
+        console_log($e);
+    }
+        
 }
 function console_log($message){
     echo "<script type ='text/JavaScript'>console.log($message)</script>";
@@ -876,5 +874,18 @@ function SupprimerEvaluation($idObjet , $idJoueur){
         console_log($e);
     }
 
+}
+function VendreObjet($idJoueur , $idObjet){
+    $pdo = GetPdo();
+    $sql = 'CALL VendreObjet(?,?)';
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur ,$idObjet]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+    
 }
 ?>
