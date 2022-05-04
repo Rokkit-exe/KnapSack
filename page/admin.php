@@ -12,7 +12,9 @@ if(isset($_GET['typeItem'])){
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-  AjouterObjet($_POST);
+  if(AjouterObjet($_POST)){
+    Alert("objet ajoutée!");
+  }
 }
 ?>
 

@@ -654,22 +654,22 @@ function AjouterObjet($donner){
         }
         switch($_SESSION['type']){
             case 'Arme':
-                AjouterArme($donner);
+                return AjouterArme($donner);
                 break;
             case 'Armure':
-                AjouterArmure($donner);
+                return AjouterArmure($donner);
                 break;
             case 'Nourriture':
-                AjouterNourriture($donner);
+                return AjouterNourriture($donner);
                 break;
             case 'Medicament':
-                AjouterMedicament($donner);
+                return AjouterMedicament($donner);
                 break;
             case 'Munition':
-                AjouterMunition($donner);
+                return AjouterMunition($donner);
                 break;
             default :
-                return 'whattypeisit';
+                return 'what';
                 break;
         }
     }
@@ -681,9 +681,11 @@ function AjouterArmure($donner){
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['taille'],$donner['matiere']]);
+        return True;
     }
     catch(Exception $e){
         console_log($e);
+        return False;
     }
 }
 function AjouterNourriture($donner){
@@ -693,9 +695,11 @@ function AjouterNourriture($donner){
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['pointsDeVie']]);
+        return True;
     }
     catch(Exception $e){
         console_log($e);
+        return false;
     }
 }
 function AjouterMedicament($donner){
@@ -705,9 +709,11 @@ function AjouterMedicament($donner){
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['duree'],$donner['effet']]);
+        return True;
     }
     catch(Exception $e){
         console_log($e);
+        return false;
     }
 }
 function AjouterMunition($donner){
@@ -717,9 +723,11 @@ function AjouterMunition($donner){
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['calibre']]);
+        return True;
     }
     catch(Exception $e){
         console_log($e);
+        return false;
     }
 }
 function AjouterArme($donner){
@@ -729,13 +737,12 @@ function AjouterArme($donner){
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$donner['nomItem'],$donner['desc'],$donner['qtyStock'],$donner['prixIndividuelle'],$donner['poidsIndividuelle'],$donner['url'],$donner['efficaciter'],$donner['genreArme'],$donner['idMunition']]);
+        return True;
     }
     catch(Exception $e){
         console_log($e);
+        return false;
     }
-
-
-
 }
 
 function FaireDemandeCaps($id){
@@ -762,7 +769,7 @@ function VerifierDemandeCaps($id){
         $stmt->execute([$id]);
         
         foreach($stmt as $row){
-            if($row['nbDemandeCaps'] >2){
+            if($row['nbDemandeCaps']>2){
                 return True;
             }
         }

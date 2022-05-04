@@ -386,7 +386,7 @@ function AfficherNote($listeEvaluation) {
         <div class="mb-3">
             <div class="rating mb-2">'
                 .AfficherÉtoile($moyenne).' '.
-                $moyenne .' sur 5
+                round($moyenne , 1) .' sur 5
             </div>
             <div>'.$nbEvaluation.' Évaluations Total</div>
         </div>
@@ -394,27 +394,27 @@ function AfficherNote($listeEvaluation) {
             <div>
                 5 étoiles
                 <progress class="rounded" value="'.$note5.'" max="100"></progress>
-                '.$note5.'%
+                '.round($note5).'%
             </div>
             <div>
                 4 étoiles
                 <progress class="rounded" value="'.$note4.'" max="100"></progress>
-                '.$note4.'%
+                '.round($note4).'%
             </div>
             <div>
                 3 étoiles
                 <progress class="rounded" value="'.$note3.'" max="100"></progress>
-                '.$note3.'%
+                '.round($note3).'%
             </div>
             <div>
                 2 étoiles
                 <progress class="rounded" value="'.$note2.'" max="100"></progress>
-                '.$note2.'%
+                '.round($note2).'%
             </div>
             <div>
                 1 étoiles
                 <progress class="rounded" value="'.$note1.'" max="100"></progress>
-                '.$note1.'%
+                '.round($note1).'%
             </div>
         </div>
     </div>';
