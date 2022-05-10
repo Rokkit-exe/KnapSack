@@ -496,9 +496,12 @@ function AfficherDemandeCaps($id , $nom , $solde){
   <button type='submit' class='btn btn-primary'>Accepter sa demande</button>";
 }
 function AffichezListeJoueur($listJoueur){
-    $component = "<Select class='form-select form-select-lg mb-3' aria-label='.form-select-lg example' name='user'>";
+    
+    $component = "<Select class='form-select form-select-lg mb-3' aria-label='.form-select-lg example' name='user'><option value=' ' selected> </option>";
     foreach($listJoueur as $Joueur){
-        $component = $component."<option value'$Joueur'>$Joueur</option>";
+        $id = $Joueur['idJoueur'];
+        $alias = $Joueur['alias'];
+        $component = $component."<option value='$id'>$alias</option>";
     }
     $component = $component."</Select>";
     return $component;

@@ -903,7 +903,7 @@ function GetListJoueur(){
         $stmt->execute([]);
         $listJoueur = array();
         foreach($stmt as $row){
-            array_push($listJoueur, $row['alias']);
+            array_push($listJoueur, $row);
             
         }
         return AffichezListeJoueur($listJoueur);
