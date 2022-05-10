@@ -2,28 +2,28 @@
 <?php include('../assets/php/header.php')?>
 <!-- header -->
 
-<div class="container mt-5 rounded p-5">
-    <div class="text-light" style='background-color: rgba(33,37,41,0.7);'>
+<?php 
+    if (!isset($_POST['idEnigme']) && !isset($_POST['reponse'])) {
+        /* getEnigme($_SESSION['idJoueur']); */
+    }
+    if (isset($_POST['idEnigme']) && isset($_POST['reponse'])) {
+        /* validerEnigme($_SESSION['idJoueur'], $_POST['idEnigme'], $_POST['reponse']); */
+    }
+?>
+
+<div class="container mt-5">
+    <div class="text-light p-5 rounded" style='background-color: rgba(33,37,41,0.7);'>
+
         <form action="" method="post">
             <input type="hidden" name="idEnigme" value="<?php echo "idEnigme"; ?>">
             <h3 class="">Question: <?php echo "question" ;?></h3>
-            <div class="">
-                <label for="reponse"><?php echo "this is a reponse to the question reponse 1" ;?></label>
-                <input type="radio" name="reponse" value="<?php echo "idreponse1" ;?>">
+            <div class="mt-4">
+                <div class="mt-2 mx-3">
+                    <label for="reponse"><?php echo "this is a reponse to the question reponse 1" ;?></label>
+                    <input type="text" name="reponse" value="">
+                </div>
             </div>
-            <div>
-                <label for="reponse"><?php echo "this is a reponse to the question reponse 2" ;?></label>
-                <input type="radio" name="reponse" value="<?php echo "idreponse2" ;?>">
-            </div>
-            <div>
-                <label for="reponse"><?php echo "this is a reponse to the question reponse 3" ;?></label>
-                <input type="radio" name="reponse" value="<?php echo "idreponse3" ;?>">
-            </div>
-            <div>
-                <label for="reponse"><?php echo "this is a reponse to the question reponse 4" ;?></label>
-                <input type="radio" name="reponse" value="<?php echo "idreponse4" ;?>">
-            </div>
-            <button class="btn btn-primary">Soumettre</button>
+            <button class="btn btn-primary mt-4">Soumettre</button>
         </form>
     </div>
 </div>
