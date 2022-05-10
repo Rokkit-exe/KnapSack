@@ -13,6 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     FaireDemandeCaps($_SESSION['idJoueur']);
     
 }
+
 ?>
 <!-- body -->
     <div class="container mt-5 rounded">
@@ -42,10 +43,43 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             </div>
         </div>
         <!-- dextériter/poids du sac -->
-
+        <form method='GET'>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Affichez le Sac des Joueurs</h5>
+                    <?php  
+                        if($_SESSION['flag'] == 'A'){
+                            
+                            echo GetListJoueur();
+                        }
+                    ?>
+                    <input type='submit' class="btn btn-primary" name='Affichez'>
+        
+                </div>
+            </div>
+        </form>
+        <?php  
+        if($_SESSION['flag'] == 'A'){
+            
+            echo GetListJoueur();
+        }
+        ?>
+        
         <!-- affichage des items du magasin -->
         <div class="row row-cols-3 mt-3">
-            <?php GetSac($_SESSION['idJoueur'])?>
+        <?php 
+        if($_SERVER['REQUEST_METHOD'] == 'GET'){
+            if(isset($_GET['user'])){
+                GetSac($_GET['user']);
+            }
+            else{
+                GetSac($_SESSION['idJoueur']);
+            }
+        }
+        else{
+            GetSac($_SESSION['idJoueur']);
+        }
+        ?>
         </div>
         <!-- affichage des items du magasin -->
     </div>

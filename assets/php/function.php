@@ -897,13 +897,14 @@ function VendreObjet($idJoueur , $idObjet){
 }
 function GetListJoueur(){
     $pdo = GetPdo();
-    $sql = "SELECT alias from GetListJoueur() as alias";
+    $sql = "CALL GetListJoueur()";
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([]);
         $listJoueur = array();
         foreach($stmt as $row){
-            $listJoueur.array_push($row['alias']);
+            array_push($listJoueur, $row['alias']);
+            
         }
         return AffichezListeJoueur($listJoueur);
     }
