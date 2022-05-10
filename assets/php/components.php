@@ -495,3 +495,11 @@ function AfficherDemandeCaps($id , $nom , $solde){
   
   <button type='submit' class='btn btn-primary'>Accepter sa demande</button>";
 }
+function AffichezListeJoueur($listJoueur){
+    $component = "<Select>";
+    foreach($listJoueur as $Joueur){
+        $component += "<option value'$Joueur'>'$Joueur'</option>";
+    }
+    $component += "</Select>";
+    return $component;
+}

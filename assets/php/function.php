@@ -895,4 +895,21 @@ function VendreObjet($idJoueur , $idObjet){
     }
     
 }
+function GetListJoueur(){
+    $pdo = GetPdo();
+    $sql = "SELECT alias from GetListJoueur() as alias";
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([]);
+        $listJoueur = array();
+        foreach($stmt as $row){
+            $listJoueur.array_push($row['alias']);
+        }
+        return AffichezListeJoueur($listJoueur);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+
+}
 ?>

@@ -73,6 +73,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <a href="demandeCaps.php">Voir demandes de caps</a>
 </div>
+
 <!-- footer -->
 <?php include('../assets/php/footer.php')?>
 <!-- footer -->
