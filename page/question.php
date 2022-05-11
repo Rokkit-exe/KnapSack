@@ -3,28 +3,27 @@
 <!-- header -->
 
 <?php 
-    if (!isset($_POST['idEnigme']) && !isset($_POST['reponse'])) {
-        /* getEnigme($_SESSION['idJoueur']); */
+    if (isset($_GET['filtre'])) {
+        GetEnigme($_GET['filtre']);
     }
-    if (isset($_POST['idEnigme']) && isset($_POST['reponse'])) {
-        /* validerEnigme($_SESSION['idJoueur'], $_POST['idEnigme'], $_POST['reponse']); */
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        ValiderEnigme($_SESSION['idJoueur'], $_POST['idEnigme'], $_POST['reponse']);
     }
 ?>
 
 <div class="container mt-5">
     <div class="text-light p-5 rounded" style='background-color: rgba(33,37,41,0.7);'>
-
-        <form action="" method="post">
-            <input type="hidden" name="idEnigme" value="<?php echo "idEnigme"; ?>">
-            <h3 class="">Question: <?php echo "question" ;?></h3>
-            <div class="mt-4">
-                <div class="mt-2 mx-3">
-                    <label for="reponse"><?php echo "this is a reponse to the question reponse 1" ;?></label>
-                    <input type="text" name="reponse" value="" placeholder="Écrivez votre réponse ici...">
-                </div>
+        <div class="">
+            <div class="d-inline">
+                <button formaction="http://167.114.152.54/~knapsak18/KnapSack/page/question.php?filtre='Random'" class="btn btn-primary">Aléatoire</button>
             </div>
-            <button class="btn btn-primary mt-4">Soumettre</button>
-        </form>
+            <div class="d-inline">
+                <button formaction="http://167.114.152.54/~knapsak18/KnapSack/page/question.php?filtre='Facile'" class="btn btn-primary">Facile</button>
+                <button formaction="http://167.114.152.54/~knapsak18/KnapSack/page/question.php?filtre='Moyen'" class="btn btn-primary">Moyen</button>
+                <button formaction="http://167.114.152.54/~knapsak18/KnapSack/page/question.php?filtre='Difficile'" class="btn btn-primary">Difficile</button>
+            </div>
+        </div>
+        <?php AffichezEnigme($_SESSION['idEnigme'] , $_SESSION['Enonce'] , $_SESSION['nbCaps'])?>
     </div>
 </div>
 

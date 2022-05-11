@@ -506,3 +506,16 @@ function AffichezListeJoueur($listJoueur){
     $component = $component."</Select>";
     return $component;
 }
+function AffichezEnigme($idEnigme , $enonce , $nbCaps){
+    echo "<form action='' method='POST'><input type='hidden' name='idEnigme' value='$idEnigme'/>
+    <h3 class=''>Question</h3>
+    <div class='mt-4'>
+        <div class='mt-2 mx-3'>
+            <label for='reponse'>$enonce</label>
+            <input type='text' name='reponse' value='' placeholder='Écrivez votre réponse ici...'>
+        </div>
+        <div>
+            Récompense: $nbCaps
+        </div>
+    </div><button class='btn btn-primary mt-4'>Soumettre</button>";
+}
