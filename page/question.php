@@ -20,7 +20,7 @@
             <div class="mt-4">
                 <div class="mt-2 mx-3">
                     <label for="reponse"><?php echo "this is a reponse to the question reponse 1" ;?></label>
-                    <input type="text" name="reponse" value="" placeholder="Écrivez votre réponse ici...">
+                    <input type="text" name="reponse" value="">
                 </div>
             </div>
             <button class="btn btn-primary mt-4">Soumettre</button>
