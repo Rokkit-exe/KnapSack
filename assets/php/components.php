@@ -130,7 +130,7 @@ function AfficherSac($row){
                         <div>Poids: $poids lbs</div>
                     </div>
                     <div class=''>
-                        <a href='details.php?id=$idObjet&typeItem=$typeObjet' class='btn btn-primary'>Details</a>
+                        <a href='details.php?id=$idObjet&typeItem=$typeObjet' class='btn btn-primary'>Détails</a>
                     </div>
                 </div>
                 <div class='mt-2 card-body d-flex justify-content-between'>
@@ -209,7 +209,7 @@ function AfficherCommentaire($idObjet, $idJoueur, $alias, $comment, $note) {
         </div>
         <br/>
         <br/>
-        <button type="submit" class="btn btn-primary">SupprimezCommentaire</button>
+        <button type="submit" class="btn btn-primary">Supprimer votre commentaire</button>
         <input type="hidden" name="supprimerEval" value="oue">
         <input type="hidden" name="idObjet" value="'.$idObjet.'">
         <input type="hidden" name="idJoueur" value="'.$idJoueur.'">
@@ -241,13 +241,13 @@ function AfficherBoxCommentaire($idObjet , $idJoueur){
     $txt = '';
     if(EstCommenter($idJoueur , $idObjet)){
         $txt = 'Modifier Commentaire';
-        $input =  '<button type="submit" class="btn btn-primary">Modifiez Commentaire</button>
+        $input =  '<button type="submit" class="btn btn-primary">Modifier Commentaire</button>
         <input type="hidden" name="editOuAdd" value="edit">';    
     }
     else{
         $txt = 'Ajouter Commentaire';
         $input = '
-    <button type="submit" class="btn btn-primary">Ajoutez Commentaire</button>
+    <button type="submit" class="btn btn-primary">Ajouter Commentaire</button>
     <input type="hidden" name="editOuAdd" value="Add">';
     }
     return '<form method="POST"><div class="card w-50 text-light mb-2" style="background-color: rgba(33,37,41,0.7)">
@@ -388,7 +388,7 @@ function AfficherNote($listeEvaluation) {
                 .AfficherÉtoile($moyenne).' '.
                 round($moyenne , 1) .' sur 5
             </div>
-            <div>'.$nbEvaluation.' Évaluations Total</div>
+            <div>'.$nbEvaluation.' Évaluations au total</div>
         </div>
         <div>
             <div>
@@ -429,7 +429,7 @@ function AfficherFormArme(){
         <div id="efficaciterHelp" class="form-text"></div>
     </div>
     <div class="mb-3">
-        <label for="genreArme" class="form-label">Genre Arme</label>
+        <label for="genreArme" class="form-label">Genre arme</label>
         <input type="text" class="rounded w-25 form-control" id="genreArme" name="genreArme" aria-describedby="">
         <div id="genreArmeHelp" class="form-text"></div>
     </div>
