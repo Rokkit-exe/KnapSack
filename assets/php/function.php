@@ -913,4 +913,29 @@ function GetListJoueur(){
     }
 
 }
+function GetEnigme($idJoueur, $idEnigme, $filtre) {
+    $pdo = GetPdo();
+    $sql = "CALL GetEnigme(?, ?, ?)";
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur, $idEnigme, $filtre]);
+        foreach($stmt as $row)
+            return $row;
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+function ValiderReponse($idJoueur, $idEnigme, $reponseJoueur){
+    $pdo = GetPdo();
+    $sql = "SELECT Reponse FROM Reponse WHERE idEnigme = $idEnigme";
+    try{
+        $stmt = $pdo->query($sql);
+        foreach($stmt as $row)
+            return str_contains($reponseJoueur, $row);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }    
+}
 ?>
