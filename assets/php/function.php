@@ -924,7 +924,6 @@ function GetEnigme($filtre) {
             $_SESSION['Enonce'] = $row['Enonce'];
             $_SESSION['nbCaps'] = $row['nbCaps'];
         }
-            return $row;
     }
     catch(Exception $e){
         console_log($e);
