@@ -913,25 +913,32 @@ function GetListJoueur(){
     }
 
 }
-function GetEnigme($idJoueur, $idEnigme, $filtre) {
+function GetEnigme($filtre) {
     $pdo = GetPdo();
-    $sql = "CALL GetEnigme(?, ?, ?)";
+    $sql = "CALL getEnigme(?)";
     try{
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$idJoueur, $idEnigme, $filtre]);
-        foreach($stmt as $row)
+        $stmt->execute([$filtre]);
+        foreach($stmt as $row) {
+            $_SESSION['idEnigme'] = $row['idEnigme'];
+            $_SESSION['Enonce'] = $row['Enonce'];
+            $_SESSION['nbCaps'] = $row['nbCaps'];
+        }
             return $row;
     }
     catch(Exception $e){
         console_log($e);
     }
 }
-function ValiderReponse($idJoueur, $idEnigme, $reponseJoueur){
+
+function ValiderEnigme($idJoueur, $idEnigme, $reponseJoueur){
     $pdo = GetPdo();
-    $sql = "SELECT Reponse FROM Reponse WHERE idEnigme = $idEnigme";
+    $sql = "CALL ValiderEnigme(?)";
     try{
-        $stmt = $pdo->query($sql);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idEnigme]);
         foreach($stmt as $row)
+            /*Ajouter l'énigme dans la table EnigmeRepondue*/
             return str_contains($reponseJoueur, $row);
     }
     catch(Exception $e){
