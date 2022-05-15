@@ -913,14 +913,14 @@ function GetListJoueur(){
     }
 
 }
-function GetEnigme($filtre) {
+function GetEnigme($id , $filtre) {
     $pdo = GetPdo();
-    $sql = "CALL getEnigme(?)";
+    $sql = "CALL getEnigme(? , ?)";
     try{
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$filtre]);
+        $stmt->execute([$id ,$filtre]);
         foreach($stmt as $row) {
-            $_SESSION['idEnigme'] = $row['idEnigme'];
+            $_SESSION['idEnigme'] = $row['id'];
             $_SESSION['Enonce'] = $row['Enonce'];
             $_SESSION['nbCaps'] = $row['nbCaps'];
         }

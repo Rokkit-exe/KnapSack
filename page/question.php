@@ -3,31 +3,40 @@
 <!-- header -->
 
 <?php 
-    if (isset($_GET['filtre'])) {
-        GetEnigme($_GET['filtre']);
-    }
-    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        if (isset($_GET['filtre'])) {
+            GetEnigme($_SESSION['idJoueur'] ,  $_GET['filtre']);
+        }
+        
+    }   
+    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ValiderEnigme($_SESSION['idJoueur'], $_POST['idEnigme'], $_POST['reponse']);
     }
 ?>
 
 <div class="container mt-5">
-    <div class="text-light p-5 rounded" style='background-color: rgba(33,37,41,0.7);'>
+   
+
+<div class="text-light p-5 rounded" style='background-color: rgba(33,37,41,0.7);'>
+<form method="GET">
         <div class="">
             <div class="d-inline">
-                <button formaction="http://167.114.152.54/~knapsak18/KnapSack/page/question.php?filtre='Random'" class="btn btn-primary">Aléatoire</button>
+                <Select name="filtre">
+                    <option value="Random" selected>Random</option>
+                    <option value="Facile">Facile</option>
+                    <option value="Moyen">Moyen</option>
+                    <option value="Difficile">Difficile</option>
+                </Select>
+            
             </div>
             <div class="d-inline">
-                <button formaction="http://167.114.152.54/~knapsak18/KnapSack/page/question.php?filtre='Facile'" class="btn btn-primary">Facile</button>
-                <button formaction="http://167.114.152.54/~knapsak18/KnapSack/page/question.php?filtre='Moyen'" class="btn btn-primary">Moyen</button>
-                <button formaction="http://167.114.152.54/~knapsak18/KnapSack/page/question.php?filtre='Difficile'" class="btn btn-primary">Difficile</button>
+                <button  class="btn btn-primary">Changer la difficulter</button>
             </div>
         </div>
-        <?php AffichezEnigme($_SESSION['idEnigme'] , $_SESSION['Enonce'] , $_SESSION['nbCaps'])?>
-    </div>
+        </form>
+        <?php if(isset($_SESSION['idEnigme'] , $_SESSION['Enonce'] , $_SESSION['nbCaps'])){ AffichezEnigme($_SESSION['idEnigme'] , $_SESSION['Enonce'] , $_SESSION['nbCaps']);}?>
 </div>
-
-
 <!-- footer -->
 <?php include('../assets/php/footer.php')?>
 <!-- footer -->
