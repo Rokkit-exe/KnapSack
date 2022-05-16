@@ -384,11 +384,7 @@ function GetSac($id){
 
 
 function Alert($message){
-    echo 
-    "<script type ='text/JavaScript'>
-        let message = $message
-        alert(message)  
-    </script>";
+    return "<script type ='text/JavaScript'>alert('$message')</script>";
 }
 function AcheterPanier(){
     $pdo = GetPdo();
@@ -458,7 +454,7 @@ function updateDexteriter($id) {
         
 }
 function console_log($message){
-    echo "<script type ='text/JavaScript'>console.log($message)</script>";
+    echo `<script type ='text/JavaScript'>console.log($message)</script>`;
 }
 function getPoids($id){
     $pdo = GetPdo();
@@ -932,16 +928,31 @@ function GetEnigme($id , $filtre) {
 
 function ValiderEnigme($idJoueur, $idEnigme, $reponseJoueur){
     $pdo = GetPdo();
-    $sql = "CALL ValiderEnigme(?)";
+    $sql = 'SELECT ReponseValide(?,?,?) as ReponseValide';
+
     try{
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$idEnigme]);
-        foreach($stmt as $row)
-            /*Ajouter l'énigme dans la table EnigmeRepondue*/
-            return str_contains($reponseJoueur, $row);
+        $stmt->execute([$idJoueur ,$idEnigme, $reponseJoueur]);
+
+        foreach($stmt as $row){
+            return $row['ReponseValide'];
+        }
     }
     catch(Exception $e){
         console_log($e);
     }    
 }
+
+function AjouterCaps($idJoueur , $nbCaps) {
+    $pdo = GetPdo();
+    $sql = "CALL AjouterCaps(?,?)";
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur ,$nbCaps]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+
 ?>
