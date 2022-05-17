@@ -955,4 +955,39 @@ function AjouterCaps($idJoueur , $nbCaps) {
     }
 }
 
+function AjouterQuestionRepondue($idJoueur){
+    $pdo = GetPdo();
+    $sql = "CALL AjouterQuestionRepondue(?)";
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+
+function AjouterBonneReponse($idJoueur){
+    $pdo = GetPdo();
+    $sql = "CALL AjouterBonneReponse(?)";
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+
+function AjouterNbCaps($idJoueur, $nbCaps) {
+    $pdo = GetPdo();
+    $sql = "CALL AjouterNbCaps(?,?)";
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur, $nbCaps]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
 ?>

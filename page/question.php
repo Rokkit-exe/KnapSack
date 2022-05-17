@@ -7,13 +7,19 @@
         if (isset($_GET['filtre'])) {
             GetEnigme($_SESSION['idJoueur'] ,  $_GET['filtre']);
         }
-        
     }   
     
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        AjouterQuestionRepondue($_SESSION['idJoueur']);
         if (ValiderEnigme($_SESSION['idJoueur'], $_POST['idEnigme'], $_POST['reponse'])){
             AjouterCaps($_SESSION['idJoueur'], $_SESSION['nbCaps']);
+
+            // stats
+            AjouterBonneReponse($_SESSION['idJoueur']);
+            AjouterNbCaps($_SESSION['idJoueur'], $_SESSION['nbCaps']);
+
             echo Alert("Bravo!");
+            GetEnigme($_SESSION['idJoueur'] ,  'Random');
         }
         else {
             echo Alert("Zut !");
@@ -32,7 +38,6 @@
                         <option value="Moyen">Moyen</option>
                         <option value="Difficile">Difficile</option>
                     </Select>
-                
                 </div>
                 <div class="d-inline">
                     <button  class="btn btn-primary">Changer la difficulter</button>
