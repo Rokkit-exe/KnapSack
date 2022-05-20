@@ -529,13 +529,13 @@ function AffichezStatsJoueur($nbQuestion, $nbBonne, $nbCaps) {
     "<div>
         <h3>Stats Joueur : </h3>
         <div>
-            <span>Nombre de question répondu: $nbQuestion</span>
+            <span>Questions répondues: $nbQuestion</span>
         </div>
         <div>
-            <span>Nombre de bonne réponse: $nbBonne</span>
+            <span>Bonnes réponses: $nbBonne</span>
         </div>
         <div>
-            <span>Nombre de caps gagné: $nbCaps</span>
+            <span>Caps gagnés: $nbCaps</span>
         </div>
     </div>";
 }
