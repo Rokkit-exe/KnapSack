@@ -3,6 +3,8 @@
 <!-- header -->
 
 <?php 
+
+    
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
         if (isset($_GET['filtre'])) {
             GetEnigme($_SESSION['idJoueur'] ,  $_GET['filtre']);
@@ -29,6 +31,9 @@
 
 <div class="container mt-5">
     <div class="text-light p-5 rounded" style='background-color: rgba(33,37,41,0.7);'>
+        <div>
+            
+        </div>
         <form method="GET">
             <div class="">
                 <div class="d-inline">
