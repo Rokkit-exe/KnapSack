@@ -3,6 +3,8 @@
 <!-- header -->
 
 <?php 
+
+    VerifierStatsJoueur($_SESSION['idJoueur']);
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
         if (isset($_GET['filtre'])) {
             GetEnigme($_SESSION['idJoueur'] ,  $_GET['filtre']);
