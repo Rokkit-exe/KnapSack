@@ -1016,8 +1016,6 @@ function GetStatsJoueur($idJoueur){
         foreach($stmt as $row) {
             AffichezStatsJoueur($row['nbQuestionRepondue'] , $row['nbBonneReponse'] , $row['nbCapsGagner']);
         }
-
-        
     }
     catch(Exception $e){
         console_log($e);

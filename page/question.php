@@ -31,7 +31,7 @@
 <div class="container mt-5">
     <div class="text-light p-5 rounded" style='background-color: rgba(33,37,41,0.7);'>
         <div>
-            
+            <?php GetStatsJoueur($_SESSION['idJoueur']);?>
         </div>
         <form method="GET">
             <div class="">

@@ -523,3 +523,18 @@ function AffichezEnigme($idEnigme , $enonce , $nbCaps){
         </div>
     </div><button class='btn btn-primary mt-4'>Soumettre</button>";
 }
+
+function AffichezStatsJoueur($nbQuestion, $nbBonne, $nbCaps) {
+    echo 
+    "<div class='m-3'>
+        <div>
+            <span>Nombre de question répondu: $nbQuestion</span>
+        </div>
+        <div>
+            <span>Nombre de bonne réponse: $nbBonne</span>
+        </div>
+        <div>
+            <span>Nombre de caps gagné: $nbCaps</span>
+        </div>
+    </div>";
+}
