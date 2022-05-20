@@ -1006,4 +1006,35 @@ function AjouterNbCaps($idJoueur, $nbCaps) {
         console_log($e);
     }
 }
+function GetStatsJoueur($idJoueur){
+    $pdo = GetPdo();
+    $sql = "CALL GetStatsJoueur(?)";
+
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur]);
+        foreach($stmt as $row) {
+            AffichezStatsJoueur($row['nbQuestionRepondue'] , $row['nbBonneReponse'] , $row['nbCapsGagner']);
+        }
+
+        
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+}
+function VerifierStatsJoueur($idJoueur){
+    $pdo = GetPdo();
+    $sql = "Call VerifierStatsJoueur(?)";
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idJoueur]);
+
+        
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+
+}
 ?>
