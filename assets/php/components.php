@@ -1,6 +1,7 @@
 <?php
 
 function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo , $moyenneEval){
+
     echo "<div class='col col-sm col-md col-lg'>
                     <div style='width: 20em; background-color: rgba(33,37,41,0.7);' class='border border-dark border-2 card m-2 shadow p-3 text-light'>
                         <div class='card-img-top text-center'>
@@ -12,7 +13,8 @@ function AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $p
                                 <div>Quantité: $quantité</div>
                                 <div>Prix: $prix$</div>
                                 <div>Poids: $poids lbs</div>
-                                <div>Moyenne evaluation : $moyenneEval </div>
+                                <p> Moyenne evaluation :</p>
+                                <div>"; echo AfficherÉtoile($moyenneEval) ; echo " </div>
                             </div>
                             <div class='col d-block'>
                                 <a href='details.php?id=$id&typeItem=$typeItem' style='margin: 5px;' class='btn btn-primary'>Details</a>";

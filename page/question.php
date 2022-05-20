@@ -40,7 +40,7 @@
                     </Select>
                 </div>
                 <div class="d-inline">
-                    <button  class="btn btn-primary">Changer la difficulter</button>
+                    <button  class="btn btn-primary">Tirer une Question</button>
                 </div>
             </div>
         </form>
