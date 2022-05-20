@@ -30,9 +30,7 @@
 
 <div class="container mt-5">
     <div class="text-light p-5 rounded" style='background-color: rgba(33,37,41,0.7);'>
-        <div>
-            <?php GetStatsJoueur($_SESSION['idJoueur']);?>
-        </div>
+        
         <form method="GET">
             <div class="">
                 <div class="d-inline">
@@ -50,6 +48,12 @@
         </form>
         <?php if(isset($_SESSION['idEnigme'] , $_SESSION['Enonce'] , $_SESSION['nbCaps'])){ AffichezEnigme($_SESSION['idEnigme'] , $_SESSION['Enonce'] , $_SESSION['nbCaps']);}?>
     </div>
+</div>
+<div  class="container mt-5" >
+    <div  class="text-light p-5 rounded" style='background-color: rgba(33,37,41,0.7);'>
+        <?php GetStatsJoueur($_SESSION['idJoueur']);?>
+    </div>
+    
 </div>
 <!-- footer -->
 <?php include('../assets/php/footer.php')?>

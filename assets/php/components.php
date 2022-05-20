@@ -526,7 +526,8 @@ function AffichezEnigme($idEnigme , $enonce , $nbCaps){
 
 function AffichezStatsJoueur($nbQuestion, $nbBonne, $nbCaps) {
     echo 
-    "<div class='m-3'>
+    "<div>
+        <h3>Stats Joueur : </h3>
         <div>
             <span>Nombre de question répondu: $nbQuestion</span>
         </div>
