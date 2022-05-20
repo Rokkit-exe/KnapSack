@@ -19,6 +19,12 @@
             <option value="3">Prix descendant</option>
             <option value="4">poids descendant</option>
         </select>
+        <select class="me-3" name='triEval' id='triEval'>
+            <option value="0" selected>Trier Par evaluation</option>
+            <option value="1">Évaluation ascendant</option>
+            <option value="2">Évaluation Descendant</option>
+        </select>
         <button class="btn btn-primary">Appliquer</button>
+        
     </form>
 </div>

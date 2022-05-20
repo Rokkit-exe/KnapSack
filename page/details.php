@@ -12,6 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     else{
         if($_POST['editOuAdd'] == 'Add'){
             AddEvaluation($_SESSION['idJoueur'], $_POST['idObjet'] , $_POST['comment'] , $_POST['note']);
+            
         }
         else{
             editCommentaire($_SESSION['idJoueur'], $_POST['idObjet'] , $_POST['comment'] , $_POST['note']);

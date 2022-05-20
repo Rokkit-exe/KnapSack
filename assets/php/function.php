@@ -141,15 +141,16 @@ function getObjet(){
         $prixMax = $_GET['prixMax'];
         $poidsMax = $_GET['poidsMax'];
         $ordre = $_GET['tri'];
-        
+        $ordreEval = $_GET['triEval'];
         if($prixMax == ""){
             $prixMax = "500";
         }
         if($poidsMax == ""){
             $poidsMax = "100";
         }
-        $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre)";
+        $sqlProcedure = "CALL AfficherAvecCritère($type , $prixMax , $poidsMax , $ordre , $ordreEval)";
     }
+
     $stmt = $pdo->query($sqlProcedure);
 
     foreach($stmt as $row){
@@ -160,7 +161,8 @@ function getObjet(){
         $prix = $row['Prix'];
         $poids = $row['Poids'];
         $photo = $row['photo'];
-        AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo);
+        $moyenneEval = $row['MoyenneEval'];
+        AfficherObjet($id , $nom , $quantité , $typeItem , $prix , $poids , $photo  ,$moyenneEval);
     }
 }
 // ------------------------------------------------------- Ajouter objet -----------------------------------------------------
@@ -813,10 +815,24 @@ function AddEvaluation($id ,$idObjet ,  $comment , $note){
     try{
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$idObjet ,$id ,  $comment , $note]);
+
+        UpdateMoyenneEval($idObjet);
     }
     catch(Exception $e){
         console_log($e);
     }
+}
+function UpdateMoyenneEval($idObjet){
+    $pdo = GetPdo();
+    $sql = 'CALL UpdateMoyenneEval(?)';
+    try{
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$idObjet]);
+    }
+    catch(Exception $e){
+        console_log($e);
+    }
+
 }
 function itemEstDansSac($idObjet , $idJoueur){
     $pdo = GetPdo();
