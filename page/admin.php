@@ -12,10 +12,9 @@ if(isset($_GET['typeItem'])){
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-  if(AjouterObjet($_POST)){
-    Alert("objet ajoutée!");
-  }
+    Alert(AjouterObjet($_POST));
 }
+
 ?>
 
 <div class="container text-light p-5 rounded mb-3" style="background-color: rgba(33,37,41,0.7);">
@@ -59,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   </div>
   <div class="mb-3">
     <label for="url" class="form-label">Url Image</label>
-    <input  class="rounded w-25 form-control"  type="text" class="form-control" id="url" name="url" aria-describedby="">
+    <input  class="rounded w-25 form-control"  type="url" class="form-control" id="url" name="url" aria-describedby="">
     <div id="urlHelp" class="form-text"></div>
   </div>
   

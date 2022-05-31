@@ -633,11 +633,6 @@ function AjouterObjet($donner){
         if(strlen($donner['nomItem']) > 50 || strlen($donner['nomItem']) < 0){
             return 'Nom trop long ou trop petit';
         }
-        $regexUrl = "/^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$/";
-
-        if(!preg_match($regexUrl ,  $donner['url'])){
-            return 'Erreur url invalide';
-        }
         if($donner['qtyStock'] <= 0){
             return 'Erreur , ne pas ajouter un objet ayant moin de 1 en stock';
         }
@@ -671,6 +666,7 @@ function AjouterObjet($donner){
                 break;
         }
     }
+   
 }
 function AjouterArmure($donner){
     $pdo = GetPdo();
