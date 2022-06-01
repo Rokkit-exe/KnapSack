@@ -1,13 +1,23 @@
 <!-- header -->
 <?php 
     include('../assets/php/header.php');
+
+    $erreurChamps = "";
     
     if (isset($_POST['Password']) && isset($_POST['PasswordConfirmation'])){
         UpdatePassword($_SESSION['idJoueur'], $_POST['Password'], $_POST['PasswordConfirmation']);
     }
+    echo (isset($_POST['alias']) && !empty($_POST['alias'])) 
+    && (isset($_POST['Prenom']) && !empty($_POST['Prenom'])) 
+    && (isset($_POST['Nom']) && !empty($_POST['Nom']));
+    if (   (isset($_POST['alias']) && !empty($_POST['alias'])) 
+        && (isset($_POST['Prenom']) && !empty($_POST['Prenom'])) 
+        && (isset($_POST['Nom']) && !empty($_POST['Nom'])) ) {
 
-    if (isset($_POST['alias']) && isset($_POST['Prenom']) && isset($_POST['Nom'])) {
         UpdateProfil($_SESSION['idJoueur'], $_POST['alias'], $_POST['Prenom'], $_POST['Nom']);
+    }
+    else {
+        $erreurChamps = "Impossible de modifier votre profil. Un champ est peut-être vide ou invalide.";
     }
 
     GetUserInfo($_SESSION['idJoueur']);
@@ -39,6 +49,8 @@
             <label for="Email" class="form-control text-muted"><?php echo $_SESSION['email']; ?></label>
             <div id="emailHelp" class="form-text"></div>
         </div>
+        <div style="color: red"><?=$_SESSION['erreur']?></div>
+        <div style="color: red; margin: 5px;"><?=$erreurChamps?></div>
         <button type="submit" class="btn btn-primary">Modifier</button>
     </form>
     <form class="container mt-4 justify-content-center" method="POST">

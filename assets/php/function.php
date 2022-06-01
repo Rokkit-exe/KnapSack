@@ -229,7 +229,7 @@ function UpdateProfil($idJoueur, $alias, $prenom, $nom) {
         $_SESSION['erreur'] = null;
         console_log("Profil modifier avec succès");
     }catch (\Exception $e) {
-        $message = "impossible de modifier le profil";
+        $message = "Impossible de modifier le profil";
         $_SESSION['erreur'] = $message;
         console_log($message + " " + $e);
     }
